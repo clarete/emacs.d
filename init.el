@@ -27,15 +27,8 @@
 (global-font-lock-mode 1)               ;; Always do syntax highlighting
 (transient-mark-mode 1)                 ;; highlight mark region
 (set-default-font "Monaco 12")          ;; Font face/size
-(global-prettify-symbols-mode 1)        ;; Prettify a few chars
-(setq prettify-symbols-alist
-      '(
-        ("lambda" . 955) ; λ
-        ("<-" . 8592)    ; ←
-        ("->" . 8594)    ; →
-        ("<=" . 8656)    ; ⇐
-        ("=>" . 8658)    ; ⇒
-      ))
+
+(global-prettify-symbols-mode 1)        ;; See prettify-symbols-alist
 
 (require 'linum)                       ;; show line numbers
 (global-linum-mode 1)
@@ -247,6 +240,21 @@
 ;; Some git shortcuts
 (defun git () (interactive) (magit-status "."))
 (defun git-blame () (interactive) (mo-git-blame-current))
+
+;; Some more on prettifying chars
+(defun set-prettify-symbols-alist ()
+    (setq prettify-symbols-alist
+          '(
+            ("lambda" . 955) ; λ
+            ("<-" . 8592)    ; ←
+            ("->" . 8594)    ; →
+            ("<=" . 8656)    ; ⇐
+            ("=>" . 8658)    ; ⇒
+            ("<=" . 2264)    ; ≤
+            (">=" . 2265)    ; ≥
+            )))
+(add-hook 'python-mode-hook 'set-prettify-symbols-alist)
+(add-hook 'go-mode-hook 'set-prettify-symbols-alist)
 
 ;; Pyflakes stuff
 (require 'flymake-cursor)
