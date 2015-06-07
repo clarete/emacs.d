@@ -94,6 +94,12 @@
 (global-set-key [(meta j)] '(lambda () (interactive) (scroll-other-window 1)))
 (global-set-key [(meta k)] '(lambda () (interactive) (scroll-other-window -1)))
 
+;; resize windows
+(global-set-key (kbd "C-}") 'shrink-window-horizontally)
+(global-set-key (kbd "C-{") 'enlarge-window-horizontally)
+(global-set-key (kbd "C-M-}") 'shrink-window)
+(global-set-key (kbd "C-M-{") 'enlarge-window)
+
 ;; Mac specific stuff
 (when (eq system-type 'darwin)
   (setq mac-option-modifier 'alt)
@@ -140,13 +146,6 @@
 
 (add-hook 'css-mode-hook 'hexcolour-add-to-font-lock)
 
-;; javascript
-(autoload 'js2-mode "js2-mode" nil t)
-(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-(setq js2-consistent-level-indent-inner-bracket-p 1)
-(setq js2-pretty-multiline-decl-indentation-p 1)
-(setq js2-bounce-indent-p t)
-
 ;; JSON
 (add-hook 'json-mode-hook
           (lambda ()
@@ -171,6 +170,8 @@
   (setq web-mode-markup-indent-offset 4)
   (setq web-mode-css-indent-offset 4)
   (setq web-mode-code-indent-offset 4)
+  (setq web-mode-enable-current-element-highlight t)
+  (setq web-mode-enable-current-column-highlight t)
   (set-face-attribute 'web-mode-doctype-face nil :foreground
                       (face-foreground font-lock-function-name-face))
   (set-face-attribute 'web-mode-html-attr-name-face nil :foreground
@@ -178,7 +179,6 @@
   (set-face-attribute 'web-mode-html-attr-value-face nil :foreground
                       (face-foreground font-lock-type-face)))
 (add-hook 'web-mode-hook  'web-mode-hook)
-
 (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
@@ -245,13 +245,13 @@
 (defun set-prettify-symbols-alist ()
     (setq prettify-symbols-alist
           '(
-            ("lambda" . 955) ; λ
-            ("<-" . 8592)    ; ←
-            ("->" . 8594)    ; →
-            ("<=" . 8656)    ; ⇐
-            ("=>" . 8658)    ; ⇒
-            ("<=" . 2264)    ; ≤
-            (">=" . 2265)    ; ≥
+            ("lambda" . ?λ)
+            ("<-" . ?⤆)
+            ("->" . ?⤇)
+            ("<=" . ?⇐)
+            ("=>" . ?⇒)
+            ("<=" . ?≤)
+            (">=" . ?≥)
             )))
 (add-hook 'python-mode-hook 'set-prettify-symbols-alist)
 (add-hook 'go-mode-hook 'set-prettify-symbols-alist)
