@@ -104,11 +104,14 @@
 (when (eq system-type 'darwin)
   (setq mac-option-modifier 'alt)
   (setq mac-command-modifier 'meta)
+
+  ;; Loads environment variables from the shell
+  (setq exec-path-from-shell-variables '("GOPATH" "PATH" "MANPATH"))
+  (exec-path-from-shell-initialize)
+
   ;; sets fn-delete to be right-delete
   (global-set-key [kp-delete] 'delete-char)
-  (menu-bar-mode 1)
-  ;; Loads environment variables from the shell
-  (exec-path-from-shell-initialize))
+  (menu-bar-mode 1))
 
 (require 'tramp)           ;; ssh and local sudo/su
 (require 'muttrc-mode)     ;; mutt and muttrc modes
