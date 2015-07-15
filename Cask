@@ -36,6 +36,7 @@
 (depends-on "muttrc-mode")
 (depends-on "markdown-mode")
 (depends-on "go-mode")
+(depends-on "gotest")
 (depends-on "web-mode")
 (depends-on "coffee-mode")
 (depends-on "lua-mode")
