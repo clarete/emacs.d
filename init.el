@@ -240,10 +240,6 @@
 ;;(global-set-key "\M-\S-s" 'esk-find-in-project)
 ;;(setq esk-find-binary "gfind")
 
-;; Some git shortcuts
-(defun git () (interactive) (magit-status "."))
-(defun git-blame () (interactive) (mo-git-blame-current))
-
 ;; Some more on prettifying chars
 (defun set-prettify-symbols-alist ()
     (setq prettify-symbols-alist
