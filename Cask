@@ -46,3 +46,6 @@
 
 ;; python
 (depends-on "flymake-cursor")
+
+;; misc
+(depends-on "hackernews")
