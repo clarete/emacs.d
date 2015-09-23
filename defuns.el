@@ -37,7 +37,7 @@ please, be careful, once called, it can't be stopped!"
   "Open the file that declares the received python module"
   (interactive "MPython module to open: ")
   (find-file
-   (let ((command (concat "python -c 'import sys, " name " as m; sys.stdout.write(m.__file__)'")))
+   (let ((command (concat "python -c 'from __future__ import absolute_import; import sys, " name " as m; sys.stdout.write(m.__file__)'")))
      (replace-regexp-in-string ".py.$" ".py" (shell-command-to-string command)))))
 
 
