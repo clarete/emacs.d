@@ -32,6 +32,7 @@
 
 (require 'linum)                       ;; show line numbers
 (global-linum-mode 1)
+(setq linum-format "%d ")
 
 (setq-default truncate-lines t)        ;; Do not wrap lines
 
