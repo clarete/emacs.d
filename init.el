@@ -53,12 +53,25 @@
 
 ;; speedbar
 (require 'sr-speedbar)
+(setq speedbar-show-unknown-files t)
+(setq speedbar-smart-directory-expand-flag t)
+(setq speedbar-auto-refresh nil)
+(setq speedbar-frame-parameters
+      '((minibuffer)
+	(width . 40)
+	(border-width . 0)
+	(menu-bar-lines . 0)
+	(tool-bar-lines . 0)
+	(unsplittable . t)
+	(left-fringe . 0)))
 (add-hook 'go-mode-hook
           (lambda ()
             (speedbar-add-supported-extension ".go")
             (setq imenu-generic-expression
                   '((nil "^type *\\([^ \t\n\r\f]*\\)" 1)
-                    (nil "^func *\\(.*\\) {" 1))
+                    (nil "^func *\\(.*\\) {" 1)
+                    (nil "^def *\\([^\(]\\):" 1)
+                    (nil "^class *\\([^\(]\\):" 1))
                   imenu-case-fold-search nil
                   speedbar-tag-hierarchy-method nil)
             (imenu-add-to-menubar "Index")))
