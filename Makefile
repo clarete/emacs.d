@@ -1,12 +1,13 @@
 all: dependencies
 
+caskgit = https://github.com/cask/cask.git
 caskdir = ${PWD}/.cask
 cask    = $(caskdir)/cask/bin/cask
 
 $(caskdir):
 	mkdir $@
 $(cask): $(caskdir)
-	cd .cask && git clone https://github.com/cask/cask.git
+	cd $^ && git clone $(caskgit)
 
 .PHONY: dependencies
 dependencies: $(cask)
