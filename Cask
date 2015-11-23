@@ -33,6 +33,7 @@
 (depends-on "prodigy")
 
 ;; document modes
+(depends-on "dockerfile-mode")
 (depends-on "muttrc-mode")
 (depends-on "markdown-mode")
 (depends-on "go-mode")
