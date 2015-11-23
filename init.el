@@ -131,6 +131,10 @@
 (require 'muttrc-mode)     ;; mutt and muttrc modes
 (require 'lua-mode)        ;; lua mode
 
+
+;; upstart mode
+(require 'upstart-mode "~/.emacs.d/3rdparty/upstart-mode.el")
+
 ;; yaml
 (require 'yaml-mode)
 (add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
