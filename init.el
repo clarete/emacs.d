@@ -167,12 +167,6 @@
 
 (add-hook 'css-mode-hook 'hexcolour-add-to-font-lock)
 
-;; JSON
-(add-hook 'json-mode-hook
-          (lambda ()
-            (make-local-variable 'js-indent-level)
-            (setq js-indent-level 2)))
-
 ;; sass mode
 (require 'sass-mode)
 (add-to-list 'auto-mode-alist '("\\.sass$" . sass-mode))
@@ -200,7 +194,8 @@
   (set-face-attribute 'web-mode-html-attr-value-face nil :foreground
                       (face-foreground font-lock-type-face)))
 (add-hook 'web-mode-hook  'web-mode-hook)
-(add-to-list 'auto-mode-alist '("\\.jsx\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.json\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.js[x]?\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
