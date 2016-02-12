@@ -269,7 +269,7 @@
 (add-hook 'python-mode-hook 'set-prettify-symbols-alist)
 (add-hook 'go-mode-hook 'set-prettify-symbols-alist)
 
-;; Pyflakes stuff
+;; Python lint tools
 (require 'flymake-cursor)
 (when (load "flymake" t)
   (defun flymake-pyflakes-init ()
@@ -278,10 +278,13 @@
            (local-file (file-relative-name
                         temp-file
                         (file-name-directory buffer-file-name))))
-      (list "flake8"  (list local-file))))
+      ;; E501 line too long (82 characters)
+      (list "flake8" (list "--ignore=E501" local-file))))
   (add-to-list 'flymake-allowed-file-name-masks
                '("\\.py\\'" flymake-pyflakes-init)))
-;; (setq flymake-gui-warnings-enabled nil)
+(setq flymake-gui-warnings-enabled nil)
+(add-hook 'python-mode-hook (lambda () (flymake-mode 1)))
+
 ;; (add-hook 'find-file-hook 'flymake-find-file-hook)
 
 ;; Customizing colors used in diff mode
