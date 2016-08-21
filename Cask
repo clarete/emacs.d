@@ -34,6 +34,8 @@
 
 ;; document modes
 (depends-on "dockerfile-mode")
+(depends-on "erlang")
+(depends-on "haskell-mode")
 (depends-on "muttrc-mode")
 (depends-on "markdown-mode")
 (depends-on "go-mode")
@@ -44,6 +46,7 @@
 (depends-on "yaml-mode")
 (depends-on "sass-mode")
 (depends-on "less-css-mode")
+(depends-on "ox-reveal")
 
 ;; python
 (depends-on "flymake-cursor")
