@@ -157,6 +157,9 @@
 (add-to-list 'auto-mode-alist '("/mutt" . mail-mode))               ;; Files created under a /mutt dir
 (add-hook 'html-mode-hook (lambda() (setq sgml-basic-offset 4)))    ;; html mode
 
+;; erlang config
+(add-hook 'erlang-mode-hook (lambda() (setq indent-tabs-mode nil)))
+
 ;; css config
 (setq cssm-indent-function #'cssm-c-style-indenter)
 (setq cssm-indent-level 4)
@@ -276,6 +279,7 @@
             )))
 (add-hook 'python-mode-hook 'set-prettify-symbols-alist)
 (add-hook 'go-mode-hook 'set-prettify-symbols-alist)
+(add-hook 'erlang-mode-hook 'set-prettify-symbols-alist)
 
 ;; Python lint tools
 (require 'flymake-cursor)
