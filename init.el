@@ -58,8 +58,11 @@
 
 ;; speedbar
 (require 'sr-speedbar)
+(setq sr-speedbar-right-side nil)
 (setq speedbar-show-unknown-files t)
-(setq speedbar-smart-directory-expand-flag t)
+(setq speedbar-use-images nil)
+(setq speedbar-show-unknown-files t)
+(setq speedbar-smart-directory-expand-flag nil)
 (setq speedbar-auto-refresh nil)
 (setq speedbar-frame-parameters
       '((minibuffer)
