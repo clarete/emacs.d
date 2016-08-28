@@ -26,7 +26,7 @@
 
 (global-font-lock-mode 1)               ;; Always do syntax highlighting
 (transient-mark-mode 1)                 ;; highlight mark region
-(set-default-font "Monaco 12")          ;; Font face/size
+(set-default-font "Monospace 12" t t)   ;; Font face/size
 
 (global-prettify-symbols-mode 1)        ;; See prettify-symbols-alist
 
