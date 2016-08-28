@@ -56,6 +56,9 @@
 (setq gdb-many-windows 1)              ;; gdb
 (setq default-directory "~/")          ;; There's no place like home
 
+;;; Org mode
+(setq org-agenda-files '("~/Org"))
+
 ;; speedbar
 (require 'sr-speedbar)
 (setq sr-speedbar-right-side nil)
