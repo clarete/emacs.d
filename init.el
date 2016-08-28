@@ -40,9 +40,14 @@
 (setq show-paren-delay 0 show-paren-style 'parenthesis)
 (show-paren-mode 1)
 
+;;; Store autosave and backup files in a temporary directory
+(setq backup-directory-alist
+      `((".*" . ,temporary-file-directory)))
+(setq auto-save-file-name-transforms
+      `((".*" ,temporary-file-directory t)))
+
 ;;; Editing options
 (setq-default indent-tabs-mode nil)    ;; spaces instead of tabs
-(setq make-backup-files nil)           ;; No backup files
 (setq scroll-conservatively 10000)     ;; scroll smoothly
 (setq show-trailing-whitespace t)      ;; Whitespaces
 (setq x-select-enable-clipboard t)     ;; Clipboard shared with the DE
