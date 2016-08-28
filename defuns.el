@@ -13,6 +13,32 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+(require 'cl)
+
+(defun nth-format (day)
+  "Return proper nth formatting for a given month day"
+  (pcase day
+    (`"11" "th")
+    (`"12" "th")
+    (d (pcase (string-to-number (substring d 1 2))
+         (`1 "st")
+         (`2 "nd")
+         (`3 "rd")
+         (n "th")))))
+
+(defun nth-day (time)
+  "Return the day of the month in the nth format"
+  (let ((d (format-time-string "%02d" time)))
+    (concat (number-to-string (string-to-number d))
+            (nth-format d))))
+
+(defun start-new-day ()
+  "Insert current day in the format I like in my TODO files"
+  (interactive)
+  (format-time-string
+   (concat "%B " (nth-day (current-time)) " %Y")
+   (current-time)))
+
 (defun kill-all-buffers-mercilessly ()
   "*DANGEROUS* function that kills all the buffers mercilessly
 
@@ -56,3 +82,25 @@ please, be careful, once called, it can't be stopped!"
                (list (getenv "HOME") "Tmp")
                "")
     name)))
+
+
+;;;; Tests
+
+;; nth-format
+(assert (string= (nth-format "28") "th"))
+(assert (string= (nth-format "21") "st"))
+(assert (string= (nth-format "22") "nd"))
+(assert (string= (nth-format "23") "rd"))
+(assert (string= (nth-format "20") "th"))
+(assert (string= (nth-format "11") "th"))
+(assert (string= (nth-format "12") "th"))
+
+;; nth day
+; "2016-07-01"
+(assert (string= (nth-day '(22390 18641 631962 984000)) "1st"))
+
+; "2016-07-02"
+(assert (string= (nth-day '(22391 18641 631962 984000)) "2nd"))
+
+; "2016-09-15"
+(assert (string= (nth-day '(22490 18641 631962 984000)) "15th"))
