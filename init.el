@@ -7,6 +7,12 @@
 (require 'cask "~/.emacs.d/.cask/cask/cask.el")
 (cask-initialize)
 
+;; X window system integration
+;; https://github.com/ch11ng/exwm/wiki
+(require 'exwm)
+(require 'exwm-config)
+(exwm-config-default)
+
 ;; utf-8 for good (is there any other encoding related var I could set?)
 (prefer-coding-system 'utf-8)
 (setq locale-coding-system 'utf-8)
