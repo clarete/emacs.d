@@ -327,3 +327,7 @@
 
 ;; Enabling the server mode by default
 (server-mode)
+
+;; Prevent yas to break auto-complete on ansi-term
+(add-hook 'term-mode-hook
+          (lambda() (setq yas-dont-activate t)))
