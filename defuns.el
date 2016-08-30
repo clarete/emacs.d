@@ -15,6 +15,16 @@
 
 (require 'cl)
 
+(defun lock ()
+  "Call out a shell command to lock the X11 session"
+  (interactive)
+  (shell-command "~/bin/lock"))
+
+(defun suspend ()
+  "Call out a shell command to lock and suspend the computer"
+  (interactive)
+  (shell-command "~/bin/suspend"))
+
 (defun nth-format (day)
   "Return proper nth formatting for a given month day"
   (pcase day
