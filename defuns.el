@@ -42,12 +42,22 @@
     (concat (number-to-string (string-to-number d))
             (nth-format d))))
 
-(defun start-new-day ()
-  "Insert current day in the format I like in my TODO files"
-  (interactive)
+(defun my-date ()
+  "Format current date according to my taste"
   (format-time-string
    (concat "%B " (nth-day (current-time)) " %Y")
    (current-time)))
+
+(defun my-date-time ()
+  "Format current date time for interactive sessions"
+  (format-time-string
+   (concat "%A, %b " (nth-day (current-time)) " %Y -- %H:%M")
+   (current-time)))
+
+(defun now ()
+  "Message current date & time in the format I like"
+  (interactive)
+  (message (my-date-time)))
 
 (defun kill-all-buffers-mercilessly ()
   "*DANGEROUS* function that kills all the buffers mercilessly
