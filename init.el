@@ -1,3 +1,6 @@
+;; Session init
+(shell-command "xsetroot -default && xmodmap ~/.Xmodmap")
+
 ;; No bars. Doing this first to avoid showing/hidding delay on startup
 (scroll-bar-mode 0)
 (menu-bar-mode 0)
