@@ -39,11 +39,13 @@
 
 (global-prettify-symbols-mode 1)        ;; See prettify-symbols-alist
 
-(require 'linum)                       ;; show line numbers
+;; Show Line numbers every where besides {term,shell}-mode
+(require 'linum)
 (global-linum-mode 1)
 (setq linum-format "%d ")
 
-(setq-default truncate-lines t)        ;; Do not wrap lines
+;; Do not wrap lines
+(setq-default truncate-lines t)
 
 ;;; Also highlight parenthesis
 (setq show-paren-delay 0 show-paren-style 'parenthesis)
@@ -328,6 +330,17 @@
       (list (format "%s %%S: %%j " (system-name))
         '(buffer-file-name "%f" (dired-directory dired-directory "%b"))))
 
+;; This disables both linum-mode & yas-minor-mode when in term-mode
+(add-hook 'term-mode-hook 'my-term-mode-setup)
+(defun my-term-mode-setup ()
+  "Disable `linum' & `yas' on `term-mode'."
+  (add-hook 'after-change-major-mode-hook
+            (lambda ()
+              (linum-mode 0)
+              (yas-minor-mode 0))
+            :append :local))
+
+;; Unique buffer names
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'reverse)
 
@@ -336,7 +349,3 @@
 
 ;; Enabling the server mode by default
 (server-mode)
-
-;; Prevent yas to break auto-complete on ansi-term
-(add-hook 'term-mode-hook
-          (lambda() (setq yas-dont-activate t)))
