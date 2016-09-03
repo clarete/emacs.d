@@ -1,3 +1,7 @@
 .cask
 ac-comphist.dat
 auto-save-list/
+snippets/*/.yas-compiled-snippets.el
+oauth2.plstore
+tramp
+url/cookies
