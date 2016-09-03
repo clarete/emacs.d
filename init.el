@@ -1,3 +1,9 @@
+;;; init.el --- My Emacs Setup
+;;;
+;;; Commentary:
+;;; This is my local Emacs setup
+;;;
+;;; Code:
 ;; Session init
 (shell-command "xsetroot -default && xmodmap ~/.Xmodmap")
 
@@ -33,13 +39,13 @@
 (setq inhibit-splash-screen t)          ;; No splash screen
 (setq inhibit-startup-screen t)
 
+;; Font configuration
 (global-font-lock-mode 1)               ;; Always do syntax highlighting
-(transient-mark-mode 1)                 ;; highlight mark region
-(set-default-font "Monospace 12" t t)   ;; Font face/size
-
+(transient-mark-mode 1)                 ;; Highlight mark region
+(set-frame-font "Monospace 12" t t)     ;; Font face/size
 (global-prettify-symbols-mode 1)        ;; See prettify-symbols-alist
 
-;; Show Line numbers every where besides {term,shell}-mode
+;; Show Line numbers
 (require 'linum)
 (global-linum-mode 1)
 (setq linum-format "%d ")
@@ -48,7 +54,6 @@
 (setq-default truncate-lines t)
 
 ;;; Also highlight parenthesis
-(setq show-paren-delay 0 show-paren-style 'parenthesis)
 (show-paren-mode 1)
 
 ;;; Store autosave and backup files in a temporary directory
@@ -64,7 +69,6 @@
 (setq x-select-enable-clipboard t)     ;; Clipboard shared with the DE
 
 ;;; Other small configurations
-(setq gdb-many-windows 1)              ;; gdb
 (setq default-directory "~/")          ;; There's no place like home
 
 ;;; Org mode
@@ -98,12 +102,6 @@
                   speedbar-tag-hierarchy-method nil)
             (imenu-add-to-menubar "Index")))
 (global-set-key [(ctrl c) (ctrl tab)] 'sr-speedbar-toggle)
-
-;; Reloading the buffer instead of pissing me off with "what should I
-;; do" questions
-(defun ask-user-about-supersession-threat (filename)
-  ;; (revert-buffer t t)
-  (message "This buffer was refreshed due to external changes"))
 
 ;; ---- key bindings ---
 
@@ -244,7 +242,8 @@
 (require 'coffee-mode)
 (add-to-list 'auto-mode-alist '("\\.coffee$" . coffee-mode))
 (add-to-list 'auto-mode-alist '("Cakefile" . coffee-mode))
-(defun coffee-custom () "coffee-mode-hook"
+(defun coffee-custom ()
+  "Set tab width for coffe script files."
   (set (make-local-variable 'tab-width) 2))
 (add-hook 'coffee-mode-hook '(lambda() (coffee-custom)))
 
@@ -264,9 +263,8 @@
 
 ;; Loading YAS personal snippets
 (require 'yasnippet)
-(setq yas-root-directory "~/.emacs.d/snippets")
+(yas-load-directory "~/.emacs.d/snippets")
 (yas-global-mode 1)
-(yas-load-directory yas-root-directory)
 
 ;; Configuring the dropdown list, submodule used by yasnippet
 (require 'dropdown-list)
@@ -281,41 +279,24 @@
 
 ;; Some more on prettifying chars
 (defun set-prettify-symbols-alist ()
-    (setq prettify-symbols-alist
-          '(
-            ("lambda" . ?λ)
-            ("<-" . ?⤆)
-            ("->" . ?⤇)
-            ("<=" . ?⇐)
-            ("=>" . ?⇒)
-            ("<=" . ?≤)
-            (">=" . ?≥)
-            )))
+  "Use some unicode characters to prettify some symbols."
+  (setq prettify-symbols-alist
+        '(
+          ("lambda" . ?λ)
+          ("<-" . ?⤆)
+          ("->" . ?⤇)
+          ("<=" . ?⇐)
+          ("=>" . ?⇒)
+          ("<=" . ?≤)
+          (">=" . ?≥)
+          )))
 (add-hook 'python-mode-hook 'set-prettify-symbols-alist)
 (add-hook 'go-mode-hook 'set-prettify-symbols-alist)
 (add-hook 'erlang-mode-hook 'set-prettify-symbols-alist)
 
-;; Python lint tools
-(require 'flymake-cursor)
-(when (load "flymake" t)
-  (defun flymake-pyflakes-init ()
-    (let* ((temp-file (flymake-init-create-temp-buffer-copy
-                       'flymake-create-temp-inplace))
-           (local-file (file-relative-name
-                        temp-file
-                        (file-name-directory buffer-file-name))))
-      ;; E501 line too long (82 characters)
-      (list "flake8" (list "--ignore=E501" local-file))))
-  (add-to-list 'flymake-allowed-file-name-masks
-               '("\\.py\\'" flymake-pyflakes-init)))
-(setq flymake-gui-warnings-enabled nil)
-(add-hook 'python-mode-hook (lambda () (flymake-mode 1)))
-
-;; (add-hook 'find-file-hook 'flymake-find-file-hook)
-
 ;; Customizing colors used in diff mode
 (defun custom-diff-colors ()
-  "update the colors for diff faces"
+  "Update the colors for diff faces."
   (set-face-attribute
    'diff-added nil :foreground "green")
   (set-face-attribute
@@ -344,8 +325,13 @@
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'reverse)
 
+;; Enable syntax checks
+(global-flycheck-mode)
+
 ;; Loading some custom functions after loading everything else
 (load "~/.emacs.d/defuns.el")
 
 ;; Enabling the server mode by default
 (server-mode)
+
+;;; init.el ends here
