@@ -1,4 +1,7 @@
-;; Copyright (C) 2012  Lincoln de Sousa <lincoln@comum.org>
+;;; defun.el --- Extra utilities for emacs
+;;; Commentary:
+;;
+;; Copyright (C) 2012-2016  Lincoln de Sousa <lincoln@comum.org>
 ;;
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -12,6 +15,7 @@
 ;;
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+;;; Code:
 
 (require 'cl)
 
@@ -124,3 +128,6 @@ please, be careful, once called, it can't be stopped!"
 
 ; "2016-09-15"
 (assert (string= (nth-day '(22490 18641 631962 984000)) "15th"))
+
+(provide 'defuns)
+;;; defuns.el ends here

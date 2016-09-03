@@ -4,6 +4,11 @@
 ;;; This is my local Emacs setup
 ;;;
 ;;; Code:
+
+;; Default path to load lisp files
+(add-to-list 'load-path "~/.emacs.d/lisp/")
+(require 'defuns)
+
 ;; Session init
 (shell-command "xsetroot -default && xmodmap ~/.Xmodmap")
 
@@ -327,9 +332,6 @@
 
 ;; Enable syntax checks
 (global-flycheck-mode)
-
-;; Loading some custom functions after loading everything else
-(load "~/.emacs.d/defuns.el")
 
 ;; Enabling the server mode by default
 (server-mode)
