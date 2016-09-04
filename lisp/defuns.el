@@ -20,17 +20,17 @@
 (require 'cl)
 
 (defun lock ()
-  "Call out a shell command to lock the X11 session"
+  "Call out a shell command to lock the X11 session."
   (interactive)
   (shell-command "~/bin/lock"))
 
 (defun suspend ()
-  "Call out a shell command to lock and suspend the computer"
+  "Call out a shell command to lock and suspend the computer."
   (interactive)
   (shell-command "~/bin/suspend"))
 
 (defun nth-format (day)
-  "Return proper nth formatting for a given month day"
+  "Return proper nth formatting for a given `DAY'."
   (pcase day
     (`"11" "th")
     (`"12" "th")
@@ -41,64 +41,48 @@
          (n "th")))))
 
 (defun nth-day (time)
-  "Return the day of the month in the nth format"
+  "Return the day of the month of `TIME' in the nth format."
   (let ((d (format-time-string "%02d" time)))
     (concat (number-to-string (string-to-number d))
             (nth-format d))))
 
 (defun my-date ()
-  "Format current date according to my taste"
+  "Format current date according to my taste."
   (format-time-string
    (concat "%B " (nth-day (current-time)) " %Y")
    (current-time)))
 
 (defun my-date-time ()
-  "Format current date time for interactive sessions"
+  "Format current date time for interactive sessions."
   (format-time-string
    (concat "%A, %b " (nth-day (current-time)) " %Y -- %H:%M")
    (current-time)))
 
 (defun now ()
-  "Message current date & time in the format I like"
+  "Message current date & time in the format I like."
   (interactive)
   (message (my-date-time)))
 
-(defun kill-all-buffers-mercilessly ()
-  "*DANGEROUS* function that kills all the buffers mercilessly
-
-I suggest you to DO NOT bind it to any keyboard shortcut and
-please, be careful, once called, it can't be stopped!"
-  (interactive)
-  (mapcar '(lambda (b)
-             (ignore-errors
-               (revert-buffer 1 1))
-             (kill-buffer b))
-          (buffer-list)))
-
-
 (defun open-current-file-in-finder ()
-  "Opens the current file using the Mac OS `open` utility"
+  "Opens the current file using the Mac OS `open` utility."
   (interactive)
   (message (shell-command-to-string
             (concat "open " (buffer-file-name)))))
 
-
 (defun python-find-module (name)
-  "Open the file that declares the received python module"
+  "Open the file `NAME' the received python module."
   (interactive "MPython module to open: ")
   (find-file
    (let ((command (concat "python -c 'from __future__ import absolute_import; import sys, " name " as m; sys.stdout.write(m.__file__)'")))
      (replace-regexp-in-string ".py.$" ".py" (shell-command-to-string command)))))
 
-
 (defun touch (path)
-  "Calls the Unix touch command on 'path'"
+  "Call the Unix touch command on `PATH'."
   (interactive "Fpath to the file to touch: ")
   (shell-command-to-string (concat "touch " path)))
 
-
 (defun scratch (name)
-  "Creates a new buffer pointing to a safe location to save an scratch"
+  "Create a new buffer named `NAME' pointing to a safe location."
   (interactive "MName: ")
   (find-file
    (concat
@@ -106,7 +90,6 @@ please, be careful, once called, it can't be stopped!"
                (list (getenv "HOME") "Tmp")
                "")
     name)))
-
 
 ;;;; Tests
 
