@@ -1,39 +1,34 @@
 (source gnu)
 (source melpa)
 
-(depends-on "bind-key")
+;; Package management
 (depends-on "cask")
-(depends-on "dash")
+(depends-on "use-package")
+(depends-on "pallet")
+
+;; Version control
+(depends-on "magit")
+
+;; Improved Experience
 (depends-on "exwm")
-(depends-on "drag-stuff")
+(depends-on "sr-speedbar")
 (depends-on "exec-path-from-shell")
-(depends-on "expand-region")
-(depends-on "f")
+(depends-on "popwin")
+(depends-on "hackernews")
+
+;; Linting
 (depends-on "flycheck")
 (depends-on "flycheck-cask")
-(depends-on "htmlize")
-(depends-on "idle-highlight-mode")
-(depends-on "magit")
-(depends-on "multiple-cursors")
-(depends-on "nyan-mode")
-(depends-on "pallet")
-(depends-on "popwin")
-(depends-on "projectile")
-(depends-on "s")
-(depends-on "smartparens")
-(depends-on "smex")
-(depends-on "use-package")
+(depends-on "flycheck-pyflakes")
 
-;; editing support
-(depends-on "sr-speedbar")
+;; Editing support
+(depends-on "smartparens")
 (depends-on "yasnippet")
 (depends-on "auto-complete")
 (depends-on "dropdown-list")
+(depends-on "multiple-cursors")
 
-;; process management
-(depends-on "prodigy")
-
-;; document modes
+;; Document modes
 (depends-on "dockerfile-mode")
 (depends-on "erlang")
 (depends-on "haskell-mode")
@@ -47,10 +42,7 @@
 (depends-on "yaml-mode")
 (depends-on "sass-mode")
 (depends-on "less-css-mode")
+
+;; Other nice stuff
+(depends-on "htmlize")
 (depends-on "ox-reveal")
-
-;; python
-(depends-on "flymake-cursor")
-
-;; misc
-(depends-on "hackernews")
