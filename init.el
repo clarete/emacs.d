@@ -11,6 +11,7 @@
 
 ;; Session init
 (shell-command "xsetroot -default && xmodmap ~/.Xmodmap")
+(shell-command "xbindkeys")
 
 ;; No bars. Doing this first to avoid showing/hidding delay on startup
 (scroll-bar-mode 0)
