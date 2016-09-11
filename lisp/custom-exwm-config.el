@@ -26,6 +26,12 @@
             (lambda ()
               (exwm-workspace-rename-buffer exwm-class-name)))
 
+  ;; Bind window cycling to Meta-Tab & Meta-Shift-Tab
+  (exwm-input-set-key (kbd "<M-tab>") #'other-window)
+  (exwm-input-set-key
+   (kbd "<M-iso-lefttab>")
+   #'(lambda () (interactive) (other-window -1)))
+
   ;; 's-r': Reset
   (exwm-input-set-key (kbd "s-r") #'exwm-reset)
 

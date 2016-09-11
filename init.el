@@ -121,14 +121,6 @@
 ;; join lines
 (global-set-key [(ctrl J)] '(lambda () (interactive) (join-line -1)))
 
-;; moving from one window to another
-(global-set-key [(ctrl <)] 'next-multiframe-window)
-(global-set-key [(ctrl >)] 'previous-multiframe-window)
-
-;; moving from one frame to another
-(global-set-key [(C-tab)] 'other-window)
-(global-set-key [(shift C-tab)] '(lambda () (interactive) (other-window -1)))
-
 ;; scrolling without changing the cursor
 (global-set-key [(meta n)] '(lambda () (interactive) (scroll-up 1)))
 (global-set-key [(meta p)] '(lambda () (interactive) (scroll-down 1)))
