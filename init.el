@@ -256,11 +256,6 @@
   (set (make-local-variable 'tab-width) 2))
 (add-hook 'coffee-mode-hook '(lambda() (coffee-custom)))
 
-;; Earl gray mode
-;; (add-to-list 'load-path "~/.emacs.d/elisp/earl-grey-mode")
-;; (require 'earl-mode)
-;; (add-to-list 'auto-mode-alist '("\\.eg$" . earl-mode))
-
 ;; Auto complete
 (require 'auto-complete)
 (require 'auto-complete-config)
