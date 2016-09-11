@@ -31,6 +31,9 @@
   (exwm-input-set-key
    (kbd "<M-iso-lefttab>")
    #'(lambda () (interactive) (other-window -1)))
+  ;; Unbind <M-tab> when in magit
+  (with-eval-after-load 'magit-mode
+    (define-key magit-mode-map (kbd "<M-tab>") nil))
 
   ;; 's-r': Reset
   (exwm-input-set-key (kbd "s-r") #'exwm-reset)
