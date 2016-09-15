@@ -31,6 +31,13 @@
   (exwm-input-set-key
    (kbd "<M-iso-lefttab>")
    #'(lambda () (interactive) (other-window -1)))
+
+  ;; Bind keys for resizing windows
+  (exwm-input-set-key (kbd "C-{") #'shrink-window-horizontally)
+  (exwm-input-set-key (kbd "C-}") #'enlarge-window-horizontally)
+  (exwm-input-set-key (kbd "C-M-}") 'shrink-window)
+  (exwm-input-set-key (kbd "C-M-{") 'enlarge-window)
+
   ;; Unbind <M-tab> when in magit
   (with-eval-after-load 'magit-mode
     (define-key magit-mode-map (kbd "<M-tab>") nil))

@@ -129,12 +129,6 @@
 (global-set-key [(meta j)] '(lambda () (interactive) (scroll-other-window 1)))
 (global-set-key [(meta k)] '(lambda () (interactive) (scroll-other-window -1)))
 
-;; resize windows
-(global-set-key (kbd "C-}") 'shrink-window-horizontally)
-(global-set-key (kbd "C-{") 'enlarge-window-horizontally)
-(global-set-key (kbd "C-M-}") 'shrink-window)
-(global-set-key (kbd "C-M-{") 'enlarge-window)
-
 ;; Mac specific stuff
 (when (eq system-type 'darwin)
   (setq mac-option-modifier 'alt)
@@ -151,7 +145,6 @@
 (require 'tramp)           ;; ssh and local sudo/su
 (require 'muttrc-mode)     ;; mutt and muttrc modes
 (require 'lua-mode)        ;; lua mode
-
 
 ;; upstart mode
 (require 'upstart-mode "~/.emacs.d/3rdparty/upstart-mode.el")
