@@ -49,8 +49,8 @@
   (exwm-input-set-key (kbd "s-w") #'exwm-workspace-switch)
 
   ;; 's-N': Switch to certain workspace
-  (dotimes (i 10)
-    (exwm-input-set-key (kbd (format "s-%d" i))
+  (dotimes (i 4)
+    (exwm-input-set-key (kbd (format "s-%d" (1+ i)))
                         `(lambda ()
                            (interactive)
                            (exwm-workspace-switch-create ,i))))
