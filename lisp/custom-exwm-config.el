@@ -6,6 +6,7 @@
 ;;; Code:
 
 (require 'exwm)
+(require 'exwm-systemtray)
 
 
 (defun custom-exwm-config-global-keys ()
@@ -76,15 +77,20 @@
    '(".*Async Shell Command.*" (display-buffer-no-window))))
 
 
+(defun custom-exwm-config-buffer-name ()
+  "Rename buffer according to WM_CLASS and WM_NAME (or _NET_WM_NAME)."
+  (exwm-workspace-rename-buffer (concat exwm-class-name " - " exwm-title)))
+
+
 (defun custom-exwm-config-wm-options ()
   "Set misc Window Manager options."
-  ;; Set the initial workspace number.
-  (setq exwm-workspace-number 4)
 
   ;; Make class name the buffer name
-  (add-hook 'exwm-update-class-hook
-            (lambda ()
-              (exwm-workspace-rename-buffer exwm-class-name))))
+  (add-hook 'exwm-update-class-hook #'custom-exwm-config-buffer-name)
+  (add-hook 'exwm-update-title-hook #'custom-exwm-config-buffer-name)
+
+  ;; Set the initial workspace number.
+  (setq exwm-workspace-number 4))
 
 
 (defun custom-exwm-config ()
@@ -93,6 +99,7 @@
   (custom-exwm-config-shell-command)
   (custom-exwm-config-global-keys)
   (custom-exwm-config-editing-keys)
+  (exwm-systemtray-enable)
   (exwm-enable))
 
 

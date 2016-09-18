@@ -25,11 +25,7 @@
 (cask-initialize)
 
 ;; X window system integration
-;; https://github.com/ch11ng/exwm/wiki
-(require 'exwm)
-(require 'exwm-systemtray)
 (require 'custom-exwm-config)
-(exwm-systemtray-enable)
 (custom-exwm-config)
 
 ;; utf-8 for good (is there any other encoding related var I could set?)
