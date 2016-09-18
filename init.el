@@ -6,6 +6,7 @@
 ;;; Code:
 
 ;; Default path to load lisp files
+(add-to-list 'load-path "~/.emacs.d/site-lisp/")
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 (require 'defuns)
 
@@ -147,7 +148,7 @@
 (require 'lua-mode)        ;; lua mode
 
 ;; upstart mode
-(require 'upstart-mode "~/.emacs.d/3rdparty/upstart-mode.el")
+(require 'upstart-mode)
 
 ;; yaml
 (require 'yaml-mode)
