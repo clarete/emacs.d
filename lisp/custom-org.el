@@ -19,11 +19,26 @@
      (push (expand-file-name dir) dirs))))
 
 
+(defun custom-org-utf-8-bullet ()
+  "Replace asterisk chars with sexy UTF-8 Bullets."
+  (font-lock-add-keywords
+   'org-mode
+   '(("^ +\\([-*]\\) "
+      (0 (prog1 ()
+           (compose-region (match-beginning 1) (match-end 1) "•")))))))
+
+
+(defun custom-org-keys ()
+  "Key bindings for the `org-mode'."
+  (define-key global-map "\C-cl" 'org-store-link)
+  (define-key global-map "\C-ca" 'org-agenda))
+
+
 (defun custom-org ()
   "Configuration for the `org-mode'."
+  (custom-org-keys)
+  (custom-org-utf-8-bullet)
   (setq org-agenda-files (custom-org-directory-dirs "~/Org"))
-  (define-key global-map "\C-cl" 'org-store-link)
-  (define-key global-map "\C-ca" 'org-agenda)
   (setq org-log-done t))
 
 
