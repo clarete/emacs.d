@@ -22,6 +22,7 @@
 (require 'custom-speedbar)
 (require 'custom-modes)
 (require 'custom-interactive)
+(require 'custom-org)
 
 ;; Initialize all the modules loaded above
 (custom-general)
@@ -29,6 +30,7 @@
 (custom-editing)
 (custom-speedbar)
 (custom-modes)
+(custom-org)
 
 ;; Mac specific stuff
 (when (eq system-type 'darwin)
