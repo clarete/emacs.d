@@ -93,8 +93,15 @@
   (setq exwm-workspace-number 4))
 
 
+(defun custom-exwm-x11-helpers ()
+  "Setup Desktop Background & X11 Key mapping."
+  (shell-command "xsetroot -default && xmodmap ~/.Xmodmap")
+  (shell-command "xbindkeys"))
+
+
 (defun custom-exwm-config ()
   "Custom configuration of EXWM."
+  (custom-exwm-x11-helpers)
   (custom-exwm-config-wm-options)
   (custom-exwm-config-shell-command)
   (custom-exwm-config-global-keys)

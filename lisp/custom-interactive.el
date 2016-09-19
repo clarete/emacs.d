@@ -1,4 +1,5 @@
-;;; defun.el --- Extra utilities for emacs
+;;; custom-interactive.el --- Interactive functions
+;;
 ;;; Commentary:
 ;;
 ;; Copyright (C) 2012-2016  Lincoln de Sousa <lincoln@comum.org>
@@ -15,6 +16,7 @@
 ;;
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+;;
 ;;; Code:
 
 (require 'cl)
@@ -118,5 +120,5 @@
 ; "2016-09-15"
 (assert (string= (nth-day '(22490 18641 631962 984000)) "15th"))
 
-(provide 'defuns)
+(provide 'custom-interactive)
 ;;; defuns.el ends here
