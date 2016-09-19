@@ -11,12 +11,11 @@
 
 (defun custom-org-directory-dirs (dir)
   "List directories recursively inside of DIR."
-  (remove-if
-   #'(lambda (p) (not (file-directory-p p)))
-   (let* ((dir dir)
-          (dirs (directory-files
-                 dir t directory-files-no-dot-files-regexp)))
-     (push (expand-file-name dir) dirs))))
+  (let ((dirs (delq nil
+                    (mapcar (lambda (p) (and (file-directory-p p) p))
+                            (directory-files
+                             dir t directory-files-no-dot-files-regexp)))))
+    (push (expand-file-name dir) dirs)))
 
 
 (defun custom-org-utf-8-bullet ()
