@@ -104,15 +104,13 @@
 
 
 (defun custom-modes-term ()
-  "Disable `linum' & `yas' on `term-mode'."
+  "Disable `yas' on `term-mode'."
   (add-hook
    'term-mode-hook
    '(lambda ()
       (add-hook
        'after-change-major-mode-hook
-       (lambda ()
-         (linum-mode 0)
-         (yas-minor-mode 0))
+       (lambda () (yas-minor-mode 0))
        :append :local))))
 
 
