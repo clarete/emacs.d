@@ -22,6 +22,52 @@
   (set-selection-coding-system 'utf-8))
 
 
+(defun custom-general-ui-fringe ()
+  "Configure the Fringe area."
+
+  ;; Custom bitmap to be shown in the fringe area for lines with any
+  ;; sort of linting issues
+  (when (fboundp 'define-fringe-bitmap)
+    (define-fringe-bitmap 'my-flycheck-fringe-indicator
+      (vector #b00000000
+              #b00000000
+              #b00000000
+              #b00000000
+              #b00000000
+              #b00000000
+              #b00000000
+              #b00011100
+              #b00111110
+              #b00111110
+              #b00111110
+              #b00011100
+              #b00000000
+              #b00000000
+              #b00000000
+              #b00000000
+              #b00000000)))
+  (flycheck-define-error-level 'error
+    :overlay-category 'flycheck-error-overlay
+    :fringe-bitmap 'my-flycheck-fringe-indicator
+    :fringe-face 'flycheck-fringe-error)
+  (flycheck-define-error-level 'warning
+    :overlay-category 'flycheck-warning-overlay
+    :fringe-bitmap 'my-flycheck-fringe-indicator
+    :fringe-face 'flycheck-fringe-warning)
+  (flycheck-define-error-level 'info
+    :overlay-category 'flycheck-info-overlay
+    :fringe-bitmap 'my-flycheck-fringe-indicator
+    :fringe-face 'flycheck-fringe-info)
+
+  ;; Get rid of the background color in the Fringe area
+  (set-face-attribute 'fringe nil
+                      :foreground (face-foreground 'default)
+                      :background (face-background 'default))
+
+  ;; Finally, enable the fringe mode
+  (fringe-mode 1))
+
+
 (defun custom-general-ui ()
   "General UI configuration."
 
@@ -30,7 +76,6 @@
   (scroll-bar-mode 0)
   (menu-bar-mode 0)
   (tool-bar-mode 0)
-  (fringe-mode 0)
 
   (load-theme 'deeper-blue) ;; Theme
   (column-number-mode)      ;; Basic config for columns
@@ -90,6 +135,7 @@
 
 (defun custom-general ()
   "Call out other general customization functions."
+  (custom-general-ui-fringe)
   (custom-general-ui)
   (custom-general-utf-8)
   (custom-general-navigation)
