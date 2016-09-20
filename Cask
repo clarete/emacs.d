@@ -46,3 +46,4 @@
 ;; Other nice stuff
 (depends-on "htmlize")
 (depends-on "ox-reveal")
+(depends-on "org-bullets")

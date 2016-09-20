@@ -7,6 +7,7 @@
 
 (require 'org)
 (require 'org-agenda)
+(require 'org-bullets)
 
 
 (defun custom-org-directory-dirs (dir)
@@ -33,10 +34,17 @@
   (define-key global-map "\C-ca" 'org-agenda))
 
 
+(defun custom-org-bullets ()
+  "Enable and configure `org-bullets' with custom icons."
+  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+  (setq org-bullets-bullet-list '("▶" "▸" "▹" "▹")))
+
+
 (defun custom-org ()
   "Configuration for the `org-mode'."
   (custom-org-keys)
   (custom-org-utf-8-bullet)
+  (custom-org-bullets)
   (setq org-agenda-files (custom-org-directory-dirs "~/Org"))
   (setq org-log-done t))
 
