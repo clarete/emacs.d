@@ -14,7 +14,6 @@
 (depends-on "sr-speedbar")
 (depends-on "exec-path-from-shell")
 (depends-on "popwin")
-(depends-on "hackernews")
 
 ;; Linting
 (depends-on "flycheck")
@@ -43,7 +42,9 @@
 (depends-on "sass-mode")
 (depends-on "less-css-mode")
 
-;; Other nice stuff
+;; Applications
+(depends-on "hackernews")
 (depends-on "htmlize")
 (depends-on "ox-reveal")
 (depends-on "org-bullets")
+(depends-on "pdf-tools")
