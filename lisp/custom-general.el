@@ -138,8 +138,8 @@
 
 (defun custom-general ()
   "Call out other general customization functions."
-  (custom-general-ui-fringe)
   (custom-general-ui)
+  (custom-general-ui-fringe)
   (custom-general-utf-8)
   (custom-general-navigation)
   (custom-general-keys)
