@@ -121,4 +121,4 @@
 (assert (string= (nth-day '(22490 18641 631962 984000)) "15th"))
 
 (provide 'custom-interactive)
-;;; defuns.el ends here
+;;; custom-interactive.el ends here
