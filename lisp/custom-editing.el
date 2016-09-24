@@ -24,6 +24,7 @@
 
 (defun custom-editing-line-numbers ()
   "Configure line numbers in the Emacs UI."
+  (add-hook 'conf-mode-hook 'linum-on)
   (add-hook 'prog-mode-hook 'linum-on)
   (add-hook 'text-mode-hook 'linum-on)
   (setq linum-format "%d "))
