@@ -48,3 +48,6 @@
 (depends-on "ox-reveal")
 (depends-on "org-bullets")
 (depends-on "pdf-tools")
+
+;; Misc
+(depends-on "pinentry")

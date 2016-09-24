@@ -133,7 +133,12 @@
         `((".*" ,temporary-file-directory t)))
 
   ;; Make sure `pdf-tools' is installed
-  (pdf-tools-install))
+  (pdf-tools-install)
+
+  ;; Set gpg binary & start Emacs pin-entry server
+  (setq epg-gpg-program "gpg2")
+  (setenv "INSIDE_EMACS" "YES")
+  (pinentry-start))
 
 
 (defun custom-general ()
