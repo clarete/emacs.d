@@ -19,7 +19,7 @@
 ;;
 ;;; Code:
 
-(require 'cl)
+(eval-when-compile (require 'cl))
 
 (defun lock ()
   "Call out a shell command to lock the X11 session."
