@@ -45,7 +45,7 @@
   (custom-org-keys)
   (custom-org-utf-8-bullet)
   (custom-org-bullets)
-  (setq org-agenda-files (custom-org-directory-dirs "~/Org"))
+  (setq org-agenda-files (custom-org-directory-dirs "~/org"))
   (setq org-log-done t))
 
 
