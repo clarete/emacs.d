@@ -40,11 +40,24 @@
   (setq org-bullets-bullet-list '("▶" "▸" "▹" "▹")))
 
 
+(defun custom-org-workflow ()
+  "Set a kanban-ish workflow for managing TODO items."
+  (setq org-todo-keywords
+    '((sequence "TODO" "DOING" "BLOCKED" "|" "DONE" "ARCHIVED")))
+  (setq org-todo-keyword-faces
+        '(("TODO" . org-warning)
+          ("DOING" . "yellow")
+          ("BLOCKED" . "red")
+          ("DONE" . "green")
+          ("ARCHIVED" .  "blue"))))
+
+
 (defun custom-org ()
   "Configuration for the `org-mode'."
   (custom-org-keys)
   (custom-org-utf-8-bullet)
   (custom-org-bullets)
+  (custom-org-workflow)
   (setq org-agenda-files (custom-org-directory-dirs "~/org"))
   (setq org-log-done t))
 
