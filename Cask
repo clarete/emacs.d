@@ -10,7 +10,6 @@
 (depends-on "magit")
 
 ;; Improved Experience
-(depends-on "exwm")
 (depends-on "sr-speedbar")
 (depends-on "exec-path-from-shell")
 (depends-on "popwin")
@@ -49,5 +48,7 @@
 (depends-on "org-bullets")
 (depends-on "pdf-tools")
 
-;; Misc
+;; Desktop environment
+(depends-on "exwm")
 (depends-on "pinentry")
+(depends-on "screenshot")
