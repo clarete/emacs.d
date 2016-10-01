@@ -77,9 +77,12 @@
   (menu-bar-mode 0)
   (tool-bar-mode 0)
 
-  (load-theme 'deeper-blue) ;; Theme
-  (column-number-mode)      ;; Basic config for columns
+  ;; Theme
+  (load-theme 'ample t t)
+  (enable-theme 'ample)
 
+  ;; Misc
+  (column-number-mode)              ;; Basic config for columns
   (setq ring-bell-function 'ignore) ;; No freaking bell
   (setq inhibit-splash-screen t)    ;; No splash screen
   (setq inhibit-startup-screen t))
