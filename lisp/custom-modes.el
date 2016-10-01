@@ -159,10 +159,10 @@
   "Use some unicode characters to prettify some symbols."
   (setq prettify-symbols-alist
         '(("lambda" . ?λ)
-          ("<-" . ?⤆)
-          ("->" . ?⤇)
-          ("<=" . ?⇐)
-          ("=>" . ?⇒)
+          ("<-" . ?⇐)
+          ("->" . ?⇒)
+          ("<=" . ?⤆)
+          ("=>" . ?⤇)
           ("<=" . ?≤)
           (">=" . ?≥))))
 
