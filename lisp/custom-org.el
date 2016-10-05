@@ -8,7 +8,8 @@
 (require 'org)
 (require 'org-agenda)
 (require 'org-bullets)
-
+(require 'org-gcal)
+(require 'custom-auth)
 
 (defun custom-org-directory-dirs (dir)
   "List directories recursively inside of DIR."
@@ -50,6 +51,14 @@
           ("BLOCKED" . "red")
           ("DONE" . "green")
           ("ARCHIVED" .  "blue"))))
+
+
+(defun custom-org-setup-gcal ()
+  "Setup Google Calendar integration."
+  (setq org-gcal-client-id (car (custom-auth-url-read-user "google-oauth"))
+        org-gcal-client-secret (car (custom-auth-url-read-password "google-oauth"))
+        org-gcal-file-alist
+        '(("lincoln@canary.is" . "~/org/Calendar/lincoln@canary.is.org"))))
 
 
 (defun custom-org ()

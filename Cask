@@ -44,9 +44,12 @@
 ;; Applications
 (depends-on "hackernews")
 (depends-on "htmlize")
+(depends-on "pdf-tools")
+
+;; Org-Mode
 (depends-on "ox-reveal")
 (depends-on "org-bullets")
-(depends-on "pdf-tools")
+(depends-on "org-gcal")
 
 ;; Desktop environment
 (depends-on "exwm")
