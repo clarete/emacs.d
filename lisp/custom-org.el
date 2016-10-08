@@ -46,9 +46,9 @@
   (setq org-todo-keywords
     '((sequence "TODO" "DOING" "BLOCKED" "|" "DONE" "ARCHIVED")))
   (setq org-todo-keyword-faces
-        '(("TODO" . org-warning)
+        '(("TODO" . "red")
           ("DOING" . "yellow")
-          ("BLOCKED" . "red")
+          ("BLOCKED" . org-warning)
           ("DONE" . "green")
           ("ARCHIVED" .  "blue"))))
 
