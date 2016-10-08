@@ -40,6 +40,7 @@
 (depends-on "yaml-mode")
 (depends-on "sass-mode")
 (depends-on "less-css-mode")
+(depends-on "jedi")
 
 ;; Applications
 (depends-on "hackernews")

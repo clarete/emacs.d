@@ -17,7 +17,6 @@
 (require 'yaml-mode)
 (require 'web-mode)
 
-
 (defun custom-modes-map-extensions ()
   "Map file extensions to modes."
   (add-to-list 'auto-mode-alist '("Vagrantfile$" . ruby-mode))
@@ -166,10 +165,14 @@
           ("<=" . ?≤)
           (">=" . ?≥))))
 
-(add-hook 'python-mode-hook 'custom-modes-prettify-symbols-alist)
 (add-hook 'go-mode-hook 'custom-modes-prettify-symbols-alist)
 (add-hook 'erlang-mode-hook 'custom-modes-prettify-symbols-alist)
 
+(defun custom-modes-python ()
+  "Set defaults for Python tools."
+  (jedi:install-server)
+  (add-hook 'python-mode-hook 'custom-modes-prettify-symbols-alist)
+  (add-hook 'python-mode-hook 'jedi:setup))
 
 (defun custom-modes ()
   "Call out all the mode setup functions."
@@ -181,12 +184,12 @@
   (custom-modes-html)
   (custom-modes-less)
   (custom-modes-markdown)
+  (custom-modes-python)
   (custom-modes-sass)
   (custom-modes-term)
   (custom-modes-vala)
   (custom-modes-yaml)
   (custom-modes-web))
-
 
 (provide 'custom-modes)
 ;;; custom-modes.el ends here
