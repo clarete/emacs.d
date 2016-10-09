@@ -11,7 +11,7 @@ for your configuration.
 
 ```bash
  $ git clone http://github.com/clarete/emacs.d
- $ ln -s emacs.d ~/.emacs.d
+ $ ln -s $(pwd)/emacs.d ~/.emacs.d
  $ cd ~/.emacs.d && make
 ```
 
