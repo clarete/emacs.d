@@ -6,7 +6,7 @@ cask    = $(caskdir)/cask/bin/cask
 
 $(caskdir):
 	mkdir $@
-$(cask): | $(caskdir)
+$(cask): $(caskdir)
 	cd $^ && git clone $(caskgit)
 
 .PHONY: dependencies
