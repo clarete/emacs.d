@@ -30,6 +30,7 @@
 (depends-on "coffee-mode")
 (depends-on "dockerfile-mode")
 (depends-on "erlang")
+(depends-on "ensime")
 (depends-on "go-mode")
 (depends-on "gotest")
 (depends-on "haskell-mode")
@@ -39,6 +40,8 @@
 (depends-on "markdown-mode")
 (depends-on "muttrc-mode")
 (depends-on "sass-mode")
+(depends-on "sbt-mode")
+(depends-on "scala-mode")
 (depends-on "web-mode")
 (depends-on "yaml-mode")
 
