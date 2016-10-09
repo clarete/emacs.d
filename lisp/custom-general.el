@@ -7,6 +7,7 @@
 ;;
 ;;; Code:
 
+(require 'smart-mode-line)
 (require 'uniquify)
 (require 'tramp) ;; ssh and local sudo/su
 
@@ -88,6 +89,12 @@
   (setq inhibit-startup-screen t))
 
 
+(defun custom-general-mode-line ()
+  "Configure mode-line to use sml."
+  (setq sml/theme 'dark)
+  (setq sml/no-confirm-load-theme t)
+  (sml/setup))
+
 (defun custom-general-navigation ()
   "Configuration for buffer naming."
 
@@ -148,6 +155,7 @@
   "Call out other general customization functions."
   (custom-general-ui)
   (custom-general-ui-fringe)
+  (custom-general-mode-line)
   (custom-general-utf-8)
   (custom-general-navigation)
   (custom-general-keys)

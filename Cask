@@ -62,3 +62,4 @@
 (depends-on "ample-theme")
 (depends-on "exwm")
 (depends-on "pinentry")
+(depends-on "smart-mode-line")
