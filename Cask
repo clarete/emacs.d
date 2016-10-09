@@ -3,16 +3,18 @@
 
 ;; Package management
 (depends-on "cask")
-(depends-on "use-package")
 (depends-on "pallet")
+(depends-on "use-package")
 
 ;; Version control
 (depends-on "magit")
 
-;; Improved Experience
-(depends-on "sr-speedbar")
+;; System Integration
 (depends-on "exec-path-from-shell")
+
+;; Utilities
 (depends-on "popwin")
+(depends-on "sr-speedbar")
 
 ;; Linting
 (depends-on "flycheck")
@@ -20,11 +22,11 @@
 (depends-on "flycheck-pyflakes")
 
 ;; Editing support
-(depends-on "smartparens")
-(depends-on "yasnippet")
 (depends-on "auto-complete")
 (depends-on "dropdown-list")
 (depends-on "multiple-cursors")
+(depends-on "smartparens")
+(depends-on "yasnippet")
 
 ;; Document modes
 (depends-on "coffee-mode")
@@ -49,14 +51,14 @@
 (depends-on "hackernews")
 (depends-on "htmlize")
 (depends-on "pdf-tools")
+(depends-on "screenshot")
 
 ;; Org-Mode
-(depends-on "ox-reveal")
 (depends-on "org-bullets")
 (depends-on "org-gcal")
+(depends-on "ox-reveal")
 
-;; Desktop environment
+;; Desktop Environment / Look & Feel
+(depends-on "ample-theme")
 (depends-on "exwm")
 (depends-on "pinentry")
-(depends-on "screenshot")
-(depends-on "ample-theme")
