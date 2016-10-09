@@ -15,5 +15,5 @@ for your configuration.
  $ cd ~/.emacs.d && make
 ```
 
-The above command will install [Cask](https://github/cask/cask) and
+The above command will install [Cask](https://github.com/cask/cask) and
 all the emacs extensions described in the `Cask` file.
