@@ -89,13 +89,13 @@
 (defun custom-general-mode-line ()
   "Configure mode-line to use sml."
   (setq sml/theme 'dark)
+  (setq sml/no-confirm-load-theme t)
+  (sml/setup)
   (custom-theme-set-faces
    'smart-mode-line-dark
    '(mode-line-inactive ((t :foreground "gray80"
                             :background "#1d1d1d"
-                            :inverse-video nil))))
-  (setq sml/no-confirm-load-theme t)
-  (sml/setup))
+                            :inverse-video nil)))))
 
 (defun custom-general-navigation ()
   "Configuration for buffer naming."
