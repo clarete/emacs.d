@@ -66,6 +66,8 @@
 
   ;; Enable syntax checks
   (global-flycheck-mode)
+  (with-eval-after-load 'flycheck
+    (flycheck-pos-tip-mode))
 
   ;; Clipboard shared with the Desktop Environment. I wonder if the
   ;; `exwm' integration would work without this line.
