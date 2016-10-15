@@ -9,11 +9,11 @@
 
 (require 'smart-mode-line)
 (require 'uniquify)
-(require 'tramp) ;; ssh and local sudo/su
-
+(require 'tramp) ;; ssh and local `sudo' and `su'
+(require 'pallet)
 
 (defun custom-general-utf-8 ()
-  "Configure all known coding variables to use UTF-8."
+  "Configure all known coding variables to use `UTF-8'."
   (prefer-coding-system 'utf-8)
   (setq locale-coding-system 'utf-8)
   (setq current-language-environment "UTF-8")
@@ -141,7 +141,7 @@
   (setq default-directory "~/") ;; There's no place like home
   (server-mode)
 
-  ;; Store autosave and backup files in a temporary directory
+  ;; Store auto-save and backup files in a temporary directory
   (setq backup-directory-alist
         `((".*" . ,temporary-file-directory)))
   (setq auto-save-file-name-transforms
@@ -149,6 +149,9 @@
 
   ;; Make sure `pdf-tools' is installed
   (pdf-tools-install)
+
+  ;; Sync package list with Cask file
+  (pallet-mode t)
 
   ;; Set gpg binary & start Emacs pin-entry server
   (setq epg-gpg-program "gpg2")
