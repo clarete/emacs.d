@@ -167,6 +167,7 @@
 
 (add-hook 'go-mode-hook 'custom-modes-prettify-symbols-alist)
 (add-hook 'erlang-mode-hook 'custom-modes-prettify-symbols-alist)
+(add-hook 'prog-mode-hook 'flyspell-prog-mode)
 
 (defun custom-modes-python ()
   "Set defaults for Python tools."
