@@ -22,7 +22,6 @@
   (set-keyboard-coding-system 'utf-8)
   (set-selection-coding-system 'utf-8))
 
-
 (defun custom-general-ui-fringe ()
   "Configure the Fringe area."
 
@@ -68,12 +67,11 @@
   ;; Finally, enable the fringe mode
   (fringe-mode 1))
 
-
 (defun custom-general-ui ()
   "General UI configuration."
 
-  ;; No bars. Doing this first to avoid showing/hidding delay on
-  ;; startup
+  ;; No bars. Doing this first to avoid showing/hidding delay on start
+  ;; up
   (scroll-bar-mode 0)
   (menu-bar-mode 0)
   (tool-bar-mode 0)
@@ -87,7 +85,6 @@
   (setq ring-bell-function 'ignore) ;; No freaking bell
   (setq inhibit-splash-screen t)    ;; No splash screen
   (setq inhibit-startup-screen t))
-
 
 (defun custom-general-mode-line ()
   "Configure mode-line to use sml."
@@ -114,7 +111,6 @@
               '(buffer-file-name "%f" (dired-directory
                                        dired-directory "%b")))))
 
-
 (defun custom-general-keys ()
   "Configure global key bindings."
 
@@ -134,7 +130,6 @@
    [(meta j)] '(lambda () (interactive) (scroll-other-window 1)))
   (global-set-key
    [(meta k)] '(lambda () (interactive) (scroll-other-window -1))))
-
 
 (defun custom-general-misc ()
   "Miscellaneous settings and start up actions."
@@ -158,7 +153,6 @@
   (setenv "INSIDE_EMACS" "YES")
   (pinentry-start))
 
-
 (defun custom-general ()
   "Call out other general customization functions."
   (custom-general-ui)
@@ -168,7 +162,6 @@
   (custom-general-navigation)
   (custom-general-keys)
   (custom-general-misc))
-
 
 (provide 'custom-general)
 ;;; custom-general.el ends here
