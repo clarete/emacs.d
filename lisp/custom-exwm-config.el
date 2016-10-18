@@ -6,8 +6,8 @@
 ;;; Code:
 
 (require 'exwm)
+(require 'exwm-randr)
 (require 'exwm-systemtray)
-
 
 (defun custom-exwm-config-global-keys ()
   "Configure Keybindings for exwm."
@@ -98,6 +98,14 @@
   (shell-command "xsetroot -default && xmodmap ~/.Xmodmap")
   (shell-command "xbindkeys"))
 
+(defun custom-exwm-randr ()
+  "Setup xrandr defaults."
+  (setq exwm-randr-workspace-output-plist '(0 "eDP" 1 "DisplayPort-0"))
+  (add-hook 'exwm-randr-screen-change-hook
+            (lambda ()
+              (start-process-shell-command
+               "xrandr" nil "xrandr --output eDP --left-of DisplayPort-0 --auto")))
+  (exwm-randr-enable))
 
 (defun custom-exwm-config ()
   "Custom configuration of EXWM."
@@ -106,6 +114,7 @@
   (custom-exwm-config-shell-command)
   (custom-exwm-config-global-keys)
   (custom-exwm-config-editing-keys)
+  (custom-exwm-randr)
   (exwm-systemtray-enable)
   (exwm-enable))
 
