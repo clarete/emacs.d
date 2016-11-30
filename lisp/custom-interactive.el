@@ -95,7 +95,7 @@
   (find-file
    (concat
     (mapconcat 'file-name-as-directory
-               (list (getenv "HOME") "Tmp")
+               (list (getenv "HOME") "tmp")
                "")
     name)))
 
