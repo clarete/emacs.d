@@ -89,6 +89,7 @@
 (depends-on "pos-tip")
 (depends-on "prodigy")
 (depends-on "projectile")
+(depends-on "pug-mode")
 (depends-on "python-environment")
 (depends-on "request")
 (depends-on "request-deferred")

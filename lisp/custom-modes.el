@@ -37,6 +37,13 @@
    '(lambda() (set (make-local-variable 'tab-width) 2))))
 
 
+(defun custom-modes-pug ()
+  "Configuration for pug-mode."
+  (add-hook
+   'pug-mode-hook
+   '(lambda() (set (make-local-variable 'tab-width) 2))))
+
+
 ;; Set CSS colors with themselves
 (defvar custom-modes-hexcolour-keywords
   '(("#[abcdef[:digit:]]\\{6\\}"
@@ -182,6 +189,7 @@
   "Call out all the mode setup functions."
   (custom-modes-map-extensions)
   (custom-modes-coffe-script)
+  (custom-modes-pug)
   (custom-modes-css)
   (custom-modes-diff)
   (custom-modes-erlang)
