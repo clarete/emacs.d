@@ -138,6 +138,8 @@
   (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+  (setq web-mode-content-types-alist
+        '(("jsx" . "\\.js[x]?\\'")))
   (add-hook
    'web-mode-hook
    '(lambda ()
