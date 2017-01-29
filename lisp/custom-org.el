@@ -68,7 +68,8 @@
   (custom-org-bullets)
   (custom-org-workflow)
   (setq org-agenda-files (custom-org-directory-dirs "~/org"))
-  (setq org-log-done t))
+  (setq org-log-done t)
+  (setq org-agenda-sticky t))
 
 
 (provide 'custom-org)
