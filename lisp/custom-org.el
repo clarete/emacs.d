@@ -38,7 +38,7 @@
 (defun custom-org-bullets ()
   "Enable and configure `org-bullets' with custom icons."
   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
-  (setq org-bullets-bullet-list '("▶" "▸" "▹" "▹")))
+  (setq org-bullets-bullet-list '("▶" "▸" "▹" "▹" "▹" "▹")))
 
 
 (defun custom-org-workflow ()
