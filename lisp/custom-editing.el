@@ -71,7 +71,7 @@
 
   ;; Clipboard shared with the Desktop Environment. I wonder if the
   ;; `exwm' integration would work without this line.
-  (setq x-select-enable-clipboard t))
+  (setq select-enable-clipboard t))
 
 
 (defun custom-editing ()
