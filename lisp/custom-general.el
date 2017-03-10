@@ -148,6 +148,9 @@
   ;; Sync package list with Cask file
   (pallet-mode t)
 
+  ;; Use screen as default shell
+  (setq explicit-shell-file-name "/usr/bin/screen")
+
   ;; Set gpg binary & start Emacs pin-entry server
   (setq epg-gpg-program "gpg2")
   (setenv "INSIDE_EMACS" "YES")
