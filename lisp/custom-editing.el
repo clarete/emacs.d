@@ -18,7 +18,7 @@
   "Setup font details."
   (global-font-lock-mode 1)           ;; Always do syntax highlighting
   (transient-mark-mode 1)             ;; Highlight mark region
-  (set-frame-font "Monospace 12" t t) ;; Font face/size
+  (set-frame-font "Monospace 8" t t)  ;; Font face/size
   (global-prettify-symbols-mode 1))   ;; See prettify-symbols-alist
 
 
