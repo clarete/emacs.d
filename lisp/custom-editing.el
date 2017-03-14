@@ -12,6 +12,7 @@
 (require 'auto-complete-config)
 (require 'yasnippet)
 (require 'dropdown-list)                ; yasnippet dependency
+(require 'flycheck)
 
 
 (defun custom-editing-fonts ()
@@ -68,6 +69,10 @@
   (global-flycheck-mode)
   (with-eval-after-load 'flycheck
     (flycheck-pos-tip-mode))
+
+  ;; Find peace with syntax checking when requiring files located in
+  ;; custom paths
+  (setq flycheck-emacs-lisp-load-path 'inherit)
 
   ;; Clipboard shared with the Desktop Environment. I wonder if the
   ;; `exwm' integration would work without this line.
