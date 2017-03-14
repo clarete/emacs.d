@@ -1,7 +1,11 @@
+*~
 .cask
-ac-comphist.dat
+.python-environments/
 auto-save-list/
+eshell/
+url/
+var/
 snippets/*/.yas-compiled-snippets.el
+ac-comphist.dat
 oauth2.plstore
 tramp
-url/cookies
