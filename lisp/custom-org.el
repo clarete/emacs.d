@@ -58,7 +58,7 @@
   (setq org-gcal-client-id (car (custom-auth-url-read-user "google-oauth"))
         org-gcal-client-secret (car (custom-auth-url-read-password "google-oauth"))
         org-gcal-file-alist
-        '(("lincoln@canary.is" . "~/org/Calendar/lincoln@canary.is.org"))))
+        '(("lincoln@clarete.li" . "~/org/Calendar/lincoln@clarete.li.org"))))
 
 
 (defun custom-org ()
