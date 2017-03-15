@@ -179,6 +179,11 @@
 (add-hook 'scala-mode-hook 'custom-modes-prettify-symbols-alist)
 (add-hook 'prog-mode-hook 'flyspell-prog-mode)
 
+(defun custom-modes-pdf-tools ()
+  "Set default for PDF mode."
+  (add-hook 'pdf-view-mode-hook
+            (lambda () (pdf-view-midnight-minor-mode))))
+
 (defun custom-modes-python ()
   "Set defaults for Python tools."
   (jedi:install-server)
@@ -196,6 +201,7 @@
   (custom-modes-html)
   (custom-modes-less)
   (custom-modes-markdown)
+  (custom-modes-pdf-tools)
   (custom-modes-python)
   (custom-modes-sass)
   (custom-modes-term)
