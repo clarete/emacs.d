@@ -12,19 +12,22 @@ ditaaoutd = ${PWD}/contrib/ditaa
 ditaaoutf = $(ditaaoutd)/$(ditafile)
 ditaa     = $(ditaaoutd)/ditaa0_9.jar
 
-$(caskdir):
-	mkdir $@
-$(caskgdir): | $(caskdir)
-	cd $(caskdir) && git clone $(caskgit)
+pumlfile  = plantuml.jar
+pumlurl   = https://downloads.sourceforge.net/project/plantuml/$(pumlfile)
+pumloutd  = ${PWD}/contrib/plantuml
+plantuml  = $(pumloutd)/$(pumlfile)
+
+$(caskdir):; mkdir $@
+$(caskgdir): | $(caskdir); cd $(caskdir) && git clone $(caskgit)
 $(cask): $(caskgdir)
 
-$(ditaaoutd):
-	mkdir -p $@
-$(ditaaoutf): | $(ditaaoutd)
-	cd $(ditaaoutd) && wget $(ditaaurl)
-$(ditaa): $(ditaaoutf)
-	cd $(ditaaoutd) && unzip $^
+$(ditaaoutd):; mkdir -p $@
+$(ditaaoutf): | $(ditaaoutd); cd $(ditaaoutd) && wget $(ditaaurl)
+$(ditaa): $(ditaaoutf); cd $(ditaaoutd) && unzip $^
+
+$(pumloutd):; mkdir -p $@
+$(plantuml): | $(pumloutd); cd $^ && wget $(pumlurl)
 
 .PHONY: dependencies
-dependencies: $(ditaa) $(cask)
+dependencies: $(ditaa) $(plantuml) $(cask)
 	CASK_EMACS=$(caskemacs) $(cask) install

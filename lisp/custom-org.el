@@ -10,6 +10,7 @@
 (require 'org-bullets)
 (require 'org-gcal)
 (require 'ob-ditaa)
+(require 'ob-plantuml)
 (require 'custom-auth)
 
 (defun custom-org-directory-dirs (dir)
@@ -64,13 +65,15 @@
 (defun custom-org-babel ()
   "Setup babel `org-mode' extension."
   (setq org-ditaa-jar-path "~/.emacs.d/contrib/ditaa/ditaa0_9.jar")
+  (setq org-plantuml-jar-path "~/.emacs.d/contrib/plantuml/plantuml.jar")
+  (setq org-confirm-babel-evaluate nil)
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((ditaa . t)
      (dot . t)
-     (emacs-lisp . t)
      (gnuplot . t)
      (latex . t)
+     (plantuml . t)
      (python . t)
      (R . t)
      (ruby . t))))
@@ -78,6 +81,7 @@
 (defun custom-org ()
   "Configuration for the `org-mode'."
   (custom-org-keys)
+  (custom-org-babel)
   (custom-org-utf-8-bullet)
   (custom-org-bullets)
   (custom-org-workflow)
