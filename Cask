@@ -1,3 +1,4 @@
+(source org)
 (source gnu)
 (source melpa)
 
@@ -77,6 +78,7 @@
 (depends-on "org-bullets")
 (depends-on "org-gcal")
 (depends-on "org-jira")
+(depends-on "org-plus-contrib")
 (depends-on "ox-reveal")
 (depends-on "package-build")
 (depends-on "pallet")

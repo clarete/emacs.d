@@ -9,6 +9,7 @@
 (require 'org-agenda)
 (require 'org-bullets)
 (require 'org-gcal)
+(require 'ob-ditaa)
 (require 'custom-auth)
 
 (defun custom-org-directory-dirs (dir)
@@ -60,6 +61,19 @@
         org-gcal-file-alist
         '(("lincoln@clarete.li" . "~/org/Calendar/lincoln@clarete.li.org"))))
 
+(defun custom-org-babel ()
+  "Setup babel `org-mode' extension."
+  (setq org-ditaa-jar-path "~/.emacs.d/contrib/ditaa/ditaa0_9.jar")
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((ditaa . t)
+     (dot . t)
+     (emacs-lisp . t)
+     (gnuplot . t)
+     (latex . t)
+     (python . t)
+     (R . t)
+     (ruby . t))))
 
 (defun custom-org ()
   "Configuration for the `org-mode'."

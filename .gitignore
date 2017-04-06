@@ -9,3 +9,4 @@ snippets/*/.yas-compiled-snippets.el
 ac-comphist.dat
 oauth2.plstore
 tramp
+contrib/
