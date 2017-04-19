@@ -66,7 +66,6 @@
 (depends-on "lua-mode")
 (depends-on "magit")
 (depends-on "magit-popup")
-(depends-on "magithub")
 (depends-on "markdown-mode")
 (depends-on "multiple-cursors")
 (depends-on "muttrc-mode")

@@ -11,7 +11,6 @@
 (require 'less-css-mode)
 (require 'lua-mode)
 (require 'markdown-mode)
-(require 'magithub)
 (require 'muttrc-mode)
 (require 'sass-mode)
 (require 'upstart-mode)
@@ -191,10 +190,6 @@
   (add-hook 'python-mode-hook 'custom-modes-prettify-symbols-alist)
   (add-hook 'python-mode-hook 'jedi:setup))
 
-(defun custom-modes-magithub()
-  "Enable magithub."
-  (magithub-feature-autoinject t))
-
 (defun custom-modes ()
   "Call out all the mode setup functions."
   (custom-modes-map-extensions)
@@ -212,8 +207,7 @@
   (custom-modes-term)
   (custom-modes-vala)
   (custom-modes-yaml)
-  (custom-modes-web)
-  (custom-modes-magithub))
+  (custom-modes-web))
 
 (provide 'custom-modes)
 ;;; custom-modes.el ends here
