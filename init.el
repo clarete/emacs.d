@@ -7,16 +7,19 @@
 ;;
 ;;; Code:
 
+(require 'cask (expand-file-name ".cask/cask/cask.el" user-emacs-directory))
+
 ;; Default path to load lisp files
-(add-to-list 'load-path "~/.emacs.d/site-lisp/")
-(add-to-list 'load-path "~/.emacs.d/lisp/")
+(add-to-list 'load-path (expand-file-name "site-lisp" user-emacs-directory))
+(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 
 ;; Load packages
-(require 'cask "~/.emacs.d/.cask/cask/cask.el")
+(package-initialize)
 (cask-initialize)
 
 ;; Load all the fun modules
 (require 'custom-general)
+(require 'custom-macos)
 (require 'custom-exwm-config)
 (require 'custom-editing)
 (require 'custom-speedbar)
@@ -26,6 +29,7 @@
 (require 'custom-auth)
 
 ;; Initialize all the modules loaded above
+(custom-macos)
 (custom-general)
 (custom-exwm-config)
 (custom-editing)
@@ -33,18 +37,5 @@
 (custom-modes)
 (custom-org)
 (custom-auth)
-
-;; Mac specific stuff
-(when (eq system-type 'darwin)
-  (setq mac-option-modifier 'alt)
-  (setq mac-command-modifier 'meta)
-
-  ;; Loads environment variables from the shell
-  (setq exec-path-from-shell-variables '("GOPATH" "PATH" "MANPATH"))
-  (exec-path-from-shell-initialize)
-
-  ;; sets fn-delete to be right-delete
-  (global-set-key [kp-delete] 'delete-char)
-  (menu-bar-mode 1))
 
 ;;; init.el ends here
