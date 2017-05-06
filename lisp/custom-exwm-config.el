@@ -112,14 +112,15 @@
 
 (defun custom-exwm-config ()
   "Custom configuration of EXWM."
-  (custom-exwm-x11-helpers)
-  (custom-exwm-config-wm-options)
-  (custom-exwm-config-shell-command)
-  (custom-exwm-config-global-keys)
-  (custom-exwm-config-editing-keys)
-  (custom-exwm-randr)
-  (exwm-systemtray-enable)
-  (exwm-enable))
+  (when (not (eq system-type 'darwin))
+    (custom-exwm-x11-helpers)
+    (custom-exwm-config-wm-options)
+    (custom-exwm-config-shell-command)
+    (custom-exwm-config-global-keys)
+    (custom-exwm-config-editing-keys)
+    (custom-exwm-randr)
+    (exwm-systemtray-enable)
+    (exwm-enable)))
 
 
 (provide 'custom-exwm-config)
