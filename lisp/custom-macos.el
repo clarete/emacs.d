@@ -18,7 +18,7 @@
 
     ;; Keys for visiting next & previous windows
     (global-set-key (kbd "<A-tab>") #'other-window)
-    (global-set-key (kbd "<A-iso-lefttab>")
+    (global-set-key (kbd "<A-S-tab>")
                     #'(lambda () (interactive) (other-window -1)))
 
     ;; Loads environment variables from the shell
