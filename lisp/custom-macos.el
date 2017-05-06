@@ -11,10 +11,15 @@
 
 ;; Mac specific stuff
 (defun custom-macos ()
-  "Initialize stuff on macos if Emacs is running on darwin."
+  "Initialize stuff on macos if Emacs is running on Darwin."
   (when (eq system-type 'darwin)
     (setq mac-option-modifier 'alt)
     (setq mac-command-modifier 'meta)
+
+    ;; Keys for visiting next & previous windows
+    (global-set-key (kbd "<A-tab>") #'other-window)
+    (global-set-key (kbd "<A-iso-lefttab>")
+                    #'(lambda () (interactive) (other-window -1)))
 
     ;; Loads environment variables from the shell
     (setq exec-path-from-shell-variables '("GOPATH" "PATH" "MANPATH"))
