@@ -7,6 +7,8 @@
 ;;
 ;;; Code:
 
+(require 'exec-path-from-shell)
+
 ;; Mac specific stuff
 (defun custom-macos ()
   "Initialize stuff on macos if Emacs is running on darwin."
