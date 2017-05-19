@@ -93,7 +93,7 @@
   (add-hook 'exwm-update-title-hook #'custom-exwm-config-buffer-name)
 
   ;; Set the initial workspace number.
-  (setq exwm-workspace-number 4))
+  (setq exwm-workspace-number 5))
 
 
 (defun custom-exwm-x11-helpers ()
