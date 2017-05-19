@@ -151,6 +151,10 @@
   ;; Use screen as default shell
   (setq explicit-shell-file-name "/usr/bin/screen")
 
+  ;; All the custom-set-variables go here
+  (setq custom-file "~/.emacs.d/custom.el")
+  (load custom-file)
+
   ;; Set gpg binary & start Emacs pin-entry server
   (setq epg-gpg-program "gpg2")
   (setenv "INSIDE_EMACS" "YES")
