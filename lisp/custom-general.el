@@ -77,8 +77,8 @@
   (tool-bar-mode 0)
 
   ;; Theme
-  (load-theme 'ample t t)
-  (enable-theme 'ample)
+  (load-theme 'tango-dark t t)
+  (enable-theme 'tango-dark)
 
   ;; Misc
   (column-number-mode)              ;; Basic config for columns
