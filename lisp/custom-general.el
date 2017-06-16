@@ -7,10 +7,40 @@
 ;;
 ;;; Code:
 
-(require 'smart-mode-line)
 (require 'uniquify)
 (require 'tramp) ;; ssh and local `sudo' and `su'
 (require 'pallet)
+(require 'doom-themes)
+(require 'doom-one-theme)
+(require 'spaceline-all-the-icons)
+(require 'org)
+
+(defun custom-general-theme ()
+  "Setup theme stuff."
+  (setq doom-themes-enable-bold t    ; if nil, bolding are universally disabled
+        doom-themes-enable-italic t  ; if nil, italics are universally disabled
+        doom-one-brighter-modeline t
+        doom-one-brighter-comments t)
+
+  (load-theme 'doom-one t)
+
+  ;; brighter source buffers
+  (add-hook 'find-file-hook 'doom-buffer-mode-maybe)
+
+  ;; Enable custom neotree theme
+  (doom-themes-neotree-config)
+
+  ;; More reliable inter-window border. The native border "consumes" a
+  ;; pixel of the fringe on righter-most splits
+  (setq window-divider-default-places t
+        window-divider-default-bottom-width 0
+        window-divider-default-right-width 1)
+  (window-divider-mode +1)
+
+  ;; Necessary for org-mode
+  (setq org-fontify-whole-heading-line t
+        org-fontify-done-headline t
+        org-fontify-quote-and-verse-blocks t))
 
 (defun custom-general-utf-8 ()
   "Configure all known coding variables to use `UTF-8'."
@@ -76,26 +106,21 @@
   (menu-bar-mode 0)
   (tool-bar-mode 0)
 
-  ;; Theme
-  (load-theme 'tango-dark t t)
-  (enable-theme 'tango-dark)
-
   ;; Misc
   (column-number-mode)              ;; Basic config for columns
   (setq ring-bell-function 'ignore) ;; No freaking bell
   (setq inhibit-splash-screen t)    ;; No splash screen
-  (setq inhibit-startup-screen t))
+  (setq inhibit-startup-screen t)
 
-(defun custom-general-mode-line ()
-  "Configure mode-line to use sml."
-  (setq sml/theme 'dark)
-  (setq sml/no-confirm-load-theme t)
-  (sml/setup)
-  (custom-theme-set-faces
-   'smart-mode-line-dark
-   '(mode-line-inactive ((t :foreground "gray80"
-                            :background "#1d1d1d"
-                            :inverse-video nil)))))
+  ;; Spaceline
+  (spaceline-all-the-icons-theme)
+  (setq spaceline-all-the-icons-separator-type 'none)
+  (spaceline-toggle-all-the-icons-time-off)
+  (spaceline-toggle-all-the-icons-projectile-off)
+  (spaceline-toggle-all-the-icons-buffer-path-off)
+  (spaceline-toggle-all-the-icons-buffer-size-off)
+  (spaceline-toggle-all-the-icons-battery-status-off)
+  (spaceline-toggle-all-the-icons-hud-off))
 
 (defun custom-general-navigation ()
   "Configuration for buffer naming."
@@ -164,7 +189,7 @@
   "Call out other general customization functions."
   (custom-general-ui)
   (custom-general-ui-fringe)
-  (custom-general-mode-line)
+  (custom-general-theme)
   (custom-general-utf-8)
   (custom-general-navigation)
   (custom-general-keys)
