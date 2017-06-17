@@ -19,7 +19,7 @@
   "Check battery every 5 seconds and play a sound if it's low."
   (let ((percentage (string-to-number (custom-battery-fmt "%p")))
         (status (custom-battery-fmt "%B")))
-    (if (and (< percentage custom-battery-min-level)
+    (if (and (<= percentage custom-battery-min-level)
              (equal status "Discharging"))
         (progn
           (message "battery too low")
