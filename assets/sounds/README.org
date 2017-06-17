@@ -1,0 +1,5 @@
+* beep.wav
+  * Source: http://soundbible.com/1133-Beep-Ping.html
+  * Title: Beep Ping
+  * License: Creative Commons Attribution 3.0
+  * Recorded by: Mike Koenig

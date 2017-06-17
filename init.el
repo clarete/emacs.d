@@ -27,6 +27,7 @@
 (require 'custom-interactive)
 (require 'custom-org)
 (require 'custom-auth)
+(require 'custom-battery)
 
 ;; Initialize all the modules loaded above
 (custom-macos)
@@ -37,5 +38,6 @@
 (custom-modes)
 (custom-org)
 (custom-auth)
+(custom-battery)
 
 ;;; init.el ends here
