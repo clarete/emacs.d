@@ -32,7 +32,11 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((((class color) (min-colors 257)) (:background "#21242b" :foreground "#bbc2cf")) (((class color) (min-colors 256)) (:background nil :foreground "#bfbfbf")) (((class color) (min-colors 16)) (:background nil :foreground "brightwhite"))))
+ '(default ((((class color) (min-colors 257)) (:background nil :foreground "#bbc2cf")) (((class color) (min-colors 256)) (:background nil :foreground "#bfbfbf")) (((class color) (min-colors 16)) (:background nil :foreground "brightwhite"))))
+ '(org-block ((t (:background nil))))
+ '(org-block-begin-line ((t (:background nil))))
+ '(org-block-end-line ((t (:background nil))))
+ '(org-ellipsis ((t (:foreground "#a9a1e1" :underline nil :background nil))))
  '(org-level-1 ((t (:background "transparent" :foreground "#51afef" :weight normal :height 1.0))))
  '(org-level-2 ((t (:inherit org-level-1 :foreground "#a9a1e1" :height 1.0))))
  '(org-level-3 ((t (:weight normal)))))
