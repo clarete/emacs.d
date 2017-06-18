@@ -16,6 +16,7 @@
 (require 'upstart-mode)
 (require 'yaml-mode)
 (require 'web-mode)
+(require 'pdf-view)
 
 (defun custom-modes-map-extensions ()
   "Map file extensions to modes."
@@ -55,8 +56,6 @@
 
 (defun custom-modes-css ()
   "Custom settings for CSS files when not using web-mode."
-  (setq cssm-indent-function #'cssm-c-style-indenter)
-  (setq cssm-indent-level 4)
 
   (defun hexcolour-add-to-font-lock ()
     "Configure colors for hex numbers in CSS files."
@@ -145,8 +144,7 @@
   (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
-  (setq web-mode-content-types-alist
-        '(("jsx" . "\\.js[x]?\\'")))
+  (setq web-mode-content-types-alist '(("jsx" . "\\.js[x]?\\'")))
   (add-hook
    'web-mode-hook
    '(lambda ()
