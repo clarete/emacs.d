@@ -21,21 +21,21 @@
 (require 'custom-general)
 (require 'custom-macos)
 (require 'custom-exwm-config)
-(require 'custom-editing)
 (require 'custom-modes)
 (require 'custom-interactive)
 (require 'custom-org)
 (require 'custom-auth)
 (require 'custom-battery)
+(require 'custom-editing)
 
 ;; Initialize all the modules loaded above
 (custom-macos)
 (custom-general)
 (custom-exwm-config)
-(custom-editing)
 (custom-modes)
 (custom-org)
 (custom-auth)
 (custom-battery)
+(custom-editing)
 
 ;;; init.el ends here
