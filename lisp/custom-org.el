@@ -16,7 +16,10 @@
 (defun custom-org-directory-dirs (dir)
   "List directories recursively inside of DIR."
   (let ((dirs (delq nil
-                    (mapcar (lambda (p) (and (file-directory-p p) p))
+                    (mapcar (lambda (p) (and
+                                    (file-directory-p p)
+                                    (not (string-prefix-p "_" (file-name-nondirectory p)))
+                                    p))
                             (directory-files
                              dir t directory-files-no-dot-files-regexp)))))
     (push (expand-file-name dir) dirs)))
@@ -88,7 +91,6 @@
   (setq org-agenda-files (custom-org-directory-dirs "~/org"))
   (setq org-log-done t)
   (setq org-agenda-sticky t))
-
 
 (provide 'custom-org)
 ;;; custom-org.el ends here
