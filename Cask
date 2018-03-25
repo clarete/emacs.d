@@ -3,6 +3,7 @@
 (source melpa)
 
 (depends-on "alert")
+(depends-on "all-the-icons-dired")
 (depends-on "ample-theme")
 (depends-on "ascii")
 (depends-on "async")

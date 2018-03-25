@@ -7,10 +7,12 @@
 ;;
 ;;; Code:
 
+(require 'dired-x)
 (require 'uniquify)
 (require 'tramp) ;; ssh and local `sudo' and `su'
 (require 'pallet)
 (require 'spaceline-all-the-icons)
+(require 'all-the-icons-dired)
 (require 'org)
 
 (defun custom-general-theme ()
@@ -102,6 +104,14 @@
   (setq ring-bell-function 'ignore) ;; No freaking bell
   (setq inhibit-splash-screen t)    ;; No splash screen
   (setq inhibit-startup-screen t)
+
+  ;; Some configuration for dired: icons & sort order
+  (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
+  (setq dired-listing-switches "-aBhl  --group-directories-first")
+
+  ;; Omit dot files in dired by default
+  (setq-default dired-omit-files-p t) ; Buffer-local variable
+  (setq dired-omit-files (concat dired-omit-files "\\|^\\..+$"))
 
   ;; Spaceline
   (spaceline-all-the-icons-theme)
