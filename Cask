@@ -24,7 +24,6 @@
 (depends-on "docker")
 (depends-on "docker-tramp")
 (depends-on "dockerfile-mode")
-(depends-on "doom-themes")
 (depends-on "drag-stuff")
 (depends-on "dropdown-list")
 (depends-on "elscreen")

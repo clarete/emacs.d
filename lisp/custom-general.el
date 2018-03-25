@@ -10,25 +10,16 @@
 (require 'uniquify)
 (require 'tramp) ;; ssh and local `sudo' and `su'
 (require 'pallet)
-(require 'doom-themes)
-(require 'doom-one-theme)
 (require 'spaceline-all-the-icons)
 (require 'org)
 
 (defun custom-general-theme ()
   "Setup theme stuff."
-  (setq doom-themes-enable-bold t    ; if nil, bolding are universally disabled
-        doom-themes-enable-italic t  ; if nil, italics are universally disabled
-        doom-one-brighter-modeline t
-        doom-one-brighter-comments t)
 
-  (load-theme 'doom-one t)
-
-  ;; brighter source buffers
-  (add-hook 'find-file-hook 'doom-buffer-mode-maybe)
-
-  ;; Enable custom neotree theme
-  (doom-themes-neotree-config)
+  (load-theme 'deeper-blue t)
+  (set-face-attribute 'fringe nil
+                      :foreground (face-foreground 'default)
+                      :background (face-background 'default))
 
   ;; More reliable inter-window border. The native border "consumes" a
   ;; pixel of the fringe on righter-most splits
