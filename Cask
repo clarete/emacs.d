@@ -111,7 +111,6 @@
 (depends-on "shut-up")
 (depends-on "smartparens")
 (depends-on "smex")
-(depends-on "spaceline-all-the-icons")
 (depends-on "sr-speedbar")
 (depends-on "symon")
 (depends-on "tablist")

@@ -11,7 +11,6 @@
 (require 'uniquify)
 (require 'tramp) ;; ssh and local `sudo' and `su'
 (require 'pallet)
-(require 'spaceline-all-the-icons)
 (require 'all-the-icons-dired)
 (require 'org)
 
@@ -111,17 +110,7 @@
 
   ;; Omit dot files in dired by default
   (setq-default dired-omit-files-p t) ; Buffer-local variable
-  (setq dired-omit-files (concat dired-omit-files "\\|^\\..+$"))
-
-  ;; Spaceline
-  (spaceline-all-the-icons-theme)
-  (setq spaceline-all-the-icons-separator-type 'none)
-  (spaceline-toggle-all-the-icons-time-off)
-  (spaceline-toggle-all-the-icons-projectile-off)
-  (spaceline-toggle-all-the-icons-buffer-path-off)
-  (spaceline-toggle-all-the-icons-buffer-size-off)
-  (spaceline-toggle-all-the-icons-battery-status-off)
-  (spaceline-toggle-all-the-icons-hud-off))
+  (setq dired-omit-files (concat dired-omit-files "\\|^\\..+$")))
 
 (defun custom-general-navigation ()
   "Configuration for buffer naming."
