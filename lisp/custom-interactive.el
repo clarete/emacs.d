@@ -2,7 +2,7 @@
 ;;
 ;;; Commentary:
 ;;
-;; Copyright (C) 2012-2016  Lincoln de Sousa <lincoln@comum.org>
+;; Copyright (C) 2012-2019  Lincoln de Sousa <lincoln@comum.org>
 ;;
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -98,6 +98,27 @@
                (list (getenv "HOME") "tmp")
                "")
     name)))
+
+
+(defun li/buffer-mode-as-str (b)
+  "Return the mode of buffer B as a string."
+  (with-current-buffer b
+    (concat (format-mode-line mode-name nil nil b)
+	    (if mode-line-process
+	        (format-mode-line mode-line-process
+			          nil nil b)))))
+
+(defun li/dead-process-p (b)
+  "Return #t if B contain a dead shell process."
+  (equal (li/buffer-mode-as-str b) "Shell:no process"))
+
+
+(defun li/clean-dead-process-buffers ()
+  "Close all buffers with dead processes."
+  (interactive)
+  (mapcar #'kill-buffer
+          (remove-if-not #'li/dead-process-p (buffer-list))))
+
 
 ;;;; Tests
 
