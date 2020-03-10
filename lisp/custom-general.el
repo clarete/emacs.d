@@ -17,9 +17,12 @@
 (defun custom-general-theme ()
   "Setup theme stuff."
 
-  (load-theme 'deeper-blue t)
+  (load-theme 'gruvbox t)
   (set-face-attribute 'fringe nil
                       :foreground (face-foreground 'default)
+                      :background (face-background 'default))
+  (set-face-attribute 'linum nil
+                      :foreground (face-foreground 'font-lock-comment-face)
                       :background (face-background 'default))
 
   ;; More reliable inter-window border. The native border "consumes" a
