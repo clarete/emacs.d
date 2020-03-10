@@ -20,9 +20,13 @@
   (global-font-lock-mode 1)           ;; Always do syntax highlighting
   (transient-mark-mode 1)             ;; Highlight mark region
   (global-prettify-symbols-mode 1)    ;; See prettify-symbols-alist
-  (let ((my-font "Monospace 8"))      ;; Font face & size
-    (set-frame-font my-font t t)
-    (set-face-attribute 'default nil :font my-font)))
+  (let ((myfont "FantasqueSansMono")) ;; Font face
+    (set-frame-font myfont t t)
+    (set-face-attribute 'default nil
+                        :family myfont
+                        :height 100
+                        :weight 'normal
+                        :width 'normal)))
 
 
 (defun custom-editing-line-numbers ()
