@@ -24,7 +24,7 @@
     (set-frame-font myfont t t)
     (set-face-attribute 'default nil
                         :family myfont
-                        :height 100
+                        :height 120
                         :weight 'normal
                         :width 'normal)))
 
