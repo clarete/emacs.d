@@ -173,10 +173,9 @@
   (setq custom-file "~/.emacs.d/custom.el")
   (load custom-file)
 
-  ;; Set gpg binary & start Emacs pin-entry server
-  (setq epg-gpg-program "gpg2")
-  (setenv "INSIDE_EMACS" "YES")
-  (pinentry-start))
+  (setq tramp-auto-save-directory "/tmp")
+  (defvar disable-tramp-backups '(all)))
+
 
 (defun custom-general ()
   "Call out other general customization functions."
