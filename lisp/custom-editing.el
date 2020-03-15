@@ -84,6 +84,12 @@
   ;; `exwm' integration would work without this line.
   (setq select-enable-clipboard t))
 
+(defun custom-multiple-cursors()
+  "Setup multiple-cursor."
+  (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+  (global-set-key (kbd "C->") 'mc/mark-next-like-this)
+  (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+  (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this))
 
 (defun custom-editing ()
   "Call out other editing customization functions."
@@ -91,7 +97,8 @@
   (custom-editing-line-numbers)
   (custom-editing-auto-complete)
   (custom-editing-code-snippets)
-  (custom-editing-misc))
+  (custom-editing-misc)
+  (custom-multiple-cursors))
 
 
 (provide 'custom-editing)
