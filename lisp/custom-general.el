@@ -13,6 +13,7 @@
 (require 'pallet)
 (require 'all-the-icons-dired)
 (require 'org)
+(require 'dimmer)
 
 (defun custom-general-theme ()
   "Setup theme stuff."
@@ -174,8 +175,11 @@
   (load custom-file)
 
   (setq tramp-auto-save-directory "/tmp")
-  (defvar disable-tramp-backups '(all)))
+  (defvar disable-tramp-backups '(all))
 
+  ;; Configure dimming of the buffers that are not active.
+  (dimmer-mode t)
+  (setq dimmer-fraction 0.5))
 
 (defun custom-general ()
   "Call out other general customization functions."
