@@ -31,12 +31,6 @@
   (interactive)
   (shell-command "~/bin/suspend"))
 
-(defun chromium ()
-  "Start chromium."
-  (interactive)
-  (async-shell-command
-   "chromium-browser --force-device-scale-factor=2"))
-
 (defun nth-format (day)
   "Return proper nth formatting for a given `DAY'."
   (pcase day
