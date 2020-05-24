@@ -11,7 +11,6 @@
 (require 'auto-complete)
 (require 'auto-complete-config)
 (require 'yasnippet)
-(require 'dropdown-list)                ; yasnippet dependency
 (require 'flycheck)
 
 
@@ -48,7 +47,6 @@
 
 (defun custom-editing-code-snippets ()
   "Configuration for yasnippets."
-  (setq yas-prompt-functions '(yas-dropdown-prompt))
   (yas-load-directory "~/.emacs.d/snippets")
   (yas-global-mode 1))
 
