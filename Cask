@@ -100,6 +100,7 @@
 (depends-on "memoize")
 (depends-on "multiple-cursors")
 (depends-on "mustache")
+(depends-on "mutt-mode")
 (depends-on "neotree")
 (depends-on "nginx-mode")
 (depends-on "notmuch")
