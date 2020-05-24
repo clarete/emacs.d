@@ -19,6 +19,7 @@
 (require 'pdf-view)
 (require 'js2-mode)
 (require 'prettier-js)
+(require 'rainbow-delimiters)
 
 
 (defun custom-modes-map-extensions ()
@@ -186,6 +187,7 @@
 (add-hook 'erlang-mode-hook 'custom-modes-prettify-symbols-alist)
 (add-hook 'scala-mode-hook 'custom-modes-prettify-symbols-alist)
 (add-hook 'prog-mode-hook 'flyspell-prog-mode)
+(add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
 
 (defun custom-modes-pdf-tools ()
   "Set default for PDF mode."
