@@ -53,19 +53,19 @@
 
 (defun custom-exwm-config-editing-keys ()
   "Configure Line-editing shortcuts for X11 apps."
-  (exwm-input-set-simulation-keys
-   '(([?\C-b] . left)
-     ([?\C-f] . right)
-     ([?\C-p] . up)
-     ([?\C-n] . down)
-     ([?\C-a] . home)
-     ([?\C-e] . end)
-     ([?\M-v] . prior)
-     ([?\C-v] . next)
-     ([?\C-d] . delete)
-     ([?\C-y] . 22)                     ; Paste
-     ([?\M-w] . 3)                      ; Copy
-     ([?\C-k] . (S-end 24)))))          ; Select til the end & Cut
+  (setq exwm-input-simulation-keys
+        '(([?\C-b] . left)
+          ([?\C-f] . right)
+          ([?\C-p] . up)
+          ([?\C-n] . down)
+          ([?\C-a] . home)
+          ([?\C-e] . end)
+          ([?\M-v] . prior)
+          ([?\C-v] . next)
+          ([?\C-d] . delete)
+          ([?\C-y] . 22)                     ; Paste
+          ([?\M-w] . 3)                      ; Copy
+          ([?\C-k] . (S-end 24)))))          ; Select til the end & Cut
 
 
 (defun custom-exwm-config-shell-command ()
