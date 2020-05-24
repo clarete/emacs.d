@@ -96,7 +96,6 @@
 (depends-on "lua-mode")
 (depends-on "lv")
 (depends-on "magit")
-(depends-on "magit-popup")
 (depends-on "markdown-mode")
 (depends-on "memoize")
 (depends-on "multiple-cursors")
