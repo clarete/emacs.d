@@ -198,6 +198,11 @@
   "Set defaults for Lua code."
   (setq lua-indent-level 2))
 
+(defun custom-modes-rust ()
+  "Set defaults for Rust code."
+  (with-eval-after-load 'rust-mode
+    (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)))
+
 (defun custom-modes ()
   "Call out all the mode setup functions."
   (custom-modes-lua)
@@ -212,6 +217,7 @@
   (custom-modes-markdown)
   (custom-modes-pdf-tools)
   (custom-modes-python)
+  (custom-modes-rust)
   (custom-modes-sass)
   (custom-modes-term)
   (custom-modes-vala)
