@@ -1,4 +1,5 @@
-;;; custom-exwm-config.el --- EXWM configuration
+;;; lc-exwm.el --- EXWM configuration
+;;
 ;;; Commentary:
 ;;
 ;; Personalized configuration for EXWM
@@ -9,7 +10,7 @@
 (require 'exwm-randr)
 (require 'exwm-systemtray)
 
-(defun custom-exwm-config-global-keys ()
+(defun lc/exwm/global-keys ()
   "Configure Keybindings for exwm."
 
   ;; Bind window cycling to Meta-Tab & Meta-Shift-Tab
@@ -51,7 +52,7 @@
                         (start-process-shell-command command nil command))))
 
 
-(defun custom-exwm-config-editing-keys ()
+(defun lc/exwm/editing-keys ()
   "Configure Line-editing shortcuts for X11 apps."
   (setq exwm-input-simulation-keys
         '(([?\C-b] . left)
@@ -68,7 +69,7 @@
           ([?\C-k] . (S-end 24)))))          ; Select til the end & Cut
 
 
-(defun custom-exwm-config-shell-command ()
+(defun lc/exwm/shell-command ()
   "Configure Async Shell Command buffer options."
 
   ;; Don't ask if a new buffer should be created. Just do it!
@@ -80,29 +81,29 @@
    '(".*Async Shell Command.*" (display-buffer-no-window))))
 
 
-(defun custom-exwm-config-buffer-name ()
+(defun lc/exwm/buffer-name ()
   "Rename buffer according to WM_CLASS and WM_NAME (or _NET_WM_NAME)."
   (exwm-workspace-rename-buffer (concat exwm-class-name " - " exwm-title)))
 
 
-(defun custom-exwm-config-wm-options ()
+(defun lc/exwm/wm-options ()
   "Set misc Window Manager options."
 
   ;; Make class name the buffer name
-  (add-hook 'exwm-update-class-hook #'custom-exwm-config-buffer-name)
-  (add-hook 'exwm-update-title-hook #'custom-exwm-config-buffer-name)
+  (add-hook 'exwm-update-class-hook #'lc/exwm/buffer-name)
+  (add-hook 'exwm-update-title-hook #'lc/exwm/buffer-name)
 
   ;; Set the initial workspace number.
   (setq exwm-workspace-number 6))
 
 
-(defun custom-exwm-x11-helpers ()
+(defun lc/exwm/x11-helpers ()
   "Setup Desktop Background & X11 Key mapping."
   (shell-command "xsetroot -default && xmodmap ~/.Xmodmap")
   (shell-command "xbindkeys"))
 
 
-(defun custom-exwm-randr ()
+(defun lc/exwm/randr ()
   "Setup xrandr defaults."
   ;; Workspace 0 is locked in the laptop screen (eDP-1). All the other
   ;; workspaces go to external monitor (DP-1) when connected.
@@ -119,18 +120,18 @@
   (exwm-randr-enable))
 
 
-(defun custom-exwm-config ()
+(defun lc/exwm ()
   "Custom configuration of EXWM."
   (when (not (eq system-type 'darwin))
-    (custom-exwm-x11-helpers)
-    (custom-exwm-config-wm-options)
-    (custom-exwm-config-shell-command)
-    (custom-exwm-config-global-keys)
-    (custom-exwm-config-editing-keys)
-    (custom-exwm-randr)
+    (lc/exwm/x11-helpers)
+    (lc/exwm/wm-options)
+    (lc/exwm/shell-command)
+    (lc/exwm/global-keys)
+    (lc/exwm/editing-keys)
+    (lc/exwm/randr)
     (exwm-systemtray-enable)
     (exwm-enable)))
 
 
-(provide 'custom-exwm-config)
-;;; custom-exwm-config ends here
+(provide 'lc-exwm)
+;;; lc-exwm ends here

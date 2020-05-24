@@ -15,7 +15,7 @@
 (require 'org)
 (require 'dimmer)
 
-(defun custom-general-theme ()
+(defun lc/general/theme ()
   "Setup theme stuff."
 
   (load-theme 'gruvbox t)
@@ -38,7 +38,7 @@
         org-fontify-done-headline t
         org-fontify-quote-and-verse-blocks t))
 
-(defun custom-general-utf-8 ()
+(defun lc/general/utf-8 ()
   "Configure all known coding variables to use `UTF-8'."
   (prefer-coding-system 'utf-8)
   (setq locale-coding-system 'utf-8)
@@ -48,7 +48,7 @@
   (set-keyboard-coding-system 'utf-8)
   (set-selection-coding-system 'utf-8))
 
-(defun custom-general-ui-fringe ()
+(defun lc/general/ui-fringe ()
   "Configure the Fringe area."
 
   ;; Custom bitmap to be shown in the fringe area for lines with any
@@ -93,7 +93,7 @@
   ;; Finally, enable the fringe mode
   (fringe-mode 1))
 
-(defun custom-general-ui ()
+(defun lc/general/ui ()
   "General UI configuration."
 
   ;; No bars. Doing this first to avoid showing/hidding delay on start
@@ -116,7 +116,7 @@
   (setq-default dired-omit-files-p t) ; Buffer-local variable
   (setq dired-omit-files (concat dired-omit-files "\\|^\\..+$")))
 
-(defun custom-general-navigation ()
+(defun lc/general/navigation ()
   "Configuration for buffer naming."
 
   ;; Unique buffer names
@@ -130,7 +130,7 @@
               '(buffer-file-name "%f" (dired-directory
                                        dired-directory "%b")))))
 
-(defun custom-general-keys ()
+(defun lc/general/keys ()
   "Configure global key bindings."
 
   ;; comments
@@ -150,7 +150,7 @@
   (global-set-key
    [(meta k)] '(lambda () (interactive) (scroll-other-window -1))))
 
-(defun custom-general-misc ()
+(defun lc/general/misc ()
   "Miscellaneous settings and start up actions."
   (setq default-directory "~/") ;; There's no place like home
   (server-mode)
@@ -181,15 +181,15 @@
   (dimmer-mode t)
   (setq dimmer-fraction 0.5))
 
-(defun custom-general ()
+(defun lc/general ()
   "Call out other general customization functions."
-  (custom-general-ui)
-  (custom-general-ui-fringe)
-  (custom-general-theme)
-  (custom-general-utf-8)
-  (custom-general-navigation)
-  (custom-general-keys)
-  (custom-general-misc))
+  (lc/general/ui)
+  (lc/general/ui-fringe)
+  (lc/general/theme)
+  (lc/general/utf-8)
+  (lc/general/navigation)
+  (lc/general/keys)
+  (lc/general/misc))
 
-(provide 'custom-general)
-;;; custom-general.el ends here
+(provide 'lc-general)
+;;; lc-general.el ends here

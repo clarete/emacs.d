@@ -1,7 +1,9 @@
-;;; custom-org.el --- Setup for org-mode
+;;; lc-org.el --- Setup for org-mode
+;;
+;;
 ;;; Commentary:
 ;;
-;; Copyright (C) 2016  Lincoln de Sousa <lincoln@comum.org>
+;; Copyright (C) 2016-2020  Lincoln de Sousa <lincoln@clarete.li>
 ;;
 ;;; Code:
 
@@ -11,9 +13,9 @@
 (require 'org-gcal)
 (require 'ob-ditaa)
 (require 'ob-plantuml)
-(require 'custom-auth)
 
-(defun custom-org-directory-dirs (dir)
+
+(defun lc/org/directory-dirs (dir)
   "List directories recursively inside of DIR."
   (let ((dirs (delq nil
                     (mapcar (lambda (p) (and
@@ -25,7 +27,7 @@
     (push (expand-file-name dir) dirs)))
 
 
-(defun custom-org-utf-8-bullet ()
+(defun lc/org/utf-8-bullet ()
   "Replace asterisk chars with sexy UTF-8 Bullets."
   (font-lock-add-keywords
    'org-mode
@@ -34,19 +36,19 @@
            (compose-region (match-beginning 1) (match-end 1) "•")))))))
 
 
-(defun custom-org-keys ()
+(defun lc/org/keys ()
   "Key bindings for the `org-mode'."
   (define-key global-map "\C-cl" 'org-store-link)
   (define-key global-map "\C-ca" 'org-agenda))
 
 
-(defun custom-org-bullets ()
+(defun lc/org/bullets ()
   "Enable and configure `org-bullets' with custom icons."
   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
   (setq org-bullets-bullet-list '("▶" "▸" "▹" "▹" "▹" "▹")))
 
 
-(defun custom-org-workflow ()
+(defun lc/org/workflow ()
   "Set a kanban-ish workflow for managing TODO items."
   (setq org-todo-keywords
     '((sequence "TODO" "DOING" "BLOCKED" "|" "DONE" "ARCHIVED")))
@@ -58,14 +60,17 @@
           ("ARCHIVED" .  "blue"))))
 
 
-(defun custom-org-setup-gcal ()
-  "Setup Google Calendar integration."
-  (setq org-gcal-client-id (car (custom-auth-url-read-user "google-oauth"))
-        org-gcal-client-secret (car (custom-auth-url-read-password "google-oauth"))
-        org-gcal-file-alist
-        '(("lincoln@clarete.li" . "~/org/Calendar/lincoln@clarete.li.org"))))
+;; TODO: Migrate to password-store
+;;
+;; (defun lc/org/setup-gcal ()
+;;   "Setup Google Calendar integration."
+;;   (setq org-gcal-client-id (car (custom-auth-url-read-user "google-oauth"))
+;;         org-gcal-client-secret (car (custom-auth-url-read-password "google-oauth"))
+;;         org-gcal-file-alist
+;;         '(("lincoln@clarete.li" . "~/org/Calendar/lincoln@clarete.li.org"))))
 
-(defun custom-org-babel ()
+
+(defun lc/org/babel ()
   "Setup babel `org-mode' extension."
   (setq org-ditaa-jar-path "~/.emacs.d/contrib/ditaa/ditaa0_9.jar")
   (setq org-plantuml-jar-path "~/.emacs.d/contrib/plantuml/plantuml.jar")
@@ -81,16 +86,18 @@
      ;(R . t)
      (ruby . t))))
 
-(defun custom-org ()
+
+(defun lc/org ()
   "Configuration for the `org-mode'."
-  (custom-org-keys)
-  (custom-org-babel)
-  (custom-org-utf-8-bullet)
-  (custom-org-bullets)
-  (custom-org-workflow)
-  (setq org-agenda-files (custom-org-directory-dirs "~/org"))
+  (lc/org/keys)
+  (lc/org/babel)
+  (lc/org/utf-8-bullet)
+  (lc/org/bullets)
+  (lc/org/workflow)
+  (setq org-agenda-files (lc/org/directory-dirs "~/org"))
   (setq org-log-done t)
   (setq org-agenda-sticky t))
 
-(provide 'custom-org)
-;;; custom-org.el ends here
+
+(provide 'lc-org)
+;;; lc-org.el ends here

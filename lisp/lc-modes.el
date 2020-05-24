@@ -1,4 +1,4 @@
-;;; custom-modes.el --- Configuration for Modes
+;;; lc-modes.el --- Configuration for Modes
 ;;
 ;;; Commentary:
 ;;
@@ -22,7 +22,7 @@
 (require 'rainbow-delimiters)
 
 
-(defun custom-modes-map-extensions ()
+(defun lc/modes/map-extensions ()
   "Map file extensions to modes."
   (add-to-list 'auto-mode-alist '("Vagrantfile$" . ruby-mode))
   (add-to-list 'auto-mode-alist '("\\.php$" . php-mode))
@@ -30,7 +30,7 @@
   ;; Mac OS X .plist files
   (add-to-list 'auto-mode-alist '("\\.plist$" . xml-mode)))
 
-(defun custom-modes-coffe-script ()
+(defun lc/modes/coffe-script ()
   "Coffe-script mode setup."
   (add-to-list 'auto-mode-alist '("\\.coffee$" . coffee-mode))
   (add-to-list 'auto-mode-alist '("Cakefile" . coffee-mode))
@@ -39,7 +39,7 @@
    '(lambda() (set (make-local-variable 'tab-width) 2))))
 
 
-(defun custom-modes-pug ()
+(defun lc/modes/pug ()
   "Configuration for pug-mode."
   (setq pug-tab-width 2)
   (add-hook
@@ -48,7 +48,7 @@
 
 
 ;; Set CSS colors with themselves
-(defvar custom-modes-hexcolour-keywords
+(defvar lc/modes/hexcolour-keywords
   '(("#[abcdef[:digit:]]\\{6\\}"
      (0 (put-text-property
          (match-beginning 0)
@@ -56,17 +56,17 @@
          'face (list :foreground
                      (match-string-no-properties 0)))))))
 
-(defun custom-modes-css ()
+(defun lc/modes/css ()
   "Custom settings for CSS files when not using web-mode."
 
   (defun hexcolour-add-to-font-lock ()
     "Configure colors for hex numbers in CSS files."
     (font-lock-add-keywords
-     nil custom-modes-hexcolour-keywords))
+     nil lc/modes/hexcolour-keywords))
   (add-hook 'css-mode-hook 'hexcolour-add-to-font-lock))
 
 
-(defun custom-modes-diff ()
+(defun lc/modes/diff ()
   "Diff mode configuration."
   (eval-after-load "diff-mode"
     '(lambda ()
@@ -78,24 +78,24 @@
         'diff-changed nil :foreground "purple"))))
 
 
-(defun custom-modes-erlang ()
+(defun lc/modes/erlang ()
   "Configuration for the Erlang mode."
   (add-hook 'erlang-mode-hook (lambda() (setq indent-tabs-mode nil)))
   (add-to-list 'auto-mode-alist '("\\.erl$" . erlang-mode)))
 
 
-(defun custom-modes-html ()
+(defun lc/modes/html ()
   "Configuration for `html-mode'."
   (add-hook 'html-mode-hook (lambda() (setq sgml-basic-offset 4))))
 
 
-(defun custom-modes-less ()
+(defun lc/modes/less ()
   "Less mode configuration."
   (add-to-list 'auto-mode-alist '("\\.less$" . less-css-mode))
   (setq less-css-compile-at-save nil))
 
 
-(defun custom-modes-markdown ()
+(defun lc/modes/markdown ()
   "Markdown mode configuration."
   (autoload 'markdown-mode "markdown-mode.el"
     "Major mode for editing Markdown files" t)
@@ -103,14 +103,14 @@
   (add-hook 'markdown-mode-hook '(lambda() (flyspell-mode))))
 
 
-(defun custom-modes-sass ()
+(defun lc/modes/sass ()
   "Custom setup for the sass-mode."
   (add-to-list 'auto-mode-alist '("\\.sass$" . sass-mode))
   (add-to-list 'auto-mode-alist '("\\.scss$" . sass-mode))
   (setq sass-indent-offset 4))
 
 
-(defun custom-modes-term ()
+(defun lc/modes/term ()
   "Disable `yas' on `term-mode'."
   (add-hook
    'term-mode-hook
@@ -121,7 +121,7 @@
        :append :local))))
 
 
-(defun custom-modes-vala ()
+(defun lc/modes/vala ()
   "Setup Vala specific configuration."
   (autoload 'vala-mode "vala-mode"
     "Major mode for editing Vala code." t)
@@ -131,14 +131,14 @@
   (add-to-list 'file-coding-system-alist '("\\.vapi$" . utf-8)))
 
 
-(defun custom-modes-yaml ()
+(defun lc/modes/yaml ()
   "Configuration for yaml-mode."
   (add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
   ;; Salt Stack Files
   (add-to-list 'auto-mode-alist '("\\.sls$" . yaml-mode)))
 
 
-(defun custom-modes-web ()
+(defun lc/modes/web ()
   "Configuration for web-mode."
   (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
   (add-to-list 'auto-mode-alist '("\\.js\\'" . js-jsx-mode))
@@ -164,6 +164,7 @@
       (setq web-mode-code-indent-offset 2)
       (setq web-mode-enable-current-element-highlight t)
       (setq web-mode-enable-current-column-highlight t)
+      ;(prettier-js-mode)
       (set-face-attribute 'web-mode-doctype-face nil :foreground
                           (face-foreground font-lock-function-name-face))
       (set-face-attribute 'web-mode-html-attr-name-face nil :foreground
@@ -171,40 +172,40 @@
       (set-face-attribute 'web-mode-html-attr-value-face nil :foreground
                           (face-foreground font-lock-type-face)))))
 
-
-(defun custom-modes-prettify-symbols-alist ()
+(defun lc/modes/prettify-symbols-alist ()
   "Use some unicode characters to prettify some symbols."
-  (setq prettify-symbols-alist
-        '(("lambda" . ?λ)
-          ("<-" . ?⇐)
-          ("->" . ?⇒)
-          ("<=" . ?⤆)
-          ("=>" . ?⤇)
-          ("<=" . ?≤)
-          (">=" . ?≥))))
+  ;; (setq prettify-symbols-alist
+  ;;       '(("lambda" . ?λ)
+  ;;         ("<-" . ?⇐)
+  ;;         ("->" . ?⇒)
+  ;;         ("<=" . ?⤆)
+  ;;         ("=>" . ?⤇)
+  ;;         ("<=" . ?≤)
+  ;;         (">=" . ?≥)))
+  )
 
-(add-hook 'go-mode-hook 'custom-modes-prettify-symbols-alist)
-(add-hook 'erlang-mode-hook 'custom-modes-prettify-symbols-alist)
-(add-hook 'scala-mode-hook 'custom-modes-prettify-symbols-alist)
-(add-hook 'prog-mode-hook 'flyspell-prog-mode)
+(add-hook 'go-mode-hook 'lc/modes/prettify-symbols-alist)
+(add-hook 'erlang-mode-hook 'lc/modes/prettify-symbols-alist)
+(add-hook 'scala-mode-hook 'lc/modes/prettify-symbols-alist)
+;(add-hook 'prog-mode-hook 'flyspell-prog-mode)
 (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
 
-(defun custom-modes-pdf-tools ()
+(defun lc/modes/pdf-tools ()
   "Set default for PDF mode."
   (add-hook 'pdf-view-mode-hook
             (lambda () (pdf-view-midnight-minor-mode))))
 
-(defun custom-modes-python ()
+(defun lc/modes/python ()
   "Set defaults for Python tools."
   (jedi:install-server)
-  (add-hook 'python-mode-hook 'custom-modes-prettify-symbols-alist)
+  (add-hook 'python-mode-hook 'lc/modes/prettify-symbols-alist)
   (add-hook 'python-mode-hook 'jedi:setup))
 
-(defun custom-modes-lua ()
+(defun lc/modes/lua ()
   "Set defaults for Lua code."
   (setq lua-indent-level 2))
 
-(defun custom-modes-rust ()
+(defun lc/modes/rust ()
   "Set defaults for Rust code."
   (with-eval-after-load 'rust-mode
     (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)))
@@ -215,26 +216,26 @@
   nil " sticky" nil
   (set-window-dedicated-p (selected-window) sticky-buffer-mode))
 
-(defun custom-modes ()
+(defun lc/modes ()
   "Call out all the mode setup functions."
-  (custom-modes-lua)
-  (custom-modes-map-extensions)
-  (custom-modes-coffe-script)
-  (custom-modes-pug)
-  (custom-modes-css)
-  (custom-modes-diff)
-  (custom-modes-erlang)
-  (custom-modes-html)
-  (custom-modes-less)
-  (custom-modes-markdown)
-  (custom-modes-pdf-tools)
-  (custom-modes-python)
-  (custom-modes-rust)
-  (custom-modes-sass)
-  (custom-modes-term)
-  (custom-modes-vala)
-  (custom-modes-yaml)
-  (custom-modes-web))
+  (lc/modes/lua)
+  (lc/modes/map-extensions)
+  (lc/modes/coffe-script)
+  (lc/modes/pug)
+  (lc/modes/css)
+  (lc/modes/diff)
+  (lc/modes/erlang)
+  (lc/modes/html)
+  (lc/modes/less)
+  (lc/modes/markdown)
+  (lc/modes/pdf-tools)
+  (lc/modes/python)
+  (lc/modes/rust)
+  (lc/modes/sass)
+  (lc/modes/term)
+  (lc/modes/vala)
+  (lc/modes/yaml)
+  (lc/modes/web))
 
-(provide 'custom-modes)
-;;; custom-modes.el ends here
+(provide 'lc-modes)
+;;; lc-modes.el ends here

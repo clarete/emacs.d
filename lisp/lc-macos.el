@@ -1,4 +1,4 @@
-;;; custom-macos.el --- Specific stuff for macos
+;;; lc-macos.el --- Specific stuff for macos
 ;;
 ;;; Commentary:
 ;;
@@ -10,7 +10,7 @@
 (require 'exec-path-from-shell)
 
 ;; Mac specific stuff
-(defun custom-macos ()
+(defun lc/macos ()
   "Initialize stuff on macos if Emacs is running on Darwin."
   (when (eq system-type 'darwin)
     (setq mac-option-modifier 'alt)
@@ -29,5 +29,5 @@
     (global-set-key [kp-delete] 'delete-char)
     (menu-bar-mode 1)))
 
-(provide 'custom-macos)
-;;; custom-macos.el ends here
+(provide 'lc-macos)
+;;; lc-macos.el ends here

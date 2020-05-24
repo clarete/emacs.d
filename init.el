@@ -7,35 +7,37 @@
 ;;
 ;;; Code:
 
+
+;; Added by Package.el.  This must come before configurations of
+;; installed packages.  Don't delete this line.  If you don't want it,
+;; just comment it out by adding a semicolon to the start of the line.
+;; You may delete these explanatory comments.
+(package-initialize)
+
+;; Initialize package management system
 (require 'cask (expand-file-name ".cask/cask/cask.el" user-emacs-directory))
+(cask-initialize)
 
 ;; Default path to load lisp files
 (add-to-list 'load-path (expand-file-name "site-lisp" user-emacs-directory))
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 
-;; Load packages
-(package-initialize)
-(cask-initialize)
-
 ;; Load all the fun modules
-(require 'custom-general)
-(require 'custom-macos)
-(require 'custom-exwm-config)
-(require 'custom-modes)
-(require 'custom-interactive)
-(require 'custom-org)
-(require 'custom-auth)
-(require 'custom-battery)
-(require 'custom-editing)
+(require 'lc-exwm)
+(require 'lc-macos)
+(require 'lc-general)
+(require 'lc-edit)
+(require 'lc-modes)
+(require 'lc-org)
+(require 'lc-battery)
 
 ;; Initialize all the modules loaded above
-(custom-macos)
-(custom-general)
-(custom-exwm-config)
-(custom-modes)
-(custom-org)
-(custom-auth)
-(custom-battery)
-(custom-editing)
+(lc/exwm)
+(lc/macos)
+(lc/general)
+(lc/edit)
+(lc/modes)
+(lc/org)
+(lc/battery)
 
 ;;; init.el ends here

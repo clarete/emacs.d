@@ -1,4 +1,4 @@
-;;; custom-editing.el --- Editing Options
+;;; lc-edit.el --- Editing Options
 ;;
 ;;; Commentary:
 ;;
@@ -15,7 +15,7 @@
 (require 'smartparens)
 
 
-(defun custom-editing-fonts ()
+(defun lc/edit/fonts ()
   "Setup font details."
   (global-font-lock-mode 1)           ;; Always do syntax highlighting
   (transient-mark-mode 1)             ;; Highlight mark region
@@ -29,7 +29,7 @@
                         :width 'normal)))
 
 
-(defun custom-editing-line-numbers ()
+(defun lc/edit/line-numbers ()
   "Configure line numbers in the Emacs UI."
   (add-hook 'conf-mode-hook 'linum-on)
   (add-hook 'prog-mode-hook 'linum-on)
@@ -37,7 +37,7 @@
   (setq linum-format "%d "))
 
 
-(defun custom-editing-auto-complete ()
+(defun lc/edit/auto-complete ()
   "Enable and Configure the auto-complete feature."
   (global-auto-complete-mode t)
   (setq ac-dwim 2)
@@ -46,13 +46,13 @@
   (define-key ac-complete-mode-map "\C-p" 'ac-previous))
 
 
-(defun custom-editing-code-snippets ()
+(defun lc/edit/code-snippets ()
   "Configuration for yasnippets."
   (yas-load-directory "~/.emacs.d/snippets")
   (yas-global-mode 1))
 
 
-(defun custom-editing-misc ()
+(defun lc/edit/misc ()
   "Misc editing settings."
 
   ;; Enable smart parens everywhere
@@ -86,22 +86,24 @@
   ;; `exwm' integration would work without this line.
   (setq select-enable-clipboard t))
 
-(defun custom-multiple-cursors()
+
+(defun lc/edit/multiple-cursors()
   "Setup multiple-cursor."
   (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
   (global-set-key (kbd "C->") 'mc/mark-next-like-this)
   (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
   (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this))
 
-(defun custom-editing ()
+
+(defun lc/edit ()
   "Call out other editing customization functions."
-  (custom-editing-fonts)
-  (custom-editing-line-numbers)
-  (custom-editing-auto-complete)
-  (custom-editing-code-snippets)
-  (custom-editing-misc)
-  (custom-multiple-cursors))
+  (lc/edit/fonts)
+  (lc/edit/line-numbers)
+  (lc/edit/auto-complete)
+  (lc/edit/code-snippets)
+  (lc/edit/misc)
+  (lc/edit/multiple-cursors))
 
 
-(provide 'custom-editing)
-;;; custom-editing.el ends here
+(provide 'lc-edit)
+;;; lc-edit.el ends here
