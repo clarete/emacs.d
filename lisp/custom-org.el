@@ -78,7 +78,7 @@
      (latex . t)
      (plantuml . t)
      (python . t)
-     (R . t)
+     ;(R . t)
      (ruby . t))))
 
 (defun custom-org ()
