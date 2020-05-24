@@ -1,4 +1,4 @@
-;;; custom-battery.el --- General Options
+;;; lc-battery.el --- General Options
 ;;
 ;;; Commentary:
 ;;
@@ -28,7 +28,7 @@
 (defun lc/battery ()
   "Check battery and call itself in 5 sec."
   (lc/battery/check)
-  (run-at-time "5 sec" nil #'custom-battery))
+  (run-at-time "5 sec" nil #'lc/battery))
 
 (provide 'lc-battery)
 ;;; lc-battery.el ends here
