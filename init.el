@@ -31,6 +31,7 @@
 (require 'lc-org)
 (require 'lc-rcirc)
 (require 'lc-battery)
+(require 'lc-defs)
 
 ;; Initialize all the modules loaded above
 (lc/exwm)
