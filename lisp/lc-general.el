@@ -12,31 +12,8 @@
 (require 'tramp) ;; ssh and local `sudo' and `su'
 (require 'pallet)
 (require 'all-the-icons-dired)
-(require 'org)
 (require 'dimmer)
 
-(defun lc/general/theme ()
-  "Setup theme stuff."
-
-  (load-theme 'gruvbox t)
-  (set-face-attribute 'fringe nil
-                      :foreground (face-foreground 'default)
-                      :background (face-background 'default))
-  (set-face-attribute 'linum nil
-                      :foreground (face-foreground 'font-lock-comment-face)
-                      :background (face-background 'default))
-
-  ;; More reliable inter-window border. The native border "consumes" a
-  ;; pixel of the fringe on righter-most splits
-  (setq window-divider-default-places t
-        window-divider-default-bottom-width 0
-        window-divider-default-right-width 1)
-  (window-divider-mode +1)
-
-  ;; Necessary for org-mode
-  (setq org-fontify-whole-heading-line t
-        org-fontify-done-headline t
-        org-fontify-quote-and-verse-blocks t))
 
 (defun lc/general/utf-8 ()
   "Configure all known coding variables to use `UTF-8'."
@@ -48,73 +25,6 @@
   (set-keyboard-coding-system 'utf-8)
   (set-selection-coding-system 'utf-8))
 
-(defun lc/general/ui-fringe ()
-  "Configure the Fringe area."
-
-  ;; Custom bitmap to be shown in the fringe area for lines with any
-  ;; sort of linting issues
-  (when (fboundp 'define-fringe-bitmap)
-    (define-fringe-bitmap 'my-flycheck-fringe-indicator
-      (vector #b00000000
-              #b00000000
-              #b00000000
-              #b00000000
-              #b00000000
-              #b00000000
-              #b00000000
-              #b00011100
-              #b00111110
-              #b00111110
-              #b00111110
-              #b00011100
-              #b00000000
-              #b00000000
-              #b00000000
-              #b00000000
-              #b00000000)))
-  (flycheck-define-error-level 'error
-    :overlay-category 'flycheck-error-overlay
-    :fringe-bitmap 'my-flycheck-fringe-indicator
-    :fringe-face 'flycheck-fringe-error)
-  (flycheck-define-error-level 'warning
-    :overlay-category 'flycheck-warning-overlay
-    :fringe-bitmap 'my-flycheck-fringe-indicator
-    :fringe-face 'flycheck-fringe-warning)
-  (flycheck-define-error-level 'info
-    :overlay-category 'flycheck-info-overlay
-    :fringe-bitmap 'my-flycheck-fringe-indicator
-    :fringe-face 'flycheck-fringe-info)
-
-  ;; Get rid of the background color in the Fringe area
-  (set-face-attribute 'fringe nil
-                      :foreground (face-foreground 'default)
-                      :background (face-background 'default))
-
-  ;; Finally, enable the fringe mode
-  (fringe-mode 1))
-
-(defun lc/general/ui ()
-  "General UI configuration."
-
-  ;; No bars. Doing this first to avoid showing/hidding delay on start
-  ;; up
-  (scroll-bar-mode 0)
-  (menu-bar-mode 0)
-  (tool-bar-mode 0)
-
-  ;; Misc
-  (column-number-mode)              ;; Basic config for columns
-  (setq ring-bell-function 'ignore) ;; No freaking bell
-  (setq inhibit-splash-screen t)    ;; No splash screen
-  (setq inhibit-startup-screen t)
-
-  ;; Some configuration for dired: icons & sort order
-  (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
-  (setq dired-listing-switches "-aBhl  --group-directories-first")
-
-  ;; Omit dot files in dired by default
-  (setq-default dired-omit-files-p t) ; Buffer-local variable
-  (setq dired-omit-files (concat dired-omit-files "\\|^\\..+$")))
 
 (defun lc/general/navigation ()
   "Configuration for buffer naming."
@@ -129,6 +39,7 @@
         (list (format "%s %%S: %%j " (system-name))
               '(buffer-file-name "%f" (dired-directory
                                        dired-directory "%b")))))
+
 
 (defun lc/general/keys ()
   "Configure global key bindings."
@@ -149,6 +60,7 @@
    [(meta j)] '(lambda () (interactive) (scroll-other-window 1)))
   (global-set-key
    [(meta k)] '(lambda () (interactive) (scroll-other-window -1))))
+
 
 (defun lc/general/misc ()
   "Miscellaneous settings and start up actions."
@@ -181,15 +93,14 @@
   (dimmer-mode t)
   (setq dimmer-fraction 0.5))
 
+
 (defun lc/general ()
   "Call out other general customization functions."
-  (lc/general/ui)
-  (lc/general/ui-fringe)
-  (lc/general/theme)
   (lc/general/utf-8)
   (lc/general/navigation)
   (lc/general/keys)
   (lc/general/misc))
+
 
 (provide 'lc-general)
 ;;; lc-general.el ends here

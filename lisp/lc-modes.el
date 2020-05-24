@@ -237,7 +237,17 @@
 
 
 (defun lc/modes/dired ()
-  "Configuration for dired mode"
+  "Configuration for dired mode."
+
+  ;; Some configuration for dired: icons & sort order
+  (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
+  (setq dired-listing-switches "-aBhl  --group-directories-first")
+
+  ;; Omit dot files in dired by default
+  (setq-default dired-omit-files-p t) ; Buffer-local variable
+  (setq dired-omit-files (concat dired-omit-files "\\|^\\..+$"))
+
+  ;; Rember to keep hiden files hiden
   (define-key dired-mode-map (kbd "C-x M-o") 'lc/modes/dired-omit-switch)
   (add-hook 'dired-mode-hook 'lc/modes/dired-omit-caller))
 
@@ -247,6 +257,7 @@
   "Make the current window always display this buffer."
   nil " sticky" nil
   (set-window-dedicated-p (selected-window) sticky-buffer-mode))
+
 
 (defun lc/modes ()
   "Call out all the mode setup functions."
@@ -269,6 +280,7 @@
   (lc/modes/vala)
   (lc/modes/yaml)
   (lc/modes/web))
+
 
 (provide 'lc-modes)
 ;;; lc-modes.el ends here

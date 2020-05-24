@@ -15,20 +15,6 @@
 (require 'smartparens)
 
 
-(defun lc/edit/fonts ()
-  "Setup font details."
-  (global-font-lock-mode 1)           ;; Always do syntax highlighting
-  (transient-mark-mode 1)             ;; Highlight mark region
-  (global-prettify-symbols-mode 1)    ;; See prettify-symbols-alist
-  (let ((myfont "FantasqueSansMono")) ;; Font face
-    (set-frame-font myfont t t)
-    (set-face-attribute 'default nil
-                        :family myfont
-                        :height 120
-                        :weight 'normal
-                        :width 'normal)))
-
-
 (defun lc/edit/line-numbers ()
   "Configure line numbers in the Emacs UI."
   (add-hook 'conf-mode-hook 'linum-on)
@@ -97,7 +83,6 @@
 
 (defun lc/edit ()
   "Call out other editing customization functions."
-  (lc/edit/fonts)
   (lc/edit/line-numbers)
   (lc/edit/auto-complete)
   (lc/edit/code-snippets)

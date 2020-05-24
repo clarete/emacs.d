@@ -23,6 +23,7 @@
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 
 ;; Load all the fun modules
+(require 'lc-ui)
 (require 'lc-exwm)
 (require 'lc-macos)
 (require 'lc-general)
@@ -34,6 +35,7 @@
 (require 'lc-defs)
 
 ;; Initialize all the modules loaded above
+(lc/ui)
 (lc/exwm)
 (lc/macos)
 (lc/general)
