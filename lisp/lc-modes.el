@@ -20,7 +20,7 @@
 (require 'js2-mode)
 (require 'prettier-js)
 (require 'rainbow-delimiters)
-
+(require 'dired-x)
 
 (defun lc/modes/map-extensions ()
   "Map file extensions to modes."
@@ -210,6 +210,38 @@
   (with-eval-after-load 'rust-mode
     (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)))
 
+;; Configuration for dired to remember omit hidden state.  Found this
+;; piece of code at https://www.emacswiki.org/emacs/DiredOmitMode
+;; signed by the user `kuanyui`.  Thank you!
+
+(defvar lc/modes/v-dired-omit t
+  "If dired-omit-mode enabled by default (don't setq me).")
+
+
+(defun lc/modes/dired-omit-switch ()
+  "Enhancement for `dired-omit-mode', to \"remember\" omit state across Dired buffers."
+  (interactive)
+  (if (eq lc/modes/v-dired-omit t)
+      (setq lc/modes/v-dired-omit nil)
+    (setq lc/modes/v-dired-omit t))
+  (lc/modes/dired-omit-caller)
+  (revert-buffer))
+
+
+(defun lc/modes/dired-omit-caller ()
+  "The entry point for the switch."
+  (message "fuuu")
+  (if lc/modes/v-dired-omit
+      (setq dired-omit-mode t)
+    (setq dired-omit-mode nil)))
+
+
+(defun lc/modes/dired ()
+  "Configuration for dired mode"
+  (define-key dired-mode-map (kbd "C-x M-o") 'lc/modes/dired-omit-switch)
+  (add-hook 'dired-mode-hook 'lc/modes/dired-omit-caller))
+
+
 ;; https://lists.gnu.org/archive/html/help-gnu-emacs/2007-05/msg00975.html
 (define-minor-mode sticky-buffer-mode
   "Make the current window always display this buffer."
@@ -218,6 +250,7 @@
 
 (defun lc/modes ()
   "Call out all the mode setup functions."
+  (lc/modes/dired)
   (lc/modes/lua)
   (lc/modes/map-extensions)
   (lc/modes/coffe-script)
