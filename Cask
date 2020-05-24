@@ -117,6 +117,7 @@
 (depends-on "package-build")
 (depends-on "pacmacs")
 (depends-on "pallet")
+(depends-on "password-store")
 (depends-on "pcache")
 (depends-on "pdf-tools")
 (depends-on "persistent-soft")
