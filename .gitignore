@@ -1,12 +1,29 @@
+# -*- Mode: conf; -*-
+
+# Wildcards
 *~
-.cask
-.python-environments/
+.*
+snippets/*/.yas-compiled-snippets.el
+
+# Directories
 auto-save-list/
+contrib/
+elpa/
+emojis/
 eshell/
+games/
+image-dired/
+hackernews/
+thumbs/
+transient/
 url/
 var/
-snippets/*/.yas-compiled-snippets.el
+
+# Files
+abbrev_defs
 ac-comphist.dat
+bookmarks
+history
+network-security.data
 oauth2.plstore
 tramp
-contrib/
