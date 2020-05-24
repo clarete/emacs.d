@@ -209,6 +209,12 @@
   (with-eval-after-load 'rust-mode
     (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)))
 
+;; https://lists.gnu.org/archive/html/help-gnu-emacs/2007-05/msg00975.html
+(define-minor-mode sticky-buffer-mode
+  "Make the current window always display this buffer."
+  nil " sticky" nil
+  (set-window-dedicated-p (selected-window) sticky-buffer-mode))
+
 (defun custom-modes ()
   "Call out all the mode setup functions."
   (custom-modes-lua)
