@@ -194,8 +194,13 @@
   (add-hook 'python-mode-hook 'custom-modes-prettify-symbols-alist)
   (add-hook 'python-mode-hook 'jedi:setup))
 
+(defun custom-modes-lua ()
+  "Set defaults for Lua code."
+  (setq lua-indent-level 2))
+
 (defun custom-modes ()
   "Call out all the mode setup functions."
+  (custom-modes-lua)
   (custom-modes-map-extensions)
   (custom-modes-coffe-script)
   (custom-modes-pug)
