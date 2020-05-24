@@ -11,7 +11,6 @@
 (require 'less-css-mode)
 (require 'lua-mode)
 (require 'markdown-mode)
-(require 'muttrc-mode)
 (require 'sass-mode)
 (require 'upstart-mode)
 (require 'yaml-mode)
@@ -25,10 +24,7 @@
   (add-to-list 'auto-mode-alist '("\\.php$" . php-mode))
   (add-to-list 'auto-mode-alist '("nginx.conf$" . nginx-mode))
   ;; Mac OS X .plist files
-  (add-to-list 'auto-mode-alist '("\\.plist$" . xml-mode))
-  ;; Files created under a /mutt dir
-  (add-to-list 'auto-mode-alist '("/mutt" . mail-mode)))
-
+  (add-to-list 'auto-mode-alist '("\\.plist$" . xml-mode)))
 
 (defun custom-modes-coffe-script ()
   "Coffe-script mode setup."
