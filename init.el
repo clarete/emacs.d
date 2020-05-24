@@ -29,6 +29,7 @@
 (require 'lc-edit)
 (require 'lc-modes)
 (require 'lc-org)
+(require 'lc-rcirc)
 (require 'lc-battery)
 
 ;; Initialize all the modules loaded above
@@ -39,5 +40,6 @@
 (lc/modes)
 (lc/org)
 (lc/battery)
+(lc/rcirc)
 
 ;;; init.el ends here
