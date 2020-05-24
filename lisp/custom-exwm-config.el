@@ -101,14 +101,23 @@
   (shell-command "xsetroot -default && xmodmap ~/.Xmodmap")
   (shell-command "xbindkeys"))
 
+
 (defun custom-exwm-randr ()
   "Setup xrandr defaults."
-  (setq exwm-randr-workspace-output-plist '(0 "eDP" 1 "DisplayPort-0"))
+  ;; Workspace 0 is locked in the laptop screen (eDP-1). All the other
+  ;; workspaces go to external monitor (DP-1) when connected.
+  (setq exwm-randr-workspace-monitor-plist
+        (let ((workspaces '(0 "eDP-1")))
+          (dotimes (i (- exwm-workspace-number 1))
+            (setq workspaces (append workspaces `(,(+ 1 i) "DP-1"))))
+          workspaces))
+  ;; External monitor is on the left side of the laptop screen
   (add-hook 'exwm-randr-screen-change-hook
             (lambda ()
               (start-process-shell-command
-               "xrandr" nil "xrandr --output eDP --left-of DisplayPort-0 --auto")))
+               "xrandr" nil "xrandr --output DP-1 --left-of eDP-1 --auto")))
   (exwm-randr-enable))
+
 
 (defun custom-exwm-config ()
   "Custom configuration of EXWM."
