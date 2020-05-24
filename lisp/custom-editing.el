@@ -12,6 +12,7 @@
 (require 'auto-complete-config)
 (require 'yasnippet)
 (require 'flycheck)
+(require 'smartparens)
 
 
 (defun custom-editing-fonts ()
@@ -53,6 +54,9 @@
 
 (defun custom-editing-misc ()
   "Misc editing settings."
+
+  ;; Enable smart parens everywhere
+  (smartparens-global-mode)
 
   ;; Do not wrap lines
   (setq-default truncate-lines t)
