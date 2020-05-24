@@ -1,0 +1,35 @@
+* Emacs setup
+
+  This repository contains my Emacs setup. Although these
+  configurations are catered to my own taste, you might find a few
+  things useful and improve the configuration of your Emacs too.
+
+** What does it contain
+
+   I'm an [[https://github.com/ch11ng/exwm/][EXWM]] user, so one of the first things it sets up is a
+   minimal desktop experience with dual monitor setup and a nice
+   theme.  For the complete experience, it does depend on a few other
+   files available on my [[https://github.com/clarete/dotfiles][dotdfiles]] repository though. Make sure you
+   check it out too.
+
+   It also sets up Org Mode, and some programming language
+   environments, like Python, JavaScript, Rust, Lua and a few others.
+
+   Here's a screenshot of me editing this file :)
+
+   [[./screenshot.jpg]]
+
+** Install
+
+   This is how you can get your Emacs to use this repository as the
+   base for your configuration.
+
+   #+begin_src bash
+   $ git clone http://github.com/clarete/emacs.d
+   $ ln -s $(pwd)/emacs.d ~/.emacs.d
+   $ cd ~/.emacs.d && make
+   #+end_src
+
+   Running the ~make~ command will evoke the installation of
+   [Cask](https://github.com/cask/cask) and all the Emacs extensions
+   described in the `Cask` file.
