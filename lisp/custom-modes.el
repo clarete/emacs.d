@@ -15,8 +15,11 @@
 (require 'upstart-mode)
 (require 'yaml-mode)
 (require 'web-mode)
+(require 'pug-mode)
 (require 'pdf-view)
 (require 'js2-mode)
+(require 'prettier-js)
+
 
 (defun custom-modes-map-extensions ()
   "Map file extensions to modes."
@@ -37,6 +40,7 @@
 
 (defun custom-modes-pug ()
   "Configuration for pug-mode."
+  (setq pug-tab-width 2)
   (add-hook
    'pug-mode-hook
    '(lambda() (set (make-local-variable 'tab-width) 2))))
@@ -135,7 +139,8 @@
 
 (defun custom-modes-web ()
   "Configuration for web-mode."
-  (add-to-list 'auto-mode-alist '("\\.js[x]?\\'" . js2-mode))
+  (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+  (add-to-list 'auto-mode-alist '("\\.js\\'" . js-jsx-mode))
   (add-to-list 'auto-mode-alist '("\\.json\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
@@ -145,7 +150,10 @@
   (setq web-mode-content-types-alist '(("jsx" . "\\.js[x]?\\'")))
   (setq web-mode-enable-auto-indentation nil)
   (setq js2-basic-offset 2)
+  (setq js-indent-level 2)
+  (setq typescript-indent-level 2)
   (setq js2-strict-trailing-comma-warning nil)
+  (setq js2-strict-missing-semi-warning nil)
 
   (add-hook
    'web-mode-hook
