@@ -1,8 +1,29 @@
-;;; lc-battery.el --- General Options
+;;; lc-battery.el --- Notify when battery is running low
+;;
+;; Author: Lincoln Clarete <lincoln@clarete.li>
+;;
+;; Copyright (C) 2012-2020  Lincoln Clarete
+;;
+;; This program is free software: you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ;;
 ;;; Commentary:
 ;;
-;; Tell me when my battery is about to die
+;; Tell me when my battery is about to die by ringing a bell.
+;;
+;; The function `lc/battery' is the entry point of this library and
+;; when called, will check for battery status and then schedule itself
+;; to run again after an interval.
 ;;
 ;;; Code:
 

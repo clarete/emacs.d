@@ -1,10 +1,10 @@
 ;;; lc-defs.el --- Useful interactive functions
 ;;
-;;; Commentary:
+;; Author: Lincoln Clarete <lincoln@clarete.li>
 ;;
-;; Copyright (C) 2012-2020  Lincoln de Sousa <lincoln@clarete.li>
+;; Copyright (C) 2012-2020  Lincoln Clarete
 ;;
-;; This program is free software; you can redistribute it and/or modify
+;; This program is free software: you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
 ;; the Free Software Foundation, either version 3 of the License, or
 ;; (at your option) any later version.
@@ -16,6 +16,13 @@
 ;;
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+;;
+;;; Commentary:
+;;
+;; The functions available on this module serve a miscellaneous of
+;; purposes.  Ranging from calling out to external programs, like
+;; `lock' and `suspend', to date utilities.  Check the docstring of
+;; each of them to figure out their exact goal.
 ;;
 ;;; Code:
 
