@@ -36,7 +36,6 @@
 (cask-initialize)
 
 ;; Default path to load lisp files
-(add-to-list 'load-path (expand-file-name "site-lisp" user-emacs-directory))
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 
 ;; Load all the fun modules
@@ -51,6 +50,7 @@
 (require 'lc-battery)
 (require 'lc-ps)
 (require 'lc-defs)
+(require 'lc-vendor)
 
 ;; Initialize all the modules loaded above
 (lc/ui)
@@ -63,5 +63,6 @@
 (lc/battery)
 (lc/rcirc)
 (lc/ps)
+(lc/vendor)
 
 ;;; init.el ends here
