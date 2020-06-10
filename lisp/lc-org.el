@@ -103,7 +103,7 @@
      (ruby . t))))
 
 
-(defun custom-org-colors ()
+(defun lc/org/colors ()
   "Configure colors for some bits of Org-Mode."
   (custom-theme-set-faces
    'user
@@ -118,6 +118,7 @@
   (lc/org/utf-8-bullet)
   (lc/org/bullets)
   (lc/org/workflow)
+  (lc/org/colors)
   (setq org-agenda-files (lc/org/directory-dirs "~/org"))
   (setq org-log-done t)
   (setq org-agenda-sticky t))
