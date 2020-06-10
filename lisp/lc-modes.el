@@ -37,6 +37,7 @@
 (require 'prettier-js)
 (require 'rainbow-delimiters)
 (require 'dired-x)
+(require 'jedi)
 
 (defun lc/modes/map-extensions ()
   "Map file extensions to modes."
@@ -188,23 +189,6 @@
       (set-face-attribute 'web-mode-html-attr-value-face nil :foreground
                           (face-foreground font-lock-type-face)))))
 
-(defun lc/modes/prettify-symbols-alist ()
-  "Use some unicode characters to prettify some symbols."
-  ;; (setq prettify-symbols-alist
-  ;;       '(("lambda" . ?λ)
-  ;;         ("<-" . ?⇐)
-  ;;         ("->" . ?⇒)
-  ;;         ("<=" . ?⤆)
-  ;;         ("=>" . ?⤇)
-  ;;         ("<=" . ?≤)
-  ;;         (">=" . ?≥)))
-  )
-
-(add-hook 'go-mode-hook 'lc/modes/prettify-symbols-alist)
-(add-hook 'erlang-mode-hook 'lc/modes/prettify-symbols-alist)
-(add-hook 'scala-mode-hook 'lc/modes/prettify-symbols-alist)
-;(add-hook 'prog-mode-hook 'flyspell-prog-mode)
-(add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
 
 (defun lc/modes/pdf-tools ()
   "Set default for PDF mode."
@@ -214,8 +198,9 @@
 (defun lc/modes/python ()
   "Set defaults for Python tools."
   (jedi:install-server)
-  (add-hook 'python-mode-hook 'lc/modes/prettify-symbols-alist)
-  (add-hook 'python-mode-hook 'jedi:setup))
+  (add-hook 'python-mode-hook 'jedi:setup)
+  (add-hook 'python-mode-hook 'jedi:ac-setup)
+  (setq jedi:complete-on-dot t))
 
 (defun lc/modes/lua ()
   "Set defaults for Lua code."
@@ -268,6 +253,11 @@
   (add-hook 'dired-mode-hook 'lc/modes/dired-omit-caller))
 
 
+(defun lc/modes/prog ()
+  "General configuration for `prog-mode'."
+  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
+
+
 ;; https://lists.gnu.org/archive/html/help-gnu-emacs/2007-05/msg00975.html
 (define-minor-mode sticky-buffer-mode
   "Make the current window always display this buffer."
@@ -277,6 +267,7 @@
 
 (defun lc/modes ()
   "Call out all the mode setup functions."
+  (lc/modes/prog)
   (lc/modes/dired)
   (lc/modes/lua)
   (lc/modes/map-extensions)
