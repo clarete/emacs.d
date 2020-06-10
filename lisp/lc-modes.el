@@ -29,7 +29,6 @@
 (require 'lua-mode)
 (require 'markdown-mode)
 (require 'sass-mode)
-(require 'upstart-mode)
 (require 'yaml-mode)
 (require 'web-mode)
 (require 'pug-mode)

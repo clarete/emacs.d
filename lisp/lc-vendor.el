@@ -32,7 +32,8 @@
 
 (defun lc/vendor/require ()
   "Load vendorized dependencies."
-  (require 'peg-mode))
+  (require 'peg-mode)
+  (require 'upstart-mode))
 
 
 (defun lc/vendor ()
