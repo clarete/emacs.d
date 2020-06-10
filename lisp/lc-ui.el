@@ -72,7 +72,7 @@
   (global-font-lock-mode 1)           ;; Always do syntax highlighting
   (transient-mark-mode 1)             ;; Highlight mark region
   (global-prettify-symbols-mode 1)    ;; See prettify-symbols-alist
-  (let ((myfont "FantasqueSansMono")) ;; Font face
+  (let ((myfont "Fantasque Sans Mono")) ;; Font face
     (set-frame-font myfont t t)
     (set-face-attribute 'default nil
                         :family myfont
