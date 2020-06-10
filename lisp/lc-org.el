@@ -103,6 +103,14 @@
      (ruby . t))))
 
 
+(defun custom-org-colors ()
+  "Configure colors for some bits of Org-Mode."
+  (custom-theme-set-faces
+   'user
+   '(org-document-title
+     ((t (:inherit default :weight bold :underline nil :background "grey15"))))))
+
+
 (defun lc/org ()
   "Configuration for the `org-mode'."
   (lc/org/keys)
