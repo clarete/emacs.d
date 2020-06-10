@@ -38,6 +38,10 @@
     (global-set-key (kbd "<A-S-tab>")
                     #'(lambda () (interactive) (other-window -1)))
 
+    ;; Keys for visiting next & previous frame
+    (global-set-key (kbd "M-`") #'other-frame)
+    (global-set-key (kbd "M-~") #'(lambda () (interactive) (other-frame -1)))
+
     ;; Loads environment variables from the shell
     (setq exec-path-from-shell-variables '("GOPATH" "PATH" "MANPATH"))
     (exec-path-from-shell-initialize)
