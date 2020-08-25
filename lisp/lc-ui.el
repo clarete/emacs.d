@@ -123,7 +123,7 @@
                       :background (face-background 'default))
 
   ;; Finally, enable the fringe mode
-  (fringe-mode 1))
+  (fringe-mode 15))
 
 
 (defun lc/ui/modeline ()
