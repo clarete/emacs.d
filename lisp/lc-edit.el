@@ -25,12 +25,6 @@
 ;;; Code:
 
 (require 'linum)
-(require 'auto-complete)
-(require 'auto-complete-config)
-(require 'yasnippet)
-(require 'flycheck)
-(require 'smartparens)
-
 
 (defun lc/edit/line-numbers ()
   "Configure line numbers in the Emacs UI."
@@ -42,24 +36,31 @@
 
 (defun lc/edit/auto-complete ()
   "Enable and Configure the auto-complete feature."
-  (global-auto-complete-mode t)
-  (setq ac-dwim 2)
-  (ac-config-default)
-  (define-key ac-complete-mode-map "\C-n" 'ac-next)
-  (define-key ac-complete-mode-map "\C-p" 'ac-previous))
+   (use-package company
+    :hook (after-init . global-company-mode)
+    :config
+    (setq company-minimum-prefix-length 1)
+    (setq company-idle-delay .3)))
 
 
 (defun lc/edit/code-snippets ()
   "Configuration for yasnippets."
-  (yas-load-directory "~/.emacs.d/snippets")
-  (yas-global-mode 1))
+  (use-package yasnippet
+    :ensure t
+    :commands yas-minor-mode
+    :hook (go-mode . yas-minor-mode)
+    :config
+    (yas-load-directory "~/.emacs.d/snippets")
+    (yas-global-mode 1)))
 
 
 (defun lc/edit/misc ()
   "Misc editing settings."
 
   ;; Enable smart parens everywhere
-  (smartparens-global-mode)
+  (use-package smartparens
+    :config
+    (smartparens-global-mode))
 
   ;; Do not wrap lines
   (setq-default truncate-lines t)
@@ -76,14 +77,10 @@
   ;; scroll smoothly
   (setq scroll-conservatively 10000)
 
-  ;; Enable syntax checks
-  (global-flycheck-mode)
-  (with-eval-after-load 'flycheck
-    (flycheck-pos-tip-mode))
-
-  ;; Find peace with syntax checking when requiring files located in
-  ;; custom paths
-  (setq flycheck-emacs-lisp-load-path 'inherit)
+  ;; Spelling
+  (use-package flyspell-correct-popup)
+  (setq ispell-program-name "aspell")
+  (ispell-change-dictionary "english")
 
   ;; Clipboard shared with the Desktop Environment. I wonder if the
   ;; `exwm' integration would work without this line.

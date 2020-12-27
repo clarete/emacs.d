@@ -25,11 +25,8 @@
 
 (require 'org)
 (require 'org-agenda)
-(require 'org-bullets)
-(require 'org-gcal)
 (require 'ob-ditaa)
 (require 'ob-plantuml)
-
 
 (defun lc/org/directory-dirs (dir)
   "List directories recursively inside of DIR."
@@ -60,8 +57,9 @@
 
 (defun lc/org/bullets ()
   "Enable and configure `org-bullets' with custom icons."
-  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
-  (setq org-bullets-bullet-list '("▶" "▸" "▹" "▹" "▹" "▹")))
+  (use-package org-bullets
+    :hook (org-mode . (lambda() (org-bullets-mode 1)))
+    :config (setq org-bullets-bullet-list '("▶" "▸" "▹" "▹" "▹" "▹"))))
 
 
 (defun lc/org/workflow ()
@@ -105,6 +103,9 @@
 
 (defun lc/org/colors ()
   "Configure colors for some bits of Org-Mode."
+  (setq org-fontify-whole-heading-line t
+        org-fontify-done-headline t
+        org-fontify-quote-and-verse-blocks t)
   (custom-theme-set-faces
    'user
    '(org-document-title

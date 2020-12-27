@@ -29,7 +29,7 @@
   "Configure autojoin list for rcirc."
   ;; Auto join list
   (setq rcirc-server-alist
-        '(("irc.freenode.net" :channels ("#lobsters" "#emacs")))))
+        '(("irc.freenode.net" :channels ("#emacs")))))
 
 (defun lc/rcirc/password ()
   "Setup hook for autologin on rcirc."

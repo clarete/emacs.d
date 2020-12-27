@@ -23,21 +23,23 @@
 ;;
 ;;; Code:
 
-(require 'coffee-mode)
+(use-package magit)
+(use-package vterm)
+
 (require 'css-mode)
-(require 'less-css-mode)
-(require 'lua-mode)
-(require 'markdown-mode)
-(require 'sass-mode)
-(require 'yaml-mode)
-(require 'web-mode)
-(require 'pug-mode)
-(require 'pdf-view)
-(require 'js2-mode)
-(require 'prettier-js)
-(require 'rainbow-delimiters)
 (require 'dired-x)
-(require 'jedi)
+
+(defun lc/modes/lsp ()
+  "Configure LSP mode."
+  (use-package lsp-mode
+    :ensure t
+    :config
+    :commands (lsp lsp-deferred))
+
+  ;; Optional - provides fancier overlays.
+  (use-package lsp-ui
+    :ensure t
+    :commands lsp-ui-mode))
 
 (defun lc/modes/map-extensions ()
   "Map file extensions to modes."
@@ -47,21 +49,14 @@
   ;; Mac OS X .plist files
   (add-to-list 'auto-mode-alist '("\\.plist$" . xml-mode)))
 
-(defun lc/modes/coffe-script ()
-  "Coffe-script mode setup."
-  (add-to-list 'auto-mode-alist '("\\.coffee$" . coffee-mode))
-  (add-to-list 'auto-mode-alist '("Cakefile" . coffee-mode))
-  (add-hook
-   'coffee-mode-hook
-   '(lambda() (set (make-local-variable 'tab-width) 2))))
-
 
 (defun lc/modes/pug ()
   "Configuration for pug-mode."
-  (setq pug-tab-width 2)
-  (add-hook
-   'pug-mode-hook
-   '(lambda() (set (make-local-variable 'tab-width) 2))))
+  (use-package pug-mode
+    :config
+    (setq pug-tab-width 2)
+    :hook (pug-mode . (lambda()
+			(set (make-local-variable 'tab-width) 2)))))
 
 
 ;; Set CSS colors with themselves
@@ -78,8 +73,7 @@
 
   (defun hexcolour-add-to-font-lock ()
     "Configure colors for hex numbers in CSS files."
-    (font-lock-add-keywords
-     nil lc/modes/hexcolour-keywords))
+    (font-lock-add-keywords nil lc/modes/hexcolour-keywords))
   (add-hook 'css-mode-hook 'hexcolour-add-to-font-lock))
 
 
@@ -103,28 +97,34 @@
 
 (defun lc/modes/html ()
   "Configuration for `html-mode'."
-  (add-hook 'html-mode-hook (lambda() (setq sgml-basic-offset 4))))
+  (add-hook 'html-mode-hook (lambda() (setq sgml-basic-offset 2))))
 
 
 (defun lc/modes/less ()
   "Less mode configuration."
-  (add-to-list 'auto-mode-alist '("\\.less$" . less-css-mode))
-  (setq less-css-compile-at-save nil))
+  (use-package less-css-mode
+    :config
+    (add-to-list 'auto-mode-alist '("\\.less$" . less-css-mode))
+    (setq less-css-compile-at-save nil)))
 
 
 (defun lc/modes/markdown ()
   "Markdown mode configuration."
   (autoload 'markdown-mode "markdown-mode.el"
     "Major mode for editing Markdown files" t)
-  (add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
-  (add-hook 'markdown-mode-hook '(lambda() (flyspell-mode))))
+  (use-package markdown-mode
+    :hook (markdown-mode . flyspell-mode)
+    :config
+    (add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))))
 
 
 (defun lc/modes/sass ()
   "Custom setup for the sass-mode."
-  (add-to-list 'auto-mode-alist '("\\.sass$" . sass-mode))
-  (add-to-list 'auto-mode-alist '("\\.scss$" . sass-mode))
-  (setq sass-indent-offset 4))
+  (use-package sass-mode
+    :config
+    (add-to-list 'auto-mode-alist '("\\.sass$" . sass-mode))
+    (add-to-list 'auto-mode-alist '("\\.scss$" . sass-mode))
+    (setq sass-indent-offset 4)))
 
 
 (defun lc/modes/term ()
@@ -138,6 +138,17 @@
        :append :local))))
 
 
+(defun lc/modes/go ()
+  "Install and configure Go mode."
+  (add-hook 'go-mode #'lsp-deferred)
+
+  ;; Set up before-save hooks to format buffer and add/delete imports.
+  ;; Make sure you don't have other gofmt/goimports hooks enabled.
+  (defun lsp-go-install-save-hooks ()
+    (add-hook 'before-save-hook #'lsp-format-buffer t t)
+    (add-hook 'before-save-hook #'lsp-organize-imports t t))
+  (add-hook 'go-mode-hook #'lsp-go-install-save-hooks))
+
 (defun lc/modes/vala ()
   "Setup Vala specific configuration."
   (autoload 'vala-mode "vala-mode"
@@ -150,14 +161,15 @@
 
 (defun lc/modes/yaml ()
   "Configuration for yaml-mode."
-  (add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
-  ;; Salt Stack Files
-  (add-to-list 'auto-mode-alist '("\\.sls$" . yaml-mode)))
+  (use-package yaml-mode
+    :config
+    (add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
+    ;; Salt Stack Files
+    (add-to-list 'auto-mode-alist '("\\.sls$" . yaml-mode))))
 
 
 (defun lc/modes/web ()
   "Configuration for web-mode."
-  (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
   (add-to-list 'auto-mode-alist '("\\.js\\'" . js-jsx-mode))
   (add-to-list 'auto-mode-alist '("\\.json\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
@@ -165,46 +177,54 @@
   (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
 
-  (setq web-mode-content-types-alist '(("jsx" . "\\.js[x]?\\'")))
-  (setq web-mode-enable-auto-indentation nil)
-  (setq js2-basic-offset 2)
   (setq js-indent-level 2)
   (setq typescript-indent-level 2)
-  (setq js2-strict-trailing-comma-warning nil)
-  (setq js2-strict-missing-semi-warning nil)
 
-  (add-hook
-   'web-mode-hook
-   '(lambda ()
-      (setq web-mode-markup-indent-offset 2)
-      (setq web-mode-css-indent-offset 2)
-      (setq web-mode-code-indent-offset 2)
-      (setq web-mode-enable-current-element-highlight t)
-      (setq web-mode-enable-current-column-highlight t)
-      ;(prettier-js-mode)
-      (set-face-attribute 'web-mode-doctype-face nil :foreground
-                          (face-foreground font-lock-function-name-face))
-      (set-face-attribute 'web-mode-html-attr-name-face nil :foreground
-                          (face-foreground font-lock-variable-name-face))
-      (set-face-attribute 'web-mode-html-attr-value-face nil :foreground
-                          (face-foreground font-lock-type-face)))))
+  (use-package js2-mode
+    :config
+    (setq js2-basic-offset 2)
+    (setq js2-strict-trailing-comma-warning nil)
+    (setq js2-strict-missing-semi-warning nil)
+    (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode)))
+
+  (use-package web-mode
+    :config
+    (setq web-mode-content-types-alist '(("jsx" . "\\.js[x]?\\'")))
+    (setq web-mode-enable-auto-indentation nil)
+    (setq web-mode-markup-indent-offset 2)
+    (setq web-mode-css-indent-offset 2)
+    (setq web-mode-code-indent-offset 2)
+    (setq web-mode-enable-current-element-highlight t)
+    (setq web-mode-enable-current-column-highlight t)
+    :custom-face
+    (web-mode-doctype-face
+     ((t (:foreground ,(face-foreground font-lock-function-name-face)))))
+    (web-mode-html-attr-name-face
+     ((t (:foreground ,(face-foreground font-lock-variable-name-face)))))
+    (web-mode-html-attr-value-face
+     ((t (:foreground ,(face-foreground font-lock-type-face)))))))
 
 
 (defun lc/modes/pdf-tools ()
   "Set default for PDF mode."
-  (add-hook 'pdf-view-mode-hook
-            (lambda () (pdf-view-midnight-minor-mode))))
+  (use-package pdf-tools
+    :hook (pdf-view-mode . (lambda () (pdf-view-midnight-minor-mode)))))
 
 (defun lc/modes/python ()
   "Set defaults for Python tools."
-  (jedi:install-server)
-  (add-hook 'python-mode-hook 'jedi:setup)
-  (add-hook 'python-mode-hook 'jedi:ac-setup)
-  (setq jedi:complete-on-dot t))
+  (use-package lsp-python-ms
+    :ensure t
+    :init (setq lsp-python-ms-auto-install-server t)
+    :hook (python-mode . (lambda ()
+                           (require 'lsp-python-ms)
+                           (lsp))))  ; or lsp-deferred
+  )
 
 (defun lc/modes/lua ()
   "Set defaults for Lua code."
-  (setq lua-indent-level 2))
+  (use-package lua-mode
+    :config
+    (setq lua-indent-level 2)))
 
 (defun lc/modes/rust ()
   "Set defaults for Rust code."
@@ -255,8 +275,8 @@
 
 (defun lc/modes/prog ()
   "General configuration for `prog-mode'."
-  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
-
+  (use-package rainbow-delimiters
+    :hook (prog-mode . rainbow-delimiters-mode)))
 
 ;; https://lists.gnu.org/archive/html/help-gnu-emacs/2007-05/msg00975.html
 (define-minor-mode sticky-buffer-mode
@@ -267,11 +287,11 @@
 
 (defun lc/modes ()
   "Call out all the mode setup functions."
+  (lc/modes/lsp)
   (lc/modes/prog)
   (lc/modes/dired)
   (lc/modes/lua)
   (lc/modes/map-extensions)
-  (lc/modes/coffe-script)
   (lc/modes/pug)
   (lc/modes/css)
   (lc/modes/diff)
@@ -280,6 +300,7 @@
   (lc/modes/less)
   (lc/modes/markdown)
   (lc/modes/pdf-tools)
+  (lc/modes/go)
   (lc/modes/python)
   (lc/modes/rust)
   (lc/modes/sass)

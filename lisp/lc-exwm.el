@@ -24,6 +24,7 @@
 ;;
 ;;; Code:
 
+(use-package exwm)
 (require 'exwm)
 (require 'exwm-randr)
 (require 'exwm-systemtray)

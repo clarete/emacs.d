@@ -27,9 +27,8 @@
 (require 'dired-x)
 (require 'uniquify)
 (require 'tramp) ;; ssh and local `sudo' and `su'
-(require 'pallet)
-(require 'all-the-icons-dired)
-(require 'dimmer)
+
+(use-package password-store)
 
 
 (defun lc/general/utf-8 ()
@@ -93,9 +92,6 @@
   ;; Make sure `pdf-tools' is installed
   (pdf-tools-install)
 
-  ;; Sync package list with Cask file
-  (pallet-mode t)
-
   ;; Use screen as default shell
   (setq explicit-shell-file-name "/usr/bin/screen")
 
@@ -107,16 +103,38 @@
   (defvar disable-tramp-backups '(all))
 
   ;; Configure dimming of the buffers that are not active.
-  (dimmer-mode t)
-  (setq dimmer-fraction 0.5))
+  (use-package dimmer
+    :config
+    (dimmer-mode t)
+    (setq dimmer-fraction 0.5)))
+
+(defun lc/general/autocomplete ()
+  "Setup Company."
+  ;; Company mode is a standard completion package that works well
+  ;; with lsp-mode.
+  (use-package company
+    :hook (after-init . global-company-mode)
+    :config
+    (setq company-idle-delay .3)
+    (setq company-minimum-prefix-length 10)
+    (setq company-tooltip-align-annotations t)))
+
+
+(defun lc/general/path ()
+  "Load environment variables from the shell."
+  (use-package exec-path-from-shell)
+  (setq exec-path-from-shell-variables '("GOPATH" "PATH" "MANPATH"))
+  (exec-path-from-shell-initialize))
 
 
 (defun lc/general ()
   "Call out other general customization functions."
+  (lc/general/path)
   (lc/general/utf-8)
   (lc/general/navigation)
   (lc/general/keys)
-  (lc/general/misc))
+  (lc/general/misc)
+  (lc/general/autocomplete))
 
 
 (provide 'lc-general)

@@ -26,10 +26,12 @@
 
 (defun lc/ps/define ()
   "Define processes ran by prodigy."
-  (prodigy-define-service
-    :name "offlineimap"
-    :command "~/bin/check-email"
-    :cwd "~"))
+  (use-package prodigy
+    :config
+    (prodigy-define-service
+     :name "offlineimap"
+     :command "~/bin/check-email"
+     :cwd "~")))
 
 
 (defun lc/ps ()

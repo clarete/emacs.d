@@ -1,4 +1,4 @@
-;;; init.el --- My Emacs Setup
+;;; lc-pkgs.el --- Setup use-package & melpa
 ;;
 ;; Author: Lincoln Clarete <lincoln@clarete.li>
 ;;
@@ -24,36 +24,15 @@
 ;;
 ;;; Code:
 
-;; Default path to load lisp files
-(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
+(require 'package)
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 
-;; Load all the fun modules
-(require 'lc-pkgs)
-(require 'lc-ui)
-(require 'lc-exwm)
-(require 'lc-macos)
-(require 'lc-general)
-(require 'lc-edit)
-(require 'lc-modes)
-(require 'lc-org)
-(require 'lc-rcirc)
-(require 'lc-battery)
-(require 'lc-ps)
-(require 'lc-defs)
-(require 'lc-vendor)
+(eval-when-compile
+  (when (not (package-installed-p 'use-package))
+    (package-refresh-contents)
+    (package-install 'use-package))
+  (require 'use-package)
+  (setq use-package-always-ensure t))
 
-;; Initialize all the modules loaded above
-(lc/ui)
-(lc/exwm)
-(lc/macos)
-(lc/general)
-(lc/edit)
-(lc/modes)
-(lc/org)
-(lc/battery)
-(lc/rcirc)
-(lc/ps)
-(lc/vendor)
-
-(provide 'init)
-;;; init.el ends here
+(provide 'lc-pkgs)
+;;; lc-pkgs.el ends here

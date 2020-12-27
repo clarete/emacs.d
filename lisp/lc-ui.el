@@ -25,7 +25,6 @@
 ;;; Code:
 
 (require 'org)
-(require 'doom-modeline)
 
 (defun lc/ui/general ()
   "General UI configuration."
@@ -46,6 +45,9 @@
 (defun lc/ui/theme ()
   "Setup theme stuff."
 
+  (use-package all-the-icons-dired)
+  (use-package gruvbox-theme)
+
   (load-theme 'gruvbox t)
   (set-face-attribute 'fringe nil
                       :foreground (face-foreground 'default)
@@ -61,10 +63,13 @@
         window-divider-default-right-width 1)
   (window-divider-mode +1)
 
-  ;; Necessary for org-mode
-  (setq org-fontify-whole-heading-line t
-        org-fontify-done-headline t
-        org-fontify-quote-and-verse-blocks t))
+  (use-package neotree
+    :bind([f8] . neotree-toggle)
+    :config
+    (setq neo-autorefresh nil)
+    (setq neo-smart-open t)
+    (with-eval-after-load 'neotree
+      (define-key neotree-mode-map (kbd "h") 'neotree-hidden-file-toggle))))
 
 
 (defun lc/ui/fonts ()
@@ -81,6 +86,16 @@
 
 (defun lc/ui/fringe ()
   "Configure the Fringe area."
+  ;; Enable syntax checks
+  (use-package flycheck
+    :init (global-flycheck-mode)
+    :config
+    (setq flycheck-emacs-lisp-load-path 'inherit))
+
+  (use-package flycheck-posframe
+    :ensure t
+    :after flycheck
+    :config (add-hook 'flycheck-mode-hook #'flycheck-posframe-mode))
 
   ;; Custom bitmap to be shown in the fringe area for lines with any
   ;; sort of linting issues
@@ -104,17 +119,17 @@
               #b00000000
               #b00000000)))
   (flycheck-define-error-level 'error
-    :overlay-category 'flycheck-error-overlay
-    :fringe-bitmap 'my-flycheck-fringe-indicator
-    :fringe-face 'flycheck-fringe-error)
+   :overlay-category 'flycheck-error-overlay
+   :fringe-bitmap 'my-flycheck-fringe-indicator
+   :fringe-face 'flycheck-fringe-error)
   (flycheck-define-error-level 'warning
-    :overlay-category 'flycheck-warning-overlay
-    :fringe-bitmap 'my-flycheck-fringe-indicator
-    :fringe-face 'flycheck-fringe-warning)
+   :overlay-category 'flycheck-warning-overlay
+   :fringe-bitmap 'my-flycheck-fringe-indicator
+   :fringe-face 'flycheck-fringe-warning)
   (flycheck-define-error-level 'info
-    :overlay-category 'flycheck-info-overlay
-    :fringe-bitmap 'my-flycheck-fringe-indicator
-    :fringe-face 'flycheck-fringe-info)
+   :overlay-category 'flycheck-info-overlay
+   :fringe-bitmap 'my-flycheck-fringe-indicator
+   :fringe-face 'flycheck-fringe-info)
 
   ;; Get rid of the background color in the Fringe area
   (set-face-attribute 'fringe nil
@@ -127,9 +142,11 @@
 
 (defun lc/ui/modeline ()
   "Configuration for the modeline."
-  (setq doom-modeline-height 25)
-  (setq doom-modeline-bar-width 1)
-  (doom-modeline-mode 1))
+  (use-package doom-modeline
+    :config
+    (setq doom-modeline-height 25)
+    (setq doom-modeline-bar-width 1)
+    (doom-modeline-mode 1)))
 
 
 (defun lc/ui ()

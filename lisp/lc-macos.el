@@ -24,8 +24,6 @@
 ;;
 ;;; Code:
 
-(require 'exec-path-from-shell)
-
 ;; Mac specific stuff
 (defun lc/macos ()
   "Initialize stuff on macos if Emacs is running on Darwin."
@@ -41,10 +39,6 @@
     ;; Keys for visiting next & previous frame
     (global-set-key (kbd "M-`") #'other-frame)
     (global-set-key (kbd "M-~") #'(lambda () (interactive) (other-frame -1)))
-
-    ;; Loads environment variables from the shell
-    (setq exec-path-from-shell-variables '("GOPATH" "PATH" "MANPATH"))
-    (exec-path-from-shell-initialize)
 
     ;; sets fn-delete to be right-delete
     (global-set-key [kp-delete] 'delete-char)
