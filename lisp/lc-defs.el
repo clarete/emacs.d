@@ -26,8 +26,6 @@
 ;;
 ;;; Code:
 
-(eval-when-compile (require 'cl))
-
 (defun lc/defs/lock ()
   "Call out a shell command to lock the X11 session."
   (interactive)
@@ -124,29 +122,28 @@
   "Close all buffers with dead processes."
   (interactive)
   (mapcar #'kill-buffer
-          (remove-if-not #'lc/defs/dead-process-p (buffer-list))))
-
+          (cl-remove-if-not #'lc/defs/dead-process-p (buffer-list))))
 
 ;;;; Tests
 
 ;; nth-format
-(assert (string= (lc/defs/nth-format "28") "th"))
-(assert (string= (lc/defs/nth-format "21") "st"))
-(assert (string= (lc/defs/nth-format "22") "nd"))
-(assert (string= (lc/defs/nth-format "23") "rd"))
-(assert (string= (lc/defs/nth-format "20") "th"))
-(assert (string= (lc/defs/nth-format "11") "th"))
-(assert (string= (lc/defs/nth-format "12") "th"))
+(cl-assert (string= (lc/defs/nth-format "28") "th"))
+(cl-assert (string= (lc/defs/nth-format "21") "st"))
+(cl-assert (string= (lc/defs/nth-format "22") "nd"))
+(cl-assert (string= (lc/defs/nth-format "23") "rd"))
+(cl-assert (string= (lc/defs/nth-format "20") "th"))
+(cl-assert (string= (lc/defs/nth-format "11") "th"))
+(cl-assert (string= (lc/defs/nth-format "12") "th"))
 
 ;; nth day
 ; "2016-07-01"
-(assert (string= (lc/defs/nth-day '(22390 18641 631962 984000)) "1st"))
+(cl-assert (string= (lc/defs/nth-day '(22390 18641 631962 984000)) "1st"))
 
 ; "2016-07-02"
-(assert (string= (lc/defs/nth-day '(22391 18641 631962 984000)) "2nd"))
+(cl-assert (string= (lc/defs/nth-day '(22391 18641 631962 984000)) "2nd"))
 
 ; "2016-09-15"
-(assert (string= (lc/defs/nth-day '(22490 18641 631962 984000)) "15th"))
+(cl-assert (string= (lc/defs/nth-day '(22490 18641 631962 984000)) "15th"))
 
 (provide 'lc-defs)
 ;;; lc-defs.el ends here
