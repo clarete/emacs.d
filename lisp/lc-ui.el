@@ -92,10 +92,10 @@
     :config
     (setq flycheck-emacs-lisp-load-path 'inherit))
 
-  (use-package flycheck-posframe
+  (use-package flycheck-pos-tip
     :ensure t
     :after flycheck
-    :config (add-hook 'flycheck-mode-hook #'flycheck-posframe-mode))
+    :config (add-hook 'flycheck-mode-hook #'flycheck-pos-tip-mode))
 
   ;; Custom bitmap to be shown in the fringe area for lines with any
   ;; sort of linting issues
