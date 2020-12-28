@@ -32,13 +32,9 @@
 (defun lc/modes/lsp ()
   "Configure LSP mode."
   (use-package lsp-mode
-    :ensure t
-    :config
-    :commands (lsp lsp-deferred))
-
-  ;; Optional - provides fancier overlays.
+    :commands (lsp lsp-deferred)
+    :hook (go-mode . lsp-deferred))
   (use-package lsp-ui
-    :ensure t
     :commands lsp-ui-mode))
 
 (defun lc/modes/map-extensions ()
@@ -140,8 +136,7 @@
 
 (defun lc/modes/go ()
   "Install and configure Go mode."
-  (add-hook 'go-mode #'lsp-deferred)
-
+  (use-package go-mode)
   ;; Set up before-save hooks to format buffer and add/delete imports.
   ;; Make sure you don't have other gofmt/goimports hooks enabled.
   (defun lsp-go-install-save-hooks ()
