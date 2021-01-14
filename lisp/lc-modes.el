@@ -226,6 +226,18 @@
   (with-eval-after-load 'rust-mode
     (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)))
 
+(defun lc/modes/protobuf ()
+  "Setup `protobuf-mode'."
+  (use-package protobuf-mode
+    :hook (protobuf-mode . (lambda ()
+                             ;; extend CC mode with my config
+                             (c-add-style "protobuf"
+                                          '((c-basic-offset . 4)
+                                            (indent-tabs-mode . nil)))
+                             (c-set-style "protobuf")
+                             ;; enable line numbers
+                             (display-line-numbers-mode)))))
+
 ;; Configuration for dired to remember omit hidden state.  Found this
 ;; piece of code at https://www.emacswiki.org/emacs/DiredOmitMode
 ;; signed by the user `kuanyui`.  Thank you!
@@ -246,7 +258,6 @@
 
 (defun lc/modes/dired-omit-caller ()
   "The entry point for the switch."
-  (message "fuuu")
   (if lc/modes/v-dired-omit
       (setq dired-omit-mode t)
     (setq dired-omit-mode nil)))
@@ -306,7 +317,8 @@
   (lc/modes/term)
   (lc/modes/vala)
   (lc/modes/yaml)
-  (lc/modes/web))
+  (lc/modes/web)
+  (lc/modes/protobuf))
 
 
 (provide 'lc-modes)
