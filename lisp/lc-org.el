@@ -89,6 +89,8 @@
   (setq org-ditaa-jar-path "~/.emacs.d/contrib/ditaa/ditaa0_9.jar")
   (setq org-plantuml-jar-path "~/.emacs.d/contrib/plantuml/plantuml.jar")
   (setq org-confirm-babel-evaluate nil)
+  (eval-after-load 'org
+    (add-hook 'org-babel-after-execute-hook 'org-redisplay-inline-images))
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((ditaa . t)
