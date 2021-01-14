@@ -24,16 +24,6 @@
 ;;
 ;;; Code:
 
-(require 'linum)
-
-(defun lc/edit/line-numbers ()
-  "Configure line numbers in the Emacs UI."
-  (add-hook 'conf-mode-hook 'linum-on)
-  (add-hook 'prog-mode-hook 'linum-on)
-  (add-hook 'text-mode-hook 'linum-on)
-  (setq linum-format 'dynamic))
-
-
 (defun lc/edit/auto-complete ()
   "Enable and Configure the auto-complete feature."
    (use-package company
@@ -97,7 +87,6 @@
 
 (defun lc/edit ()
   "Call out other editing customization functions."
-  (lc/edit/line-numbers)
   (lc/edit/auto-complete)
   (lc/edit/code-snippets)
   (lc/edit/misc)

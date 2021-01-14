@@ -52,7 +52,7 @@
   (set-face-attribute 'fringe nil
                       :foreground (face-foreground 'default)
                       :background (face-background 'default))
-  (set-face-attribute 'linum nil
+  (set-face-attribute 'line-number nil
                       :foreground (face-foreground 'font-lock-comment-face)
                       :background (face-background 'default))
 
@@ -108,11 +108,11 @@
               #b00000000
               #b00000000
               #b00000000
-              #b00011100
-              #b00111110
-              #b00111110
-              #b00111110
-              #b00011100
+              #b00001110
+              #b00011111
+              #b00011111
+              #b00011111
+              #b00001110
               #b00000000
               #b00000000
               #b00000000

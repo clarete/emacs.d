@@ -15,7 +15,6 @@
  '(custom-safe-themes
    '("ff7625ad8aa2615eae96d6b4469fcc7d3d20b2e1ebc63b761a349bebbb9d23cb" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default))
  '(elfeed-feeds '("http://planet.emacsen.org/atom.xml"))
- '(linum-format 'dynamic)
  '(notmuch-saved-searches
    '((:name "inbox" :query "tag:inbox" :key "i")
      (:name "unread" :query "tag:unread" :key "u")

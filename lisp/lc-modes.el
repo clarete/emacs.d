@@ -270,6 +270,10 @@
 
 (defun lc/modes/prog ()
   "General configuration for `prog-mode'."
+  (add-hook 'prog-mode-hook #'display-line-numbers-mode)
+  (add-hook 'conf-mode-hook #'display-line-numbers-mode)
+  (add-hook 'text-mode-hook #'display-line-numbers-mode)
+
   (use-package rainbow-delimiters
     :hook (prog-mode . rainbow-delimiters-mode)))
 
