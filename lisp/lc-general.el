@@ -89,9 +89,6 @@
   (setq auto-save-file-name-transforms
         `((".*" ,temporary-file-directory t)))
 
-  ;; Make sure `pdf-tools' is installed
-  (pdf-tools-install)
-
   ;; Use screen as default shell
   (setq explicit-shell-file-name "/usr/bin/screen")
 

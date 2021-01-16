@@ -203,6 +203,7 @@
 (defun lc/modes/pdf-tools ()
   "Set default for PDF mode."
   (use-package pdf-tools
+    :init #'pdf-tools-install
     :hook (pdf-view-mode . (lambda () (pdf-view-midnight-minor-mode)))))
 
 (defun lc/modes/python ()
