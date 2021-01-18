@@ -26,11 +26,13 @@
 
 (defun lc/edit/auto-complete ()
   "Enable and Configure the auto-complete feature."
-   (use-package company
+  (use-package company
     :hook (after-init . global-company-mode)
     :config
     (setq company-minimum-prefix-length 1)
-    (setq company-idle-delay .3)))
+    (setq company-idle-delay .3))
+  (use-package company-lsp
+    :commands company-lsp))
 
 
 (defun lc/edit/code-snippets ()

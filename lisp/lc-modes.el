@@ -36,7 +36,13 @@
     :commands (lsp lsp-deferred)
     :hook (go-mode . lsp-deferred))
   (use-package lsp-ui
-    :commands lsp-ui-mode))
+    :commands lsp-ui-mode
+    :config (setq
+             lsp-ui-doc-enable nil
+             lsp-ui-peek-enable t
+             lsp-ui-sideline-enable t
+             lsp-ui-imenu-enable t
+             lsp-ui-flycheck-enable t)))
 
 (defun lc/modes/map-extensions ()
   "Map file extensions to modes."
