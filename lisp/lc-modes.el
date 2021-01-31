@@ -26,6 +26,7 @@
 (use-package magit)
 (use-package vterm)
 (use-package ox-reveal)
+(use-package package-lint)
 
 (require 'css-mode)
 (require 'dired-x)
