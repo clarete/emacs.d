@@ -117,6 +117,7 @@
 
 (defun lc/org ()
   "Configuration for the `org-mode'."
+  (use-package htmlize)
   (lc/org/keys)
   (lc/org/babel)
   (lc/org/utf-8-bullet)
