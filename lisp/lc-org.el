@@ -95,6 +95,7 @@
    'org-babel-load-languages
    '((ditaa . t)
      (dot . t)
+     (emacs-lisp . t)
      (gnuplot . t)
      (latex . t)
      (plantuml . t)
