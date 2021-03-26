@@ -31,9 +31,10 @@
     :config
     (setq company-minimum-prefix-length 1)
     (setq company-idle-delay .3))
+  (use-package company-box
+    :hook (company-mode . company-box-mode))
   (use-package company-lsp
     :commands company-lsp))
-
 
 (defun lc/edit/code-snippets ()
   "Configuration for yasnippets."
