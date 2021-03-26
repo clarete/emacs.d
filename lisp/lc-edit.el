@@ -46,6 +46,21 @@
     (yas-load-directory "~/.emacs.d/snippets")
     (yas-global-mode 1)))
 
+(defun lc/edit/flycheck ()
+  "Flycheck setup."
+  ;; Enable syntax checks
+  (use-package flycheck
+    :init (global-flycheck-mode)
+    :config
+    (setq flycheck-emacs-lisp-load-path 'inherit)))
+
+(defun lc/edit/multiple-cursors()
+  "Setup multiple-cursor."
+  (use-package multiple-cursors
+    :bind (("C-S-c C-S-c" . mc/edit-lines)
+           ("C->"         . mc/mark-next-like-this)
+           ("C-<"         . mc/mark-previous-like-this)
+           ("C-c C-<"     . mc/mark-all-like-this))))
 
 (defun lc/edit/misc ()
   "Misc editing settings."
@@ -80,21 +95,13 @@
   (setq select-enable-clipboard t))
 
 
-(defun lc/edit/multiple-cursors()
-  "Setup multiple-cursor."
-  (use-package multiple-cursors
-    :bind (("C-S-c C-S-c" . mc/edit-lines)
-           ("C->"         . mc/mark-next-like-this)
-           ("C-<"         . mc/mark-previous-like-this)
-           ("C-c C-<"     . mc/mark-all-like-this))))
-
-
 (defun lc/edit ()
   "Call out other editing customization functions."
   (lc/edit/auto-complete)
   (lc/edit/code-snippets)
-  (lc/edit/misc)
-  (lc/edit/multiple-cursors))
+  (lc/edit/flycheck)
+  (lc/edit/multiple-cursors)
+  (lc/edit/misc))
 
 
 (provide 'lc-edit)
