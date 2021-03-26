@@ -27,6 +27,7 @@
 (use-package vterm)
 (use-package ox-reveal)
 (use-package package-lint)
+(use-package nginx-mode)
 
 (require 'css-mode)
 (require 'dired-x)
