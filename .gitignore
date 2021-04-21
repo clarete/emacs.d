@@ -27,3 +27,4 @@ history
 network-security.data
 oauth2.plstore
 tramp
+custom.el
