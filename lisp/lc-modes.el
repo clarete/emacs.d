@@ -234,7 +234,8 @@
 (defun lc/modes/rust ()
   "Set defaults for Rust code."
   (use-package rust-mode)
-  (use-package flycheck-rust))
+  (use-package flycheck-rust
+    :hook (flycheck-mode . flycheck-rust-setup)))
 
 (defun lc/modes/protobuf ()
   "Setup `protobuf-mode'."

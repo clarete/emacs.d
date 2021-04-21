@@ -86,11 +86,6 @@
 
 (defun lc/ui/fringe ()
   "Configure the Fringe area."
-  ;; Enable syntax checks
-  (use-package flycheck
-    :init (global-flycheck-mode)
-    :config
-    (setq flycheck-emacs-lisp-load-path 'inherit))
 
   (use-package flycheck-pos-tip
     :ensure t
