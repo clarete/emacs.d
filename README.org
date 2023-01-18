@@ -1,35 +1,578 @@
-* Emacs setup
+#+STARTUP: show2levels
 
-  This repository contains my Emacs setup. Although these
-  configurations are catered to my own taste, you might find a few
-  things useful and improve the configuration of your Emacs too.
+* My Emacs Setup
+** Intro
 
-** What does it contain
+This repository contains my Emacs setup. Although these configurations are catered to my own taste, you might find a few things useful and improve the configuration of your Emacs too.  For the complete experience, it does depend on a few other files available on my [[https://github.com/clarete/dotfiles][dotdfiles]] repository though. Make sure you check it out too.
 
-   I'm an [[https://github.com/ch11ng/exwm/][EXWM]] user, so one of the first things it sets up is a
-   minimal desktop experience with dual monitor setup and a nice
-   theme.  For the complete experience, it does depend on a few other
-   files available on my [[https://github.com/clarete/dotfiles][dotdfiles]] repository though. Make sure you
-   check it out too.
+Here's a screenshot of me editing this file :)
 
-   It also sets up Org Mode, and some programming language
-   environments, like Python, JavaScript, Rust, Lua and a few others.
+[[./screenshot.jpg]]
+   
+** General
+*** Input Encoding
 
-   Here's a screenshot of me editing this file :)
+From [[https://github.com/doomemacs/doomemacs/blob/594d70292dc134d483fbf7a427001250de07b4d2/lisp/doom-start.el#L132-L134][Doom emacs]]: Contrary to what many Emacs users have in their configs, you don't need more than this to make UTF-8 the default coding system
 
-   [[./screenshot.jpg]]
+#+begin_src elisp
+  (set-language-environment "UTF-8")
+#+end_src
 
-** Install
+*** Paths
 
-   This is how you can get your Emacs to use this repository as the
-   base for your configuration.
+Load environment variables from the shell
 
-   #+begin_src bash
-   $ git clone http://github.com/clarete/emacs.d
-   $ ln -s $(pwd)/emacs.d ~/.emacs.d
-   $ cd ~/.emacs.d && make
-   #+end_src
+#+begin_src elisp
+  (use-package exec-path-from-shell)
+  (setq exec-path-from-shell-variables '("GOPATH" "PATH" "MANPATH"))
+  (exec-path-from-shell-initialize)
+#+end_src
 
-   Running the ~make~ command will evoke the installation of
-   [Cask](https://github.com/cask/cask) and all the Emacs extensions
-   described in the `Cask` file.
+There's no place like home
+
+#+begin_src elisp
+  (setq default-directory "~/")
+#+end_src
+
+Store auto-save and backup files in a temporary directory.  The default is to save these files in the same directory as the original file.  Which doesn't play very nicely with directories under a version control tool, like git, without an extra step of adding them to a ~.gitignore~ file.  Which is annoying, so we deal with it once and for all here
+
+#+begin_src elisp
+  (setq backup-directory-alist
+        `((".*" . ,temporary-file-directory)))
+  (setq auto-save-file-name-transforms
+        `((".*" ,temporary-file-directory t)))
+#+end_src
+
+We do the same for tramp files
+
+#+begin_src elisp
+  (setq tramp-auto-save-directory temporary-file-directory)
+#+end_src
+
+*** Shell
+
+Use GNU screen as my default shell
+
+#+begin_src elisp
+  (setq explicit-shell-file-name "/usr/bin/screen")
+#+end_src
+
+** Package Management
+
+Despite its terrible name, [[https://github.com/radian-software/straight.el][straight]] does provide good value when it comes to installing and managing Emacs Lisp extension packages.  This is the snippet for setting it up
+
+#+begin_src elisp
+  (setq package-enable-at-startup nil)
+  (defvar bootstrap-version)
+  (let ((bootstrap-file
+         (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+        (bootstrap-version 5))
+    (unless (file-exists-p bootstrap-file)
+      (with-current-buffer
+          (url-retrieve-synchronously
+           "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+           'silent 'inhibit-cookies)
+        (goto-char (point-max))
+        (eval-print-last-sexp)))
+    (load bootstrap-file nil 'nomessage))
+
+  (straight-use-package 'use-package)
+  (setq straight-use-package-by-default t)
+
+  (use-package use-package-ensure-system-package)
+#+end_src
+
+** Overall Look & Feel
+*** User Interface
+
+Get rid of some clutter, we don't really do mouse here anyway...
+
+#+begin_src elisp
+  (scroll-bar-mode 0)
+  (menu-bar-mode 0)
+  (tool-bar-mode 0)
+#+end_src
+
+Other misc user interface settings
+
+#+begin_src elisp
+  (column-number-mode)              ;; Basic config for columns
+  (setq ring-bell-function 'ignore) ;; No freaking bell
+  (setq inhibit-splash-screen t)    ;; No splash screen
+  (setq inhibit-startup-screen t)
+#+end_src
+
+More reliable inter-window border. The native bordebr "consumes" a pixel of the fringe on righter-most splits
+
+#+begin_src elisp
+  (setq window-divider-default-places t
+        window-divider-default-bottom-width 0
+        window-divider-default-right-width 1)
+  (window-divider-mode +1)
+#+end_src
+
+Configure dimming of the buffers that are not active.
+
+#+begin_src elisp
+  (use-package dimmer
+    :config
+    (dimmer-mode t)
+    (setq dimmer-fraction 0.5))
+#+end_src
+
+Unique buffer names
+
+#+begin_src elisp
+  (setq uniquify-buffer-name-style 'reverse)
+#+end_src
+
+Changing the frame title to show my host name and full path of file open on the current buffer. If `exwm' is enabled, this won't really do anything but won't do any harm either.
+
+#+begin_src elisp
+  (setq frame-title-format
+        (list (format "%s %%S: %%j " (system-name))
+              '(buffer-file-name "%f" (dired-directory
+                                       dired-directory "%b"))))
+#+end_src
+
+*** Modeline
+
+#+begin_src elisp
+  (use-package doom-modeline
+    :config
+    (setq doom-modeline-height 25)
+    (setq doom-modeline-bar-width 1)
+    (doom-modeline-mode 1))
+#+end_src
+
+*** Theme
+
+Start from a clean slate when loading another theme
+
+#+begin_src elisp
+  (defadvice load-theme (before clear-previous-themes activate)
+    "Clear existing theme settings instead of layering them"
+    (mapc #'disable-theme custom-enabled-themes))
+#+end_src
+
+Define the default theme
+
+#+begin_src elisp
+  (load-theme 'doom-tokyo-night t)
+#+end_src
+
+*** Icons
+
+#+begin_src elisp
+  (use-package all-the-icons)
+  (use-package all-the-icons-dired
+    :hook (dired-mode . all-the-icons-dired-mode))
+#+end_src
+
+*** Fonts
+
+#+begin_src elisp
+  (global-font-lock-mode 1)           ;; Always do syntax highlighting
+  (transient-mark-mode 1)             ;; Highlight mark region
+  (let ((myfont "Fira Code"))         ;; Font face settings
+    (set-frame-font myfont t t)
+    (set-face-attribute 'default nil
+                        :family myfont
+                        :height 120
+                        :weight 'normal
+                        :width 'normal))
+#+end_src
+
+*** Fringe
+
+Setup fringe style.  Notice that this must always happen after setting the theme, otherwise the fringe colors are set to the ~default~ of the previously selected theme (in my case, the default theme).
+
+#+begin_src elisp
+  ;; enable the fringe mode
+  (fringe-mode 15)
+
+  ;; Configure fringe colors
+  (set-face-attribute
+   'fringe nil
+   :foreground (face-foreground 'default)
+   :background (face-background 'default))
+  (set-face-attribute
+   'line-number nil
+   :foreground (face-foreground 'default)
+   :background (face-background 'default))
+#+end_src
+
+*** Writing
+
+#+begin_src elisp
+  (defun lc/writing-hook ()
+    "Stuff that's gonna happen when I put the writting cap."
+    ;; hipster-mode activate
+    (olivetti-mode)
+    ;; Give that beautiful little top padding
+    (setq-local header-line-format " ")
+    ;; Do away with line numbers, it's the
+    ;; content that's important here, not
+    ;; the quantity!!!
+    (setq-local display-line-numbers-type nil)
+    (display-line-numbers-mode nil))
+
+  (use-package olivetti
+    :custom (olivetti-body-width 100)
+    :hook ((markdown-mode . lc/writing-hook)
+           (org-mode . lc/writing-hook)))
+#+end_src
+
+** Key Bindings
+*** Text Editing
+
+#+begin_src elisp
+  ;; Comments
+  (global-set-key [(ctrl c) (c)] #'comment-region)
+  (global-set-key [(ctrl c) (d)] #'uncomment-region)
+
+  ;; join lines
+  (global-set-key [(ctrl J)] (lambda () (interactive) (join-line -1)))
+#+end_src
+
+*** Text Navigation
+
+#+begin_src elisp
+  ;; scrolling without changing the cursor
+  (global-set-key [(meta n)] (lambda () (interactive) (scroll-up 1)))
+  (global-set-key [(meta p)] (lambda () (interactive) (scroll-down 1)))
+
+  ;; scrolling other window
+  (global-set-key
+   [(meta j)] (lambda () (interactive) (scroll-other-window 1)))
+  (global-set-key
+   [(meta k)] (lambda () (interactive) (scroll-other-window -1)))
+#+end_src
+
+*** Globally accessible Org Mode features
+
+#+begin_src elisp
+  (define-key global-map "\C-cl" 'org-store-link)
+  (define-key global-map "\C-ca" 'org-agenda)
+#+end_src
+
+** Text Editing
+*** General
+
+#+begin_src elisp
+  ;; Do not wrap lines
+  (setq-default truncate-lines t)
+
+  ;; spaces instead of tabs
+  (setq-default indent-tabs-mode nil)
+
+  ;; Complain about trailing white spaces
+  (setq show-trailing-whitespace t)
+
+  ;; Also highlight parenthesis
+  (show-paren-mode 1)
+
+  ;; scroll smoothly
+  (setq scroll-conservatively 10000)
+
+  ;; Clipboard shared with the Desktop Environment. I wonder if the
+  ;; `exwm' integration would work without this line.
+  (setq select-enable-clipboard t)
+#+end_src
+
+*** Display Line Numbers
+
+#+begin_src elisp
+  (add-hook 'prog-mode-hook #'display-line-numbers-mode)
+  (add-hook 'conf-mode-hook #'display-line-numbers-mode)
+  (add-hook 'text-mode-hook #'display-line-numbers-mode)
+#+end_src
+
+Notice that the writing configuration disables the above settings for both ~org-mode~ and ~markdown-mode~.
+*** Autocomplete
+
+Company mode is a standard completion package that works well with lsp-mode
+
+#+begin_src elisp
+  (use-package company
+    :hook (after-init . global-company-mode)
+    :config
+    (setq company-idle-delay .3)
+    (setq company-minimum-prefix-length 10)
+    (setq company-tooltip-align-annotations t)
+    (global-set-key (kbd "TAB") #'company-indent-or-complete-common))
+  (use-package company-box
+    :hook (company-mode . company-box-mode))
+#+end_src
+
+*** Snippets
+
+#+begin_src elisp
+  (use-package yasnippet
+    :ensure t
+    :commands yas-minor-mode
+    :hook (go-mode . yas-minor-mode)
+    :config
+    (yas-load-directory "~/.emacs.d/snippets")
+    (yas-global-mode 1))
+#+end_src
+
+*** Parenthesis
+
+#+begin_src elisp
+  (use-package rainbow-mode)
+  (use-package rainbow-delimiters
+    :hook (prog-mode . rainbow-delimiters-mode))
+  (use-package smartparens
+    :init
+    (smartparens-global-mode t))
+#+end_src
+
+*** Multicursor
+
+#+begin_src elisp
+  (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+  (global-set-key (kbd "C->") 'mc/mark-next-like-this)
+  (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+  (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+#+end_src
+
+*** Flymake
+
+#+begin_src elisp
+  (use-package sideline-flymake
+    :hook (flymake-mode . sideline-mode)
+    :init
+    (setq sideline-flymake-display-errors-whole-line 'point)
+    (setq sideline-backends-right '(sideline-flymake)))
+#+end_src
+
+**** Custom Fringe Icon
+
+#+begin_src elisp
+  (when (fboundp 'define-fringe-bitmap)
+    (define-fringe-bitmap 'my-rounded-fringe-indicator
+      (vector #b00000000
+              #b00000000
+              #b00000000
+              #b00000000
+              #b00000000
+              #b00000000
+              #b00000000
+              #b00011100
+              #b00111110
+              #b00111110
+              #b00111110
+              #b00011100
+              #b00000000
+              #b00000000
+              #b00000000
+              #b00000000
+              #b00000000)))
+  (custom-set-variables
+   '(flymake-error-bitmap '(my-rounded-fringe-indicator compilation-error))
+   '(flymake-note-bitmap '(my-rounded-fringe-indicator compilation-info))
+   '(flymake-warning-bitmap '(my-rounded-fringe-indicator compilation-warning)))
+
+#+end_src
+
+*** Flyspell
+
+#+begin_src elisp
+  (use-package flyspell)
+  (use-package flyspell-correct-popup)
+  (setq ispell-program-name "aspell")
+  (ispell-change-dictionary "english")
+
+  (defun lc/flyspell/switch-dict ()
+    (interactive)
+    (let* ((dic ispell-current-dictionary)
+           (change (if (string= dic "pt_BR") "english" "pt_BR")))
+      (ispell-change-dictionary change)
+      (message "Dictionary switched from %s to %s" dic change)))
+
+  (global-set-key (kbd "<f5>") #'lc/flyspell/switch-dict)
+  (define-key flyspell-mode-map (kbd "C-;") 'flyspell-correct-wrapper)
+#+end_src
+
+** Packages
+
+The all mighty and magical ~magit~
+
+#+begin_src elisp
+  (use-package magit)
+#+end_src
+
+Builtins that need to be required
+
+#+begin_src elisp
+  (require 'dired-x)
+  (require 'uniquify)
+  (require 'tramp) ;; ssh and local `sudo' and `su'
+#+end_src
+
+Extensions installed from the external world
+
+#+begin_src elisp
+  (use-package password-store)
+
+  (use-package neotree
+    :bind([f8] . neotree-toggle)
+    :config
+    (setq neo-autorefresh nil)
+    (setq neo-smart-open t)
+    (with-eval-after-load 'neotree
+      (define-key neotree-mode-map (kbd "h") 'neotree-hidden-file-toggle)))
+#+end_src
+
+** Org Mode
+*** Look & Feel
+
+#+begin_src elisp
+  (setq org-fontify-whole-heading-line t
+        org-fontify-done-headline t
+        org-fontify-quote-and-verse-blocks t
+        org-startup-indented t ;; Enable org-indent-mode by default
+        )
+  (custom-theme-set-faces
+   'user
+   '(org-document-title
+     ((t (:inherit default :weight bold :underline nil :background "grey15")))))
+#+end_src
+
+Replace asterisk and dash chars with nice looking UTF-8 bullets.
+
+#+begin_src elisp
+  (font-lock-add-keywords
+   'org-mode
+   '(("^ +\\([-*]\\) "
+      (0 (prog1 ()
+           (compose-region (match-beginning 1) (match-end 1) "•"))))))
+#+end_src
+
+Change the default size of the headers
+
+#+begin_src elisp
+  (custom-set-faces
+   '(org-level-1 ((t (:inherit outline-1 :height 1.5))))
+   '(org-level-2 ((t (:inherit outline-2 :height 1.25))))
+   '(org-level-3 ((t (:inherit outline-3 :height 1.125))))
+   '(org-level-4 ((t (:inherit outline-4 :height 1.0))))
+   '(org-level-5 ((t (:inherit outline-5 :height 0.875)))))
+#+end_src
+
+Enable and configure `org-bullets' with custom icons
+
+#+begin_src elisp
+  (use-package org-bullets
+    :hook (org-mode . (lambda() (org-bullets-mode 1)))
+    :config (setq org-bullets-bullet-list '("▶" "▸" "▹" "▹" "▹" "▹")))
+#+end_src
+
+*** Editting
+
+Load some Org Mode extensions
+
+#+begin_src elisp
+  (require 'org-tempo)
+  (require 'org-agenda)
+  (require 'ob-ditaa)
+  (require 'ob-plantuml)
+#+end_src
+
+Set a kanban-ish workflow for managing TODO items
+
+#+begin_src elisp
+  (setq org-todo-keywords
+        '((sequence "TODO" "DOING" "BLOCKED" "|" "DONE" "ARCHIVED")))
+  (setq org-todo-keyword-faces
+        '(("TODO" . "red")
+          ("DOING" . "yellow")
+          ("BLOCKED" . org-warning)
+          ("DONE" . "green")
+          ("ARCHIVED" .  "blue")))
+#+end_src
+
+*** Babel
+
+#+begin_src elisp
+  (setq org-ditaa-jar-path "~/.emacs.d/contrib/ditaa/ditaa0_9.jar")
+  (setq org-plantuml-jar-path "~/.emacs.d/contrib/plantuml/plantuml.jar")
+  (setq org-confirm-babel-evaluate nil)
+  (eval-after-load 'org
+    (add-hook 'org-babel-after-execute-hook 'org-redisplay-inline-images))
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((ditaa . t)
+     (dot . t)
+     (gnuplot . t)
+     (latex . t)
+     (plantuml . t)
+     (python . t)
+     ;; (R . t)
+     (ruby . t)))
+#+end_src
+
+*** Agenda & TODO
+
+The following code will list all the Org Mode files within my directory of choice and feed it into the ~`org-agenda-files'~ variable.
+
+#+begin_src elisp
+  (let ((directory-with-my-org-files "~/org"))
+    (setq org-agenda-files
+          (condition-case err
+              (directory-files directory-with-my-org-files t
+                               directory-files-no-dot-files-regexp)
+            (file-missing nil))))
+#+end_src
+
+*** Misc
+
+#+begin_src elisp
+  (setq org-log-done t
+        org-agenda-sticky t)
+#+end_src
+
+** Native Compilation
+
+Emacs can compile its lisp flavor into native code.  This is powerful indeed, but it requires some settings to feel a little nicer.  First, we want to compile the Emacs Lisp code asynchronously to continue to operate smoothly, then we want to make it a bit less noisy in case the compilation wants to report progress its or warnings.
+
+#+begin_src elisp
+  (when (fboundp 'native-compile-async)
+    (setq comp-deferred-compilation t))
+  (setq native-comp-async-report-warnings-errors nil
+        warning-minimum-level :error)
+#+end_src
+
+** macos
+
+#+begin_src elisp
+  (when (eq system-type 'darwin)
+    (setq mac-option-modifier 'alt)
+    (setq mac-command-modifier 'meta)
+
+    ;; Keys for visiting next & previous windows
+    (global-set-key (kbd "<A-tab>") #'other-window)
+    (global-set-key (kbd "<A-S-tab>")
+                    #'(lambda () (interactive) (other-window -1)))
+
+    ;; Keys for visiting next & previous frame
+    (global-set-key (kbd "M-`") #'other-frame)
+    (global-set-key (kbd "M-~") #'(lambda () (interactive) (other-frame -1)))
+
+    ;; sets fn-delete to be right-delete
+    (global-set-key [kp-delete] 'delete-char)
+    (menu-bar-mode 1))
+#+end_src
+
+** Tests
+
+#+begin_src elisp
+
+  ;; (setq org-bullets-bullet-list '("\u200b"))
+
+  ;; (global-auto-revert-mode nil)
+
+  (use-package org-superstar)
+
+#+end_src

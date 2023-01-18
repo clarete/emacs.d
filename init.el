@@ -2,7 +2,7 @@
 ;;
 ;; Author: Lincoln Clarete <lincoln@clarete.li>
 ;;
-;; Copyright (C) 2012-2020  Lincoln Clarete
+;; Copyright (C) 2012-2023  Lincoln Clarete
 ;;
 ;; This program is free software: you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -24,36 +24,21 @@
 ;;
 ;;; Code:
 
-;; Default path to load lisp files
-(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
+;; This is an Emacs literal config, see the README.org file!
+(org-babel-load-file "~/.emacs.d/README.org")
 
-;; Load all the fun modules
-(require 'lc-pkgs)
-(require 'lc-ui)
-(require 'lc-exwm)
-(require 'lc-macos)
-(require 'lc-general)
-(require 'lc-edit)
-(require 'lc-modes)
-(require 'lc-org)
-(require 'lc-rcirc)
-(require 'lc-battery)
-(require 'lc-ps)
-(require 'lc-defs)
-(require 'lc-vendor)
+;; Won't migrate for now, as I haven't used EXWM in a bit.  The files
+;; will remain in this repository for the time being
 
-;; Initialize all the modules loaded above
-(lc/ui)
-(lc/exwm)
-(lc/macos)
-(lc/general)
-(lc/edit)
-(lc/modes)
-(lc/org)
-(lc/battery)
-(lc/rcirc)
-(lc/ps)
-(lc/vendor)
+;; (require 'lc-exwm)
+;; (require 'lc-battery)
+;; (require 'lc-rcirc)
+;; (require 'lc-ps)
+
+;; (require 'lc-modes)
+;; (require 'lc-org)
+;; (require 'lc-defs)
+;; (require 'lc-vendor)
 
 (provide 'init)
 ;;; init.el ends here
