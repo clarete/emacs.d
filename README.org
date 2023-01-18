@@ -7,7 +7,7 @@ This repository contains my Emacs setup. Although these configurations are cater
 
 Here's a screenshot of me editing this file :)
 
-[[./screenshot.jpg]]
+[[./screenshot.png]]
    
 ** General
 *** Input Encoding
