@@ -27,18 +27,5 @@
 ;; This is an Emacs literal config, see the README.org file!
 (org-babel-load-file "~/.emacs.d/README.org")
 
-;; Won't migrate for now, as I haven't used EXWM in a bit.  The files
-;; will remain in this repository for the time being
-
-;; (require 'lc-exwm)
-;; (require 'lc-battery)
-;; (require 'lc-rcirc)
-;; (require 'lc-ps)
-
-;; (require 'lc-modes)
-;; (require 'lc-org)
-;; (require 'lc-defs)
-;; (require 'lc-vendor)
-
 (provide 'init)
 ;;; init.el ends here

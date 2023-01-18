@@ -57,6 +57,15 @@ Use GNU screen as my default shell
   (setq explicit-shell-file-name "/usr/bin/screen")
 #+end_src
 
+*** Extra Emacs Lisp files
+
+This is where I have some Emacs Lisp code I wrote myself and won't really ever package it as these are very custom and personal features
+
+#+begin_src elisp
+  (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
+  (require 'lc-defs)
+#+end_src
+
 ** Package Management
 
 Despite its terrible name, [[https://github.com/radian-software/straight.el][straight]] does provide good value when it comes to installing and managing Emacs Lisp extension packages.  This is the snippet for setting it up
