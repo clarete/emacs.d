@@ -425,6 +425,20 @@ Extensions installed from the external world
       (define-key neotree-mode-map (kbd "h") 'neotree-hidden-file-toggle)))
 #+end_src
 
+*** Vendorized Modes
+
+This is the path where I copy Emacs extensions that aren't available in any pre-packaged repository, like melpa etc.
+
+#+begin_src elisp
+  (add-to-list 'load-path (expand-file-name "site-lisp" user-emacs-directory))
+#+end_src
+
+And these are the modules themselves
+
+#+begin_src elisp
+  (require 'peg-mode)
+#+end_src
+
 ** Org Mode
 *** Look & Feel
 
