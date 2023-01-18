@@ -318,11 +318,11 @@ Company mode is a standard completion package that works well with lsp-mode
 
 #+begin_src elisp
   (use-package yasnippet
-    :ensure t
-    :commands yas-minor-mode
-    :hook (go-mode . yas-minor-mode)
+    :init
     :config
+    (setq yas-verbosity 1)
     (yas-load-directory "~/.emacs.d/snippets")
+    (yas-reload-all)
     (yas-global-mode 1))
 #+end_src
 
