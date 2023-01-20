@@ -43,7 +43,7 @@
     (define-key magit-mode-map (kbd "<M-tab>") nil))
   ;; Unbind <M-tab> in eshell
   (add-hook 'eshell-mode-hook
-            '(lambda () (define-key eshell-mode-map (kbd "<M-tab>") nil)))
+            (lambda () (define-key eshell-mode-map (kbd "<M-tab>") nil)))
 
   ;; Bind keys for resizing windows
   (exwm-input-set-key (kbd "C-{") #'shrink-window-horizontally)
