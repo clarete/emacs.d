@@ -9,6 +9,8 @@ Here's a screenshot of me editing this file :)
 
 [[./screenshot.png]]
    
+Make sure you checkout [[https://github.com/guilhermecomum][@guilhermecomum]]'s [[https://github.com/guilhermecomum/emacs.d][Emacs Config]].  A whole lot of things present on this configuration were extracted from Guilherme's config.
+
 ** Package Management
 
 Despite its terrible name, [[https://github.com/radian-software/straight.el][straight]] does provide good value when it comes to installing and managing Emacs Lisp extension packages.  This is the snippet for setting it up
