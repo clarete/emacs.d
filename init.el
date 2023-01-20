@@ -24,7 +24,7 @@
 ;;
 ;;; Code:
 
-;; This is an Emacs literal config, see the README.org file!
+;; This is an Emacs literate config, see the README.org file!
 (org-babel-load-file "~/.emacs.d/README.org")
 
 (provide 'init)
