@@ -9,6 +9,31 @@ Here's a screenshot of me editing this file :)
 
 [[./screenshot.png]]
    
+** Package Management
+
+Despite its terrible name, [[https://github.com/radian-software/straight.el][straight]] does provide good value when it comes to installing and managing Emacs Lisp extension packages.  This is the snippet for setting it up
+
+#+begin_src elisp
+  (setq package-enable-at-startup nil)
+  (defvar bootstrap-version)
+  (let ((bootstrap-file
+         (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+        (bootstrap-version 5))
+    (unless (file-exists-p bootstrap-file)
+      (with-current-buffer
+          (url-retrieve-synchronously
+           "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+           'silent 'inhibit-cookies)
+        (goto-char (point-max))
+        (eval-print-last-sexp)))
+    (load bootstrap-file nil 'nomessage))
+
+  (straight-use-package 'use-package)
+  (setq straight-use-package-by-default t)
+
+  (use-package use-package-ensure-system-package)
+#+end_src
+
 ** General
 *** Input Encoding
 
@@ -64,31 +89,6 @@ This is where I have some Emacs Lisp code I wrote myself and won't really ever p
 #+begin_src elisp
   (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
   (require 'lc-defs)
-#+end_src
-
-** Package Management
-
-Despite its terrible name, [[https://github.com/radian-software/straight.el][straight]] does provide good value when it comes to installing and managing Emacs Lisp extension packages.  This is the snippet for setting it up
-
-#+begin_src elisp
-  (setq package-enable-at-startup nil)
-  (defvar bootstrap-version)
-  (let ((bootstrap-file
-         (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
-        (bootstrap-version 5))
-    (unless (file-exists-p bootstrap-file)
-      (with-current-buffer
-          (url-retrieve-synchronously
-           "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
-           'silent 'inhibit-cookies)
-        (goto-char (point-max))
-        (eval-print-last-sexp)))
-    (load bootstrap-file nil 'nomessage))
-
-  (straight-use-package 'use-package)
-  (setq straight-use-package-by-default t)
-
-  (use-package use-package-ensure-system-package)
 #+end_src
 
 ** Overall Look & Feel
