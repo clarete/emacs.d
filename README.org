@@ -350,14 +350,6 @@ Company mode is a standard completion package that works well with lsp-mode
 
 *** Flymake
 
-#+begin_src elisp
-  (use-package sideline-flymake
-    :hook (flymake-mode . sideline-mode)
-    :init
-    (setq sideline-flymake-display-errors-whole-line 'point)
-    (setq sideline-backends-right '(sideline-flymake)))
-#+end_src
-
 **** Custom Fringe Icon
 
 #+begin_src elisp
@@ -380,11 +372,17 @@ Company mode is a standard completion package that works well with lsp-mode
               #b00000000
               #b00000000
               #b00000000)))
-  (custom-set-variables
-   '(flymake-error-bitmap '(my-rounded-fringe-indicator compilation-error))
-   '(flymake-note-bitmap '(my-rounded-fringe-indicator compilation-info))
-   '(flymake-warning-bitmap '(my-rounded-fringe-indicator compilation-warning)))
+#+end_src
 
+**** Show errors with markers on the sideline
+
+#+begin_src elisp
+  (use-package sideline-flymake
+    :hook (flymake-mode . sideline-mode)
+    :custom
+    (flymake-error-bitmap '(my-rounded-fringe-indicator compilation-error))
+    (flymake-note-bitmap '(my-rounded-fringe-indicator compilation-info))
+    (flymake-warning-bitmap '(my-rounded-fringe-indicator compilation-warning)))
 #+end_src
 
 *** Flyspell
