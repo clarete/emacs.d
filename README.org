@@ -434,6 +434,12 @@ Extensions installed from the external world
       (define-key neotree-mode-map (kbd "h") 'neotree-hidden-file-toggle)))
 #+end_src
 
+*** Terminal
+
+#+begin_src elisp
+(use-package vterm)
+#+end_src
+
 *** Vendorized Modes
 
 This is the path where I copy Emacs extensions that aren't available in any pre-packaged repository, like melpa etc.
