@@ -471,9 +471,13 @@ And these are the modules themselves
 *** Look & Feel
 **** General
 #+begin_src elisp
-  (setq org-fontify-whole-heading-line t
-        org-fontify-done-headline t
-        org-fontify-quote-and-verse-blocks t)
+    (use-package org
+      :straight (:type built-in)
+      :config
+      (setq org-fontify-whole-heading-line t
+            org-fontify-done-headline t
+            org-fontify-quote-and-verse-blocks t)
+      (setq-local line-spacing 1))
 #+end_src
 
 **** Customize font for the document title
@@ -485,7 +489,7 @@ And these are the modules themselves
      ((t (:inherit default :weight bold :underline nil :background nil)))))
 #+end_src
 
-**** Replace asterisks and dashes with nice looking UTF-8 bullets in unordered lists
+**** Swap * and - with nice looking UTF-8 bullets in unordered lists
 
 #+begin_src elisp
   (font-lock-add-keywords
@@ -499,23 +503,26 @@ And these are the modules themselves
 
 #+begin_src elisp
   (custom-set-faces
-   '(org-level-1 ((t (:inherit outline-1 :height 1.300 :weight extra-bold))))
-   '(org-level-2 ((t (:inherit outline-2 :height 1.250 :weight extra-bold))))
-   '(org-level-3 ((t (:inherit outline-3 :height 1.125 :weight bold))))
-   '(org-level-4 ((t (:inherit outline-4 :height 1.000 :weight bold))))
-   '(org-level-5 ((t (:inherit outline-5 :height 0.875 :weight semi-bold)))))
+   '(org-level-1 ((t (:inherit outline-1 :height 1.50 :weight extra-bold))))
+   '(org-level-2 ((t (:inherit outline-2 :height 1.30 :weight extra-bold))))
+   '(org-level-3 ((t (:inherit outline-3 :height 1.20 :weight extra-bold))))
+   '(org-level-4 ((t (:inherit outline-4 :height 1.15 :weight bold))))
+   '(org-level-5 ((t (:inherit outline-5 :height 1.10 :weight bold))))
+   '(org-level-6 ((t (:inherit outline-6 :height 1.05 :weight semi-bold)))))
 #+end_src
 
-**** Change symbol and font used for the heading stars
+**** Swap * with # symbols in heading
+
+I saw this beautiful style implemented for the Markdown Mode in this [[https://www.reddit.com/r/emacs/comments/10h9jf0/beautify_markdown_on_emacs][reddit post]], then I wanted to do the same with Org Mode.  After quite a bit of digging, I got this idea from this [[https://emacs.stackexchange.com/a/38847][stackoverflow answer]], threw some more lisp on it and ended up with the following snippet
 
 #+begin_src elisp
-  (font-lock-add-keywords 'org-mode '(("^\\(*+\\)" . font-lock-doc-face)))
   (font-lock-add-keywords
    'org-mode '(("^\\(*+\\)"
                 (0 (prog1 ()
                      (let* ((start (match-beginning 0))
                             (end (match-end 0))
                             (length (- end start)))
+                       (add-face-text-property start end '(:foreground "#616161" :height 0.8))
                        (dotimes (i length)
                          (compose-region (+ i start) (+ i start 1) "#"))))))))
 #+end_src
