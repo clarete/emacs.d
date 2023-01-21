@@ -362,7 +362,6 @@ Company mode is a standard completion package that works well with lsp-mode
 #+end_src
 
 *** Flymake
-
 **** Custom Fringe Icon
 
 #+begin_src elisp
