@@ -182,7 +182,7 @@ Start from a clean slate when loading another theme
 Define the default theme
 
 #+begin_src elisp
-  (load-theme 'doom-tokyo-night t)
+  (load-theme 'doom-tomorrow-night t)
 #+end_src
 
 *** Icons
