@@ -510,7 +510,7 @@ And these are the modules themselves
    '(org-level-6 ((t (:inherit outline-6 :height 1.05 :weight semi-bold)))))
 #+end_src
 
-**** Swap * with # symbols in heading
+**** Swap * with # symbols in headers
 
 I saw this beautiful style implemented for the Markdown Mode in this [[https://www.reddit.com/r/emacs/comments/10h9jf0/beautify_markdown_on_emacs][reddit post]], then I wanted to do the same with Org Mode.  After quite a bit of digging, I got this idea from this [[https://emacs.stackexchange.com/a/38847][stackoverflow answer]], threw some more lisp on it and ended up with the following snippet
 
