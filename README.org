@@ -447,6 +447,20 @@ Company mode is a standard completion package that works well with lsp-mode
 #+end_src
 
 ** Programming Modes
+*** Protobuf
+
+#+begin_src elisp
+  (use-package protobuf-mode
+    :hook (protobuf-mode . (lambda ()
+                             ;; extend CC mode with my config
+                             (c-add-style "protobuf"
+                                          '((c-basic-offset . 4)
+                                            (indent-tabs-mode . nil)))
+                             (c-set-style "protobuf")
+                             ;; enable line numbers
+                             (display-line-numbers-mode))))
+#+end_src
+
 *** Rust
 
 #+begin_src elisp
