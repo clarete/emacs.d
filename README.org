@@ -623,14 +623,3 @@ Emacs can compile its lisp flavor into native code.  This is powerful indeed, bu
     (menu-bar-mode 1))
 #+end_src
 
-** Tests
-
-#+begin_src elisp
-
-  ;; (setq org-bullets-bullet-list '("\u200b"))
-
-  ;; (global-auto-revert-mode nil)
-
-  (use-package org-superstar)
-
-#+end_src
