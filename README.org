@@ -469,20 +469,23 @@ And these are the modules themselves
 
 ** Org Mode
 *** Look & Feel
-
+**** General
 #+begin_src elisp
   (setq org-fontify-whole-heading-line t
         org-fontify-done-headline t
-        org-fontify-quote-and-verse-blocks t
-        org-startup-indented t ;; Enable org-indent-mode by default
-        )
+        org-fontify-quote-and-verse-blocks t)
+#+end_src
+
+**** Customize font for the document title
+
+#+begin_src elisp
   (custom-theme-set-faces
    'user
    '(org-document-title
-     ((t (:inherit default :weight bold :underline nil :background "grey15")))))
+     ((t (:inherit default :weight bold :underline nil :background nil)))))
 #+end_src
 
-Replace asterisk and dash chars with nice looking UTF-8 bullets.
+**** Replace asterisks and dashes with nice looking UTF-8 bullets in unordered lists
 
 #+begin_src elisp
   (font-lock-add-keywords
