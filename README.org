@@ -495,23 +495,29 @@ And these are the modules themselves
            (compose-region (match-beginning 1) (match-end 1) "•"))))))
 #+end_src
 
-Change the default size of the headers
+**** Change the default size of the headers
 
 #+begin_src elisp
   (custom-set-faces
-   '(org-level-1 ((t (:inherit outline-1 :height 1.5))))
-   '(org-level-2 ((t (:inherit outline-2 :height 1.25))))
-   '(org-level-3 ((t (:inherit outline-3 :height 1.125))))
-   '(org-level-4 ((t (:inherit outline-4 :height 1.0))))
-   '(org-level-5 ((t (:inherit outline-5 :height 0.875)))))
+   '(org-level-1 ((t (:inherit outline-1 :height 1.300 :weight extra-bold))))
+   '(org-level-2 ((t (:inherit outline-2 :height 1.250 :weight extra-bold))))
+   '(org-level-3 ((t (:inherit outline-3 :height 1.125 :weight bold))))
+   '(org-level-4 ((t (:inherit outline-4 :height 1.000 :weight bold))))
+   '(org-level-5 ((t (:inherit outline-5 :height 0.875 :weight semi-bold)))))
 #+end_src
 
-Enable and configure `org-bullets' with custom icons
+**** Change symbol and font used for the heading stars
 
 #+begin_src elisp
-  (use-package org-bullets
-    :hook (org-mode . (lambda() (org-bullets-mode 1)))
-    :config (setq org-bullets-bullet-list '("▶" "▸" "▹" "▹" "▹" "▹")))
+  (font-lock-add-keywords 'org-mode '(("^\\(*+\\)" . font-lock-doc-face)))
+  (font-lock-add-keywords
+   'org-mode '(("^\\(*+\\)"
+                (0 (prog1 ()
+                     (let* ((start (match-beginning 0))
+                            (end (match-end 0))
+                            (length (- end start)))
+                       (dotimes (i length)
+                         (compose-region (+ i start) (+ i start 1) "#"))))))))
 #+end_src
 
 *** Editting
