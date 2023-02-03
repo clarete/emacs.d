@@ -470,6 +470,16 @@ Company mode is a standard completion package that works well with lsp-mode
     (setq rustic-lsp-client 'eglot))
 #+end_src
 
+*** JavaScript
+
+#+begin_src elisp
+  (use-package js2-mode
+    :config
+    (setq js2-basic-offset 2)
+    (setq js2-strict-trailing-comma-warning nil)
+    (setq js2-strict-missing-semi-warning nil)
+    (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode)))
+#+end_src
 ** Packages
 
 The all mighty and magical ~magit~
