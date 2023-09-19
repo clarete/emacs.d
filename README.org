@@ -481,6 +481,13 @@ Company mode is a standard completion package that works well with lsp-mode
     (setq js2-strict-missing-semi-warning nil)
     (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode)))
 #+end_src
+
+*** Other Web Stuff
+
+#+begin_src elisp
+  (use-package jinja2-mode)
+#+end_src
+
 ** Packages
 
 The all mighty and magical ~magit~
