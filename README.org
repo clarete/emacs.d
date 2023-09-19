@@ -440,6 +440,7 @@ Company mode is a standard completion package that works well with lsp-mode
     ;; Just `rust-analyzer` won't do it if it is installed via `rustup`.
     ;; Check out https://rust-analyzer.github.io/manual.html#rustup for
     ;; more details
+    (add-to-list 'eglot-stay-out-of 'eldoc)
     (setf (alist-get 'rustic-mode eglot-server-programs)
           (split-string
            (shell-command-to-string
