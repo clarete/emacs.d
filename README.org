@@ -103,7 +103,7 @@ This is where I have some Emacs Lisp code I wrote myself and won't really ever p
     :hook ((dired-mode . hl-line-mode))
     :custom
     (dired-recursive-copies 'always)
-    (dired-listing-switches "-fgGhL"))
+    (dired-listing-switches "-fgGhLv"))
 #+end_src
 
 ** Overall Look & Feel
