@@ -159,16 +159,6 @@ Changing the frame title to show my host name and full path of file open on the 
                                        dired-directory "%b"))))
 #+end_src
 
-*** Modeline
-
-#+begin_src elisp
-  (use-package doom-modeline
-    :config
-    (setq doom-modeline-height 25)
-    (setq doom-modeline-bar-width 1)
-    (doom-modeline-mode 1))
-#+end_src
-
 *** Theme
 
 Start from a clean slate when loading another theme
@@ -188,9 +178,22 @@ Define the default theme
 *** Icons
 
 #+begin_src elisp
-  (use-package all-the-icons)
-  (use-package all-the-icons-dired
-    :hook (dired-mode . all-the-icons-dired-mode))
+  (use-package nerd-icons)
+  (use-package nerd-icons-dired
+    :hook (dired-mode . nerd-icons-dired-mode))
+  (use-package treemacs-nerd-icons
+    :config
+    (treemacs-load-theme "nerd-icons"))
+#+end_src
+
+*** Modeline
+
+#+begin_src elisp
+  (use-package doom-modeline
+    :config
+    (setq doom-modeline-height 25)
+    (setq doom-modeline-bar-width 1)
+    (doom-modeline-mode 1))
 #+end_src
 
 *** Fonts
