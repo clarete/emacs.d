@@ -419,6 +419,30 @@ Company mode is a standard completion package that works well with lsp-mode
   (define-key flyspell-mode-map (kbd "C-;") 'flyspell-correct-wrapper)
 #+end_src
 
+** Projectile
+
+#+begin_src elisp
+  (use-package projectile
+    :init
+    (projectile-mode +1)
+    :bind (("C-c p" . projectile-command-map)
+           ("M-[" . projectile-previous-project-buffer)
+           ("M-]" . projectile-next-project-buffer))
+    :config
+    (setq projectile-indexing-method 'hybrid
+          projectile-sort-order 'recently-active
+          compilation-read-command nil
+          projectile-comint-mode t)
+
+    (add-to-list 'projectile-globally-ignored-directories "node_modules")
+    (add-to-list 'projectile-globally-ignored-files "yarn.lock")
+    :custom
+    (projectile-globally-ignored-buffers
+     '("*scratch*" "*lsp-log*" "*xref*"
+       "*EGLOT" "*Messages*" "*compilation"
+       "*vterm*" "*Flymake")))
+    #+end_src
+
 ** Language Server Protocol
 
 #+begin_src elisp
