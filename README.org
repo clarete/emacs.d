@@ -501,6 +501,7 @@ Company mode is a standard completion package that works well with lsp-mode
 *** JavaScript
 
 #+begin_src elisp
+  (setq js-indent-level 2)
   (use-package js2-mode
     :config
     (setq js2-basic-offset 2)
