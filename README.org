@@ -510,6 +510,13 @@ Company mode is a standard completion package that works well with lsp-mode
     (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode)))
 #+end_src
 
+*** Bazel
+
+#+begin_src emacs-lisp
+  (straight-use-package
+   '(bazel :type git :host github :repo "bazelbuild/emacs-bazel-mode"))
+#+end_src
+
 *** Other Web Stuff
 
 #+begin_src elisp
