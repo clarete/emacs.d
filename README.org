@@ -489,6 +489,13 @@ Company mode is a standard completion package that works well with lsp-mode
                              (display-line-numbers-mode))))
 #+end_src
 
+*** Golang
+
+#+begin_src emacs-lisp
+  (use-package go-mode
+    :hook ((before-save . gofmt-before-save)))
+#+end_src
+
 *** Rust
 
 #+begin_src elisp
