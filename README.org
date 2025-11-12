@@ -697,6 +697,30 @@ The following code will list all the Org Mode files within my directory of choic
             (file-missing nil))))
 #+end_src
 
+*** Markdown Export
+
+Markdown anchor links are usually generated with a prefix followed by
+a random hash.  And that hash is regenerated every time the org file
+is exported to markdown, so anchors keep changing and they're not even
+very readable to begin with.  Here's some small lil hack to replace
+those with a slug generated off the text of the headline itself.
+
+#+begin_src elisp
+  (defun my/org-md-slug (s)
+    "Generate a slug string off `s'."
+    (let* ((s (downcase (replace-regexp-in-string "[^[:alnum:][:space:]-]" "" s))))
+      (replace-regexp-in-string "[[:space:]]+" "-" s)))
+
+  (with-eval-after-load 'ox
+    (advice-add 'org-export-get-reference :around
+                (lambda (orig datum info)
+                  (if (and (org-export-derived-backend-p (plist-get info :back-end) 'md)
+                           (eq (org-element-type datum) 'headline)
+                           (org-element-property :raw-value datum))
+                      (my/org-md-slug (org-element-property :raw-value datum))
+                    (funcall orig datum info)))))
+#+end_src
+
 *** Misc
 
 #+begin_src elisp
