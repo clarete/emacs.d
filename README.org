@@ -467,38 +467,37 @@ Company mode is a standard completion package that works well with lsp-mode
        "*vterm*" "*Flymake")))
     #+end_src
 
-** Language Server Protocol
+** Programming Modes
+*** Editor Mode
 
 #+begin_src elisp
-  (use-package eglot
-    :hook
-    (go-mode . eglot-ensure)
-    (python-mode . eglot-ensure)
-    :bind (:map eglot-mode-map
-                ("C-c ." . eglot-code-actions)
-                ("C-c e r" . eglot-rename)
-                ("C-c e f" . eglot-format)
-                ("M-?" . xref-find-references)
-                ("M-." . xref-find-definitions)
-                ("C-c x a" . xref-find-apropos)
-                ("C-c f n" . flymake-goto-next-error)
-                ("C-c f p" . flymake-goto-prev-error)
-                ("C-c f d" . flymake-show-project-diagnostics))
-    :custom
-    (eglot-autoshutdown t)
-    (eglot-menu-string "LSP")
+  (use-package editorconfig
+    :ensure t
     :config
-    ;; Just `rust-analyzer` won't do it if it is installed via `rustup`.
-    ;; Check out https://rust-analyzer.github.io/manual.html#rustup for
-    ;; more details
-    (add-to-list 'eglot-stay-out-of 'eldoc)
-    (setf (alist-get 'rustic-mode eglot-server-programs)
-          (split-string
-           (shell-command-to-string
-            "rustup which --toolchain stable rust-analyzer"))))
+    (editorconfig-mode +1))
 #+end_src
 
-** Programming Modes
+*** Treesitter
+
+#+begin_src elisp
+  (require 'treesit)
+  ; modules build from https://github.com/casouri/tree-sitter-module
+  (setq treesit-extra-load-path '("~/src/github.com/casouri/tree-sitter-module/dist"))
+  (push '(css-mode . css-ts-mode) major-mode-remap-alist)
+  (push '(javascript-mode . js-ts-mode) major-mode-remap-alist)
+  (push '(js-json-mode . json-ts-mode) major-mode-remap-alist)
+  (push '(typescript-mode . typescript-ts-mode) major-mode-remap-alist)
+  (push '(typescript-mode . tsx-ts-mode) major-mode-remap-alist)
+  (push '(ruby-mode . ruby-ts-mode) major-mode-remap-alist)
+  (add-to-list 'auto-mode-alist '("\\.tsx?\\'" . tsx-ts-mode))
+#+end_src
+
+*** Debugging (RMSBOLT)
+
+
+#+begin_src elisp
+  (use-package rmsbolt)
+#+end_src
 *** Protobuf
 
 #+begin_src elisp
@@ -553,7 +552,9 @@ Company mode is a standard completion package that works well with lsp-mode
 #+begin_src elisp
   (use-package typescript-ts-mode
     :ensure nil
-    :ensure-system-package (typescript-language-server . "npm i -g typescript-language-server"))
+    :ensure-system-package (typescript-language-server . "npm i -g typescript-language-server")
+    :mode (("\\.ts\\'" . typescript-ts-mode)
+           ("\\.tsx\\'" . tsx-ts-mode)))
 #+end_src
 
 *** Bazel
@@ -567,6 +568,49 @@ Company mode is a standard completion package that works well with lsp-mode
 
 #+begin_src elisp
   (use-package jinja2-mode)
+#+end_src
+
+** Language Server Protocol
+
+#+begin_src elisp
+  (use-package eglot
+    :hook
+    (js-ts-mode . eglot-ensure)
+    (tsx-ts-mode . eglot-ensure)
+    (typescript-ts-mode . eglot-ensure)
+    (web-mode . eglot-ensure)
+    ;; (go-mode . eglot-ensure)
+    (python-mode . eglot-ensure)
+
+    :bind (:map eglot-mode-map
+                ("C-c ." . eglot-code-actions)
+                ("C-c e r" . eglot-rename)
+                ("C-c e f" . eglot-format)
+                ("M-?" . xref-find-references)
+                ("M-." . xref-find-definitions)
+                ("C-c x a" . xref-find-apropos)
+                ("C-c f n" . flymake-goto-next-error)
+                ("C-c f p" . flymake-goto-prev-error)
+                ("C-c f d" . flymake-show-project-diagnostics))
+    :custom
+    (eglot-autoreconnect nil)
+    (eglot-autoshutdown t)
+    (eglot-menu-string "LSP")
+    (eglot-events-buffer-size 0)
+
+    :config
+    ;; Just `rust-analyzer` won't do it if it is installed via `rustup`.
+    ;; Check out https://rust-analyzer.github.io/manual.html#rustup for
+    ;; more details
+    (add-to-list 'eglot-stay-out-of 'eldoc)
+    (setf (alist-get 'rustic-mode eglot-server-programs)
+          (split-string
+           (shell-command-to-string
+            "rustup which --toolchain stable rust-analyzer")))
+    (setf (alist-get '-mode eglot-server-programs)
+        (split-string
+         (shell-command-to-string
+          "rustup which --toolchain stable rust-analyzer"))))
 #+end_src
 
 ** Packages
