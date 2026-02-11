@@ -245,6 +245,11 @@ previously selected theme (in my case, the default theme).
    'line-number nil
    :foreground (face-foreground 'default)
    :background (face-background 'default))
+
+  ;; Make window dividers match the theme instead of defaulting to white
+  (set-face-attribute
+   'window-divider nil
+   :foreground (face-foreground 'vertical-border))
 #+end_src
 
 *** Writing
