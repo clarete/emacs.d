@@ -16,6 +16,7 @@ Make sure you checkout [[https://github.com/guilhermecomum][@guilhermecomum]]'s 
 Despite its terrible name, [[https://github.com/radian-software/straight.el][straight]] does provide good value when it comes to installing and managing Emacs Lisp extension packages.  This is the snippet for setting it up
 
 #+begin_src elisp
+  ;;; -*- lexical-binding: t -*-
   (setq package-enable-at-startup nil)
   (defvar bootstrap-version)
   (let ((bootstrap-file
@@ -30,10 +31,17 @@ Despite its terrible name, [[https://github.com/radian-software/straight.el][str
         (eval-print-last-sexp)))
     (load bootstrap-file nil 'nomessage))
 
+  ;; Prevent straight from installing ELPA copies of libraries that already ship
+  ;; with Emacs (otherwise you can end up loading the built-in one first, and
+  ;; later straight tries to load its copy, triggering "Feature ... is now
+  ;; provided by ..." errors; e.g. `xref`).
+  (dolist (pkg '(xref project eldoc flymake jsonrpc external-completion seq let-alist))
+    (straight-override-recipe `(,pkg :type built-in)))
+
   (straight-use-package 'use-package)
   (setq straight-use-package-by-default t)
 
-  (use-package use-package-ensure-system-package)
+  ;(use-package use-package-ensure-system-package)
 #+end_src
 
 ** General
@@ -175,7 +183,12 @@ Start from a clean slate when loading another theme
 Define the default theme
 
 #+begin_src elisp
-  (load-theme 'doom-tomorrow-night t)
+  (use-package doom-themes :ensure t
+    :config
+    (setcdr (assoc 'gnus-group-news-low-empty doom-themes-base-faces)
+            '(:inherit 'gnus-group-mail-1-empty :weight 'normal))
+    (doom-themes-org-config)
+    (load-theme 'doom-feather-dark t))
 #+end_src
 
 *** Icons
@@ -215,7 +228,9 @@ Define the default theme
 
 *** Fringe
 
-Setup fringe style.  Notice that this must always happen after setting the theme, otherwise the fringe colors are set to the ~default~ of the previously selected theme (in my case, the default theme).
+Setup fringe style.  Notice that this must always happen after setting
+the theme, otherwise the fringe colors are set to the ~default~ of the
+previously selected theme (in my case, the default theme).
 
 #+begin_src elisp
   ;; enable the fringe mode
@@ -424,6 +439,11 @@ Company mode is a standard completion package that works well with lsp-mode
 #+end_src
 
 ** Projectile
+
+#+begin_src elisp
+  (use-package project
+    :straight (:type built-in))
+#+end_src
 
 #+begin_src elisp
   (use-package projectile
@@ -747,15 +767,22 @@ those with a slug generated off the text of the headline itself.
         org-agenda-sticky t)
 #+end_src
 
-** Native Compilation
-
-Emacs can compile its lisp flavor into native code.  This is powerful indeed, but it requires some settings to feel a little nicer.  First, we want to compile the Emacs Lisp code asynchronously to continue to operate smoothly, then we want to make it a bit less noisy in case the compilation wants to report progress its or warnings.
+** Misc
 
 #+begin_src elisp
-  (when (fboundp 'native-compile-async)
-    (setq comp-deferred-compilation t))
-  (setq native-comp-async-report-warnings-errors nil
-        warning-minimum-level :error)
+  (use-package xref
+    :straight (:type built-in))
+#+end_src
+
+** Native Compilation
+
+Emacs can compile its lisp flavor into native code.  Since there could
+be quite a few warnings, just suppress them as they can get noisy
+
+#+begin_src elisp
+  ;; native-comp-async-report-warnings-errors: Whether to report
+  ;; warnings and errors from asynchronous native compilation.
+  (setq native-comp-async-report-warnings-errors nil)
 #+end_src
 
 ** macos
