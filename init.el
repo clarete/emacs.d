@@ -1,4 +1,4 @@
-;;; init.el --- My Emacs Setup
+;;; init.el --- My Emacs Setup  -*- lexical-binding: t; -*-
 ;;
 ;; Author: Lincoln Clarete <lincoln@clarete.li>
 ;;
