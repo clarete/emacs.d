@@ -714,16 +714,6 @@ And these are the modules themselves
      ((t (:inherit default :weight bold :underline nil :background nil)))))
 #+end_src
 
-**** Swap * and - with nice looking UTF-8 bullets in unordered lists
-
-#+begin_src elisp
-  (font-lock-add-keywords
-   'org-mode
-   '(("^ +\\([-*]\\) "
-      (0 (prog1 ()
-           (compose-region (match-beginning 1) (match-end 1) "•"))))))
-#+end_src
-
 **** Change the default size of the headers
 
 #+begin_src elisp
@@ -734,6 +724,16 @@ And these are the modules themselves
    '(org-level-4 ((t (:inherit outline-4 :height 1.15 :weight bold))))
    '(org-level-5 ((t (:inherit outline-5 :height 1.10 :weight bold))))
    '(org-level-6 ((t (:inherit outline-6 :height 1.05 :weight semi-bold)))))
+#+end_src
+
+**** Swap * and - with nice looking UTF-8 bullets in unordered lists
+
+#+begin_src elisp
+  (font-lock-add-keywords
+   'org-mode
+   '(("^ +\\([-*]\\) "
+      (0 (prog1 ()
+           (compose-region (match-beginning 1) (match-end 1) "•"))))))
 #+end_src
 
 **** Swap * with # symbols in headers
