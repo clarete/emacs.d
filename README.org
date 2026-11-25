@@ -217,7 +217,7 @@ Define the default theme
 #+begin_src elisp
   (global-font-lock-mode 1)           ;; Always do syntax highlighting
   (transient-mark-mode 1)             ;; Highlight mark region
-  (let ((myfont "Fira Code"))         ;; Font face settings
+  (let ((myfont "Iosevka"))           ;; Font face settings
     (set-frame-font myfont t t)
     (set-face-attribute 'default nil
                         :family myfont
