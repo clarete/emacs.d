@@ -482,6 +482,30 @@ Company mode is a standard completion package that works well with lsp-mode
     (editorconfig-mode +1))
 #+end_src
 
+*** Bazel
+
+#+begin_src emacs-lisp
+  (straight-use-package
+   '(bazel :type git :host github :repo "bazelbuild/emacs-bazel-mode"))
+#+end_src
+
+*** CSV
+
+#+begin_src elisp
+  (use-package csv-mode)
+#+end_src
+
+*** YAML
+
+#+begin_src elisp
+  (use-package yaml-mode)
+#+end_src
+
+*** Debugging
+
+#+begin_src elisp
+  (use-package rmsbolt)
+#+end_src
 *** Treesitter
 
 #+begin_src elisp
@@ -497,12 +521,6 @@ Company mode is a standard completion package that works well with lsp-mode
   (add-to-list 'auto-mode-alist '("\\.tsx?\\'" . tsx-ts-mode))
 #+end_src
 
-*** Debugging (RMSBOLT)
-
-
-#+begin_src elisp
-  (use-package rmsbolt)
-#+end_src
 *** Protobuf
 
 #+begin_src elisp
@@ -536,8 +554,11 @@ Company mode is a standard completion package that works well with lsp-mode
 *** Web
 
 #+begin_src elisp
-  (use-package web-mode
-    :ensure t)
+  (use-package web-mode)
+#+end_src
+
+#+begin_src elisp
+  (use-package jinja2-mode)
 #+end_src
 
 *** JavaScript
@@ -562,17 +583,10 @@ Company mode is a standard completion package that works well with lsp-mode
            ("\\.tsx\\'" . tsx-ts-mode)))
 #+end_src
 
-*** Bazel
+*** ZIG
 
 #+begin_src emacs-lisp
-  (straight-use-package
-   '(bazel :type git :host github :repo "bazelbuild/emacs-bazel-mode"))
-#+end_src
-
-*** Other Web Stuff
-
-#+begin_src elisp
-  (use-package jinja2-mode)
+(use-package zig-mode)
 #+end_src
 
 ** Language Server Protocol
@@ -832,6 +846,121 @@ be quite a few warnings, just suppress them as they can get noisy
   ;; native-comp-async-report-warnings-errors: Whether to report
   ;; warnings and errors from asynchronous native compilation.
   (setq native-comp-async-report-warnings-errors nil)
+#+end_src
+
+** AI Stuff
+
+#+begin_src emacs-lisp
+  (defun timvisher-load-op-environment-variables ()
+    "Resolve 1Password secrets and update the current Emacs environment.
+
+  This function finds all environment variables whose values are
+  `op://` secret references, uses `op run` to resolve them, and
+  then updates the environment for the current Emacs session using
+  `setenv'.
+
+  It will signal an error if the `op` command fails or if any of the
+  secret references cannot be resolved."
+    (interactive)
+    ;; Define all the op:// references we need
+    (let ((op-env-vars
+           `(("OPENAI_API_KEY"
+              .
+              ,(or (getenv "OPENAI_API_KEY")
+                   "op://Private/OpenAI API Secret Key/credential"))
+             ("ANTHROPIC_API_KEY"
+              .
+              ,(or (getenv "ANTHROPIC_API_KEY")
+                   "op://Private/Anthropic API Key/credential"))
+             ("GEMINI_API_KEY"
+              .
+              ,(or (getenv "GEMINI_API_KEY")
+                   "op://Private/Gemini API Key/credential"))
+             ("VERTEXAI_PROJECT"
+              .
+              ,(or (getenv "VERTEXAI_PROJECT")
+                   "op://Private/Gemini API Key/Project number")))))
+
+      ;; First, set all the op:// references in the environment
+      (dolist (var-pair op-env-vars)
+        (setenv (car var-pair) (cdr var-pair)))
+
+      ;; Now use `op run` to resolve them all at once
+      (with-temp-buffer
+        (let ((exit-code
+               (call-process-shell-command
+                "op run --no-masking -- env" nil t)))
+          (when (/= exit-code 0)
+            (error "1Password command failed with exit code %d"
+                   exit-code)))
+
+        ;; Process the output and update environment variables
+        (goto-char (point-min))
+        (let ((resolved-count 0))
+          (while (re-search-forward "^\\([^=]+\\)=\\(.*\\)$" nil t)
+            (let ((key (match-string 1))
+                  (val (match-string 2)))
+              ;; Only update vars we care about and that got resolved (not
+              ;; still op://)
+              (when (and (assoc key op-env-vars)
+                         (not (string-prefix-p "op://" val)))
+                (setenv key val)
+                (setq resolved-count (1+ resolved-count)))))
+
+          (if (= resolved-count (length op-env-vars))
+              (message "Successfully loaded %d 1Password variable(s)."
+                       resolved-count)
+            (error
+             (concat "Failed to resolve all 1Password secret references. "
+                     "Expected %d, got %d")
+             (length op-env-vars) resolved-count))))))
+
+  (use-package agent-shell
+    :ensure t
+    :defer t
+    :commands (agent-shell-anthropic-start-claude-code
+               agent-shell-openai-start-codex)
+    :bind ("C-c A" . agent-shell)
+    :custom
+    (agent-shell-session-strategy 'new)
+    (agent-shell-cwd-function (lambda () command-line-default-directory))
+    (agent-shell-preferred-agent-config 'claude-code)
+    (agent-shell-file-completion-enabled nil)
+    :init
+    (setq agent-shell-mcp-servers
+          '(((name . "homebrew")
+             (command . "/opt/homebrew/bin/brew")
+             (args . ("mcp-server"))
+             (env . ()))
+            ((name . "datadog-mcp")
+             (type . "http")
+             (url . "https://mcp.datadoghq.com/api/unstable/mcp-server/mcp")
+             (headers . ()))
+            ((name . "atlassian")
+             (type . "http")
+             (url . "https://mcp.atlassian.com/v1/mcp")
+             (headers . ()))))
+    :config
+    ;; Load 1Password secrets for agent authentication
+    (timvisher-load-op-environment-variables)
+
+    (setq agent-shell-anthropic-authentication
+          (agent-shell-anthropic-make-authentication
+           :api-key (getenv "ANTHROPIC_API_KEY")))
+
+    (setq agent-shell-openai-authentication
+          (agent-shell-openai-make-authentication
+           :api-key (getenv "OPENAI_API_KEY")))
+
+    (setq agent-shell-google-authentication
+          (agent-shell-google-make-authentication
+           :api-key (getenv "GEMINI_API_KEY"))))
+
+  ;; ;; Transparently handles OAuth for HTTP MCP servers (Datadog, Atlassian)
+  ;; (use-package agent-shell-mcp-oauth
+  ;;   :load-path "~/git/timvisher-dd/agent-shell-mcp-oauth/main"
+  ;;   :after agent-shell)
+
 #+end_src
 
 ** macos
