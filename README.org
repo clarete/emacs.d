@@ -589,6 +589,16 @@ Company mode is a standard completion package that works well with lsp-mode
 (use-package zig-mode)
 #+end_src
 
+*** Lean
+
+#+begin_src emacs-lisp
+  (use-package lean4-mode
+    :commands lean4-mode
+    :straight (lean4-mode :type git :host github
+                          :repo "leanprover-community/lean4-mode"
+                          :files ("*.el" "data")))
+#+end_src
+
 ** Language Server Protocol
 
 #+begin_src elisp
